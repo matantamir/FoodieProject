@@ -10,22 +10,22 @@ namespace FoodieProject.Models
     {
 
         [Key]
-        public int DishID { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public int DishName { get; set; }
+        [Display(Name = "Dish Name")]
+        public int Name { get; set; }
 
         public string Description { get; set; }
 
+        [Required]
+        [DataType(DataType.Currency)]
         public int Price { get; set; }
 
-        public string Ingredients { get; set; }
+        public string Picture { get; set; }
 
-        public int Rate { get; set; }
+        public List<Allergen> Allergens { get; set; } // many to many (many Allergens to many Dishes)
 
-        // What type for picture?
-        public int Picture { get; set; }
-        
         public int RestID { get; set; }  // many to one (many Dishs to one Restaurant) - this declare a foreign key
 
         public Restaurant Restaurant { get; set; }  // many to one (many Dishs to one Restaurant)

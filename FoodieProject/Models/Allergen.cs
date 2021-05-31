@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace FoodieProject.Models
 {
-    public class Tag
+    public class Allergen
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [Required]
         public int Name { get; set; }
 
-        public List<Restaurant> Restaurants { get; set; }  // many to many (many Tags to many Restaurant)
+        public List<Dish> Dishes { get; set; }  // many to many (many Allergens to many Dishes)
 
     }
 }

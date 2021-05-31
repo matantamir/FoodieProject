@@ -6,26 +6,22 @@ using System.Threading.Tasks;
 
 namespace FoodieProject.Models
 {
-    public enum UserType
+    public class Address
     {
-        Admin,
-        Client,
-        Author
-    }
-    public class User
-    {
-
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public int Username { get; set; }
+        public int City { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public int Street { get; set; }
 
-        public UserType Type { get; set; }
+        [Required]
+        public int Number { get; set; }
 
+        public int MapLatitude { get; set; }
+
+        public int MapLongitude { get; set; }
     }
 }

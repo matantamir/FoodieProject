@@ -10,7 +10,7 @@ namespace FoodieProject.Models
     {
 
         [Key]
-        public int AboutID { get; set; }
+        public int Id { get; set; }
         
         [Required(ErrorMessage = "About cannot be submitted witout a description")]
         public string Description { get; set; }
