@@ -162,5 +162,33 @@ namespace FoodieProject.Controllers
         {
             return _context.Restaurant.Any(e => e.Id == id);
         }
+
+        // GET: Abouts/Create
+        public IActionResult AboutCreate(int? id)
+        {
+            return View();
+        }
+
+        // POST: Abouts/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AboutCreate(int id, [Bind("Id,Name,Description,Author")] About about)
+        {
+            var restaurant = await _context.Restaurant.FindAsync(id);
+            about.Restaurant = restaurant;
+            about.LastUpdateDate = DateTime.Now;
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(about);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(about);
+        }
     }
+
+
 }
