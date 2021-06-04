@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace FoodieProject.Models
 {
@@ -24,7 +23,7 @@ namespace FoodieProject.Models
         public int AveragePrice { get; set; }
 
         [Display(Name = "Restaurant Picture")]
-        public IFormFile Picture { get; set; }
+        public string PicturePath { get; set; }
 
         [Range(1, 5), Display(Name = "Restaurant Rate")]
         public int Rate { get; set; }

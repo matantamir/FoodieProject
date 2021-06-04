@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace FoodieProject.Models
         public int Price { get; set; }
 
         [Display(Name = "Dish Picture")]
-        public IFormFile Picture { get; set; }
+        public string PicturePath { get; set; }
 
         [Display(Name = "Dish Tag")]
         public List<DishTag> DishTags { get; set; } // many to many (many Allergens to many Dishes)
