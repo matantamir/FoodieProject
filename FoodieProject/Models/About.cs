@@ -12,6 +12,9 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
+        [Required,Display(Name = "Restaurant About")]
+        public string Name { get; set; }
+
         [Display(Name = "About Description"), Required(ErrorMessage = "About cannot be submitted witout a description")]
         public string Description { get; set; }
         

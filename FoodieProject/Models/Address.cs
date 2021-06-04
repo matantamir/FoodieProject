@@ -12,10 +12,10 @@ namespace FoodieProject.Models
         public int Id { get; set; }
 
         [Required, Display(Name = "City")]
-        public int City { get; set; }
+        public string City { get; set; }
 
         [Required, Display(Name = "Street")]
-        public int Street { get; set; }
+        public string Street { get; set; }
 
         [Required, Display(Name = "Number")]
         public int Number { get; set; }

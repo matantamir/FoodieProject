@@ -54,10 +54,12 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,City,Street,Number,MapLatitude,MapLongitude")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,City,Street,Number")] Address address)
         {
             if (ModelState.IsValid)
             {
+                address.MapLatitude = 0;
+                address.MapLongitude = 0;
                 _context.Add(address);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -54,10 +54,11 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,Author,LastUpdateDate")] About about)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Author")] About about)
         {
             if (ModelState.IsValid)
             {
+                about.LastUpdateDate = DateTime.Now;
                 _context.Add(about);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,Author,LastUpdateDate")] About about)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Author,LastUpdateDate")] About about)
         {
             if (id != about.Id)
             {
