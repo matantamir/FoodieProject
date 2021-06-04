@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoodieProject.Models
 {
-    public enum UserType
+    public enum UserRole
     {
         Admin,
         Client
@@ -20,11 +20,11 @@ namespace FoodieProject.Models
         [Required]
         public int Username { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
+        [Required, DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public UserType Type { get; set; }
+        [Display(Name = "User Role")]
+        public UserRole Type { get; set; }
 
     }
 }

@@ -11,13 +11,13 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required, Display(Name = "City")]
         public int City { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Street")]
         public int Street { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Number")]
         public int Number { get; set; }
 
         [Display(Name = "Map Latitude")]

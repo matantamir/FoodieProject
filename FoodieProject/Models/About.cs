@@ -12,11 +12,10 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "About Description")]
-        [Required(ErrorMessage = "About cannot be submitted witout a description")]
+        [Display(Name = "About Description"), Required(ErrorMessage = "About cannot be submitted witout a description")]
         public string Description { get; set; }
         
-        [Required]
+        [Required, Display(Name = "Author")]
         public string Author { get; set; }
         
         [Display(Name = "Last Update Date")]

@@ -13,15 +13,13 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Dish Name")]
+        [Required, Display(Name = "Dish Name")]
         public int Name { get; set; }
 
         [Display(Name = "Dish Description")]
         public string Description { get; set; }
 
-        [Required]
-        [DataType(DataType.Currency)]
+        [Required, DataType(DataType.Currency),Display(Name ="Dish Price")]
         public int Price { get; set; }
 
         [Display(Name = "Dish Picture")]

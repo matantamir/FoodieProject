@@ -11,8 +11,7 @@ namespace FoodieProject.Models
         [Key]
         public int ID { get; set; }
 
-        [Required]
-        [Display(Name = "Dish Tag Name")]
+        [Required, Display(Name = "Dish Tag Name")]
         public int Name { get; set; }
 
         public List<Dish> Dishes { get; set; }  // many to many (many Allergens to many Dishes)
