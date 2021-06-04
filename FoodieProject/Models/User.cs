@@ -9,8 +9,7 @@ namespace FoodieProject.Models
     public enum UserType
     {
         Admin,
-        Client,
-        Author
+        Client
     }
     public class User
     {

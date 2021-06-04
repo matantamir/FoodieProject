@@ -20,8 +20,10 @@ namespace FoodieProject.Models
         [Required]
         public int Number { get; set; }
 
+        [Display(Name = "Map Latitude")]
         public int MapLatitude { get; set; }
 
+        [Display(Name = "Map Longitude")]
         public int MapLongitude { get; set; }
     }
 }

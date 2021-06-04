@@ -14,6 +14,7 @@ namespace FoodieProject.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Restaurant Name")]
         public string Name { get; set; }
 
         [Required]
@@ -22,7 +23,8 @@ namespace FoodieProject.Models
         [Display(Name = "Average Price")]
         [Range(1,3)]
         public int AveragePrice { get; set; }
-        
+
+        [Display(Name = "Restaurant Picture")]
         public IFormFile Picture { get; set; }
 
         [Range(1, 5)]
