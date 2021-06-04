@@ -16,8 +16,10 @@ namespace FoodieProject.Models
         [Display(Name = "Restaurant Name")]
         public string Name { get; set; }
 
+        public int AddressId { get; set; } // one to one (one Address to one Restaurant) - this declare a foreign key
+
         [Required, Display(Name = "Restaurant Address")]
-        public Address AddressId { get; set; }
+        public Address Address { get; set; } // one to one (one Address to one Restaurant)
 
         [Display(Name = "Average Price"), Range(1, 3)]
         public int AveragePrice { get; set; }
@@ -31,7 +33,7 @@ namespace FoodieProject.Models
         [Display(Name = "Restaurant About")]
         public About About { get; set; }  // one to one (one About to one Restaurant)
 
-        public int AboutID { get; set; } // one to one (one About to one Restaurant) - this declare a foreign key
+        public int AboutId { get; set; } // one to one (one About to one Restaurant) - this declare a foreign key
 
         [Display(Name = "Restaurant Dishes")]
         public List<Dish> Dishes { get; set; } // many to one (many Dishes to one Restaurant)

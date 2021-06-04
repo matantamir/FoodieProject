@@ -9,7 +9,7 @@ namespace FoodieProject.Models
     public class DishTag
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required, Display(Name = "Dish Tag Name")]
         public int Name { get; set; }
