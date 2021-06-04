@@ -17,10 +17,10 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Username")]
         public int Username { get; set; }
 
-        [Required, DataType(DataType.Password)]
+        [Required, DataType(DataType.Password), Display(Name = "Password")]
         public string Password { get; set; }
 
         [Display(Name = "User Role")]
