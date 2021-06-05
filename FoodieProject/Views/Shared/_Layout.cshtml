@@ -24,6 +24,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                            </li>
+                        }
+
+                        @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
+                        {
+                            <li class="nav-item">
+                                You are connected as @Context.User.Identities.FirstOrDefault().Name
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

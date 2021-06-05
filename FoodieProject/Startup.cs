@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FoodieProject
 {
@@ -29,6 +30,20 @@ namespace FoodieProject
 
             services.AddDbContext<FoodieProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FoodieProjectContext")));
+
+            // Save user session for 10 minutes
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
+
+            // Cookie Authentication mechanism
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options =>
+                {
+                    options.LoginPath = "/Users/Login";
+                    options.AccessDeniedPath = "/Users/AccessDenied";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +63,12 @@ namespace FoodieProject
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            // Make the app use sessions for users authentication
+            app.UseSession();
+
+            // Make the app use the cookie authentication
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

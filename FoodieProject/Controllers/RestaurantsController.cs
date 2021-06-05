@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
 using FoodieProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodieProject.Controllers
 {
+    //[Authorize] - if we want a looged in user for all functions
     public class RestaurantsController : Controller
     {
         private readonly FoodieProjectContext _context;
@@ -47,8 +49,10 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Restaurants/Create
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
+
             ViewData["AboutId"] = new SelectList(_context.About, "Id", "Author");
             ViewData["AddressId"] = new SelectList(_context.Address, "Id", "Id");
             return View();
