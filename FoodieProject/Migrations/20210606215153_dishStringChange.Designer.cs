@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodieProject.Migrations
 {
     [DbContext(typeof(FoodieProjectContext))]
-    [Migration("20210606195500_TagString")]
-    partial class TagString
+    [Migration("20210606215153_dishStringChange")]
+    partial class dishStringChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,8 +75,9 @@ namespace FoodieProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PicturePath")
                         .HasColumnType("nvarchar(max)");

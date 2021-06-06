@@ -7,11 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
 using FoodieProject.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace FoodieProject.Controllers
 {
     public class DishesController : Controller
     {
+        // Create the relative path for the dishes pictures folder
+        private readonly string dishPicDir = Path.Combine(Directory.GetCurrentDirectory(), "Pictures\\Dish");
+
         private readonly FoodieProjectContext _context;
 
         public DishesController(FoodieProjectContext context)
@@ -54,8 +59,25 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish, IFormFile myFile)
         {
+            // If we have got an image
+            if (myFile != null)
+            {
+                // Create the image name (uses the time in order to avoid people overide pics)
+                var pathToSaveInRest = DateTime.Now.Ticks.ToString() + Path.GetExtension(myFile.FileName);
+                var path = Path.Combine(dishPicDir, pathToSaveInRest);
+
+                // Save the path in the resturant object
+                dish.PicturePath = pathToSaveInRest;
+
+                // save the image in the server side
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(dish);

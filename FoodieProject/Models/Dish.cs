@@ -13,7 +13,7 @@ namespace FoodieProject.Models
         public int Id { get; set; }
 
         [Required, Display(Name = "Dish Name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Dish Description")]
         public string Description { get; set; }
