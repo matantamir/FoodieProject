@@ -12,7 +12,7 @@ namespace FoodieProject.Models
         public int Id { get; set; }
 
         [Required, Display(Name = "Restaurant Tag Name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public List<Restaurant> Restaurants { get; set; }  // many to many (many Tags to many Restaurant)
 

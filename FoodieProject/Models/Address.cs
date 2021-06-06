@@ -26,7 +26,6 @@ namespace FoodieProject.Models
         [Display(Name = "Map Longitude")]
         public int MapLongitude { get; set; }
 
-        [Required]
         public Restaurant Restaurant { get; set; } // one to one (one Address to one Restaurant)
     }
 }

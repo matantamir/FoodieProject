@@ -2,13 +2,13 @@
 
 namespace FoodieProject.Migrations
 {
-    public partial class UsernameString : Migration
+    public partial class TagString : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Username",
-                table: "User",
+                name: "Name",
+                table: "Tag",
                 type: "nvarchar(max)",
                 nullable: false,
                 oldClrType: typeof(int),
@@ -18,8 +18,8 @@ namespace FoodieProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "Username",
-                table: "User",
+                name: "Name",
+                table: "Tag",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(string),

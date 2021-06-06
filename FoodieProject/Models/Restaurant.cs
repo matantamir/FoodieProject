@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodieProject.Models
 {
@@ -18,7 +20,7 @@ namespace FoodieProject.Models
 
         public int AddressId { get; set; } // one to one (one Address to one Restaurant) - this declare a foreign key
 
-        [Required, Display(Name = "Restaurant Address")]
+        [Display(Name = "Restaurant Address")]
         public Address Address { get; set; } // one to one (one Address to one Restaurant)
 
         [Display(Name = "Average Price"), Range(1, 3)]
@@ -31,9 +33,7 @@ namespace FoodieProject.Models
         public int Rate { get; set; }
 
         [Display(Name = "Restaurant About")]
-        public About About { get; set; }  // one to one (one About to one Restaurant)
-
-        public int AboutId { get; set; } // one to one (one About to one Restaurant) - this declare a foreign key
+        public string About { get; set; }  
 
         [Display(Name = "Restaurant Dishes")]
         public List<Dish> Dishes { get; set; } // many to one (many Dishes to one Restaurant)

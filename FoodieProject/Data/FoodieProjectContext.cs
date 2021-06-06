@@ -14,8 +14,6 @@ namespace FoodieProject.Data
         {
         }
 
-        public DbSet<FoodieProject.Models.About> About { get; set; }
-
         public DbSet<FoodieProject.Models.Address> Address { get; set; }
 
         public DbSet<FoodieProject.Models.Dish> Dish { get; set; }

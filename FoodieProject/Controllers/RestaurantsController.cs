@@ -1,19 +1,24 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
 using FoodieProject.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FoodieProject.Controllers
 {
-    //[Authorize] - if we want a looged in user for all functions
+    //[Authorize] - in order to make the all function accessble just for authnticated users
+    //[Authorize(Roles ="Admin")] - in order to restrict function just for admins
     public class RestaurantsController : Controller
     {
+        // Create a Directory in order to save pictures in servere side
+        private readonly string restPicDir = Path.Combine(Directory.GetCurrentDirectory(), "Pictures\\Rest");
+
         private readonly FoodieProjectContext _context;
 
         public RestaurantsController(FoodieProjectContext context)
@@ -24,7 +29,7 @@ namespace FoodieProject.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
-            var foodieProjectContext = _context.Restaurant.Include(r => r.About).Include(r => r.Address);
+            var foodieProjectContext = _context.Restaurant.Include(r => r.Address);
             return View(await foodieProjectContext.ToListAsync());
         }
 
@@ -37,7 +42,6 @@ namespace FoodieProject.Controllers
             }
 
             var restaurant = await _context.Restaurant
-                .Include(r => r.About)
                 .Include(r => r.Address)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
@@ -49,12 +53,9 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Restaurants/Create
-        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
-
-            ViewData["AboutId"] = new SelectList(_context.About, "Id", "Author");
-            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "Id");
+            //ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
             return View();
         }
 
@@ -63,16 +64,41 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,AboutId")] Restaurant restaurant)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
+            [Bind("Id,City,Street,Number")] Address address,
+            [Bind("Id,Name")] List<Tag> tags,
+            // Get also a picture from user
+            IFormFile myFile
+            )
         {
+            // If we have got an image
+            if(myFile != null)
+            {
+                // Create the image name (uses the time in order to avoid people overide pics)
+                var pathToSaveInRest = DateTime.Now.Ticks.ToString() + Path.GetExtension(myFile.FileName);
+                var path = Path.Combine(restPicDir, pathToSaveInRest);
+                
+                // Save the path in the resturant object
+                restaurant.PicturePath = pathToSaveInRest;
+
+                // save the image in the server side
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
+            }
+
             if (ModelState.IsValid)
             {
+                _context.Add(address);
+                await _context.SaveChangesAsync();
+                restaurant.AddressId = address.Id;
                 _context.Add(restaurant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AboutId"] = new SelectList(_context.About, "Id", "Author", restaurant.AboutId);
-            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "Id", restaurant.AddressId);
+            //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
         }
 
@@ -89,8 +115,7 @@ namespace FoodieProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["AboutId"] = new SelectList(_context.About, "Id", "Author", restaurant.AboutId);
-            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "Id", restaurant.AddressId);
+            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
         }
 
@@ -99,7 +124,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,AboutId")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {
@@ -126,8 +151,7 @@ namespace FoodieProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AboutId"] = new SelectList(_context.About, "Id", "Author", restaurant.AboutId);
-            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "Id", restaurant.AddressId);
+            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
         }
 
@@ -140,7 +164,6 @@ namespace FoodieProject.Controllers
             }
 
             var restaurant = await _context.Restaurant
-                .Include(r => r.About)
                 .Include(r => r.Address)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
@@ -166,33 +189,5 @@ namespace FoodieProject.Controllers
         {
             return _context.Restaurant.Any(e => e.Id == id);
         }
-
-        // GET: Abouts/Create
-        public IActionResult AboutCreate(int? id)
-        {
-            return View();
-        }
-
-        // POST: Abouts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AboutCreate(int id, [Bind("Id,Name,Description,Author")] About about)
-        {
-            var restaurant = await _context.Restaurant.FindAsync(id);
-            about.Restaurant = restaurant;
-            about.LastUpdateDate = DateTime.Now;
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(about);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(about);
-        }
     }
-
-
 }

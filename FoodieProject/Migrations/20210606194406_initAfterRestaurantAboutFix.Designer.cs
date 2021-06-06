@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodieProject.Migrations
 {
     [DbContext(typeof(FoodieProjectContext))]
-    [Migration("20210604133940_init")]
-    partial class init
+    [Migration("20210606194406_initAfterRestaurantAboutFix")]
+    partial class initAfterRestaurantAboutFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,29 +36,6 @@ namespace FoodieProject.Migrations
                     b.ToTable("DishDishTag");
                 });
 
-            modelBuilder.Entity("FoodieProject.Models.About", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("About");
-                });
-
             modelBuilder.Entity("FoodieProject.Models.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -66,8 +43,9 @@ namespace FoodieProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("City")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MapLatitude")
                         .HasColumnType("int");
@@ -78,8 +56,9 @@ namespace FoodieProject.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Street")
-                        .HasColumnType("int");
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -140,8 +119,8 @@ namespace FoodieProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AboutId")
-                        .HasColumnType("int");
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
@@ -160,9 +139,6 @@ namespace FoodieProject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AboutId")
-                        .IsUnique();
 
                     b.HasIndex("AddressId")
                         .IsUnique();
@@ -199,8 +175,9 @@ namespace FoodieProject.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<int>("Username")
-                        .HasColumnType("int");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -248,19 +225,11 @@ namespace FoodieProject.Migrations
 
             modelBuilder.Entity("FoodieProject.Models.Restaurant", b =>
                 {
-                    b.HasOne("FoodieProject.Models.About", "About")
-                        .WithOne("Restaurant")
-                        .HasForeignKey("FoodieProject.Models.Restaurant", "AboutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FoodieProject.Models.Address", "Address")
                         .WithOne("Restaurant")
                         .HasForeignKey("FoodieProject.Models.Restaurant", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("About");
 
                     b.Navigation("Address");
                 });
@@ -277,12 +246,6 @@ namespace FoodieProject.Migrations
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FoodieProject.Models.About", b =>
-                {
-                    b.Navigation("Restaurant")
                         .IsRequired();
                 });
 

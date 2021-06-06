@@ -34,33 +34,6 @@ namespace FoodieProject.Migrations
                     b.ToTable("DishDishTag");
                 });
 
-            modelBuilder.Entity("FoodieProject.Models.About", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("About");
-                });
-
             modelBuilder.Entity("FoodieProject.Models.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -144,8 +117,8 @@ namespace FoodieProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AboutId")
-                        .HasColumnType("int");
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
@@ -165,9 +138,6 @@ namespace FoodieProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AboutId")
-                        .IsUnique();
-
                     b.HasIndex("AddressId")
                         .IsUnique();
 
@@ -181,8 +151,9 @@ namespace FoodieProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -253,19 +224,11 @@ namespace FoodieProject.Migrations
 
             modelBuilder.Entity("FoodieProject.Models.Restaurant", b =>
                 {
-                    b.HasOne("FoodieProject.Models.About", "About")
-                        .WithOne("Restaurant")
-                        .HasForeignKey("FoodieProject.Models.Restaurant", "AboutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FoodieProject.Models.Address", "Address")
                         .WithOne("Restaurant")
                         .HasForeignKey("FoodieProject.Models.Restaurant", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("About");
 
                     b.Navigation("Address");
                 });
@@ -285,16 +248,9 @@ namespace FoodieProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodieProject.Models.About", b =>
-                {
-                    b.Navigation("Restaurant")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FoodieProject.Models.Address", b =>
                 {
-                    b.Navigation("Restaurant")
-                        .IsRequired();
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("FoodieProject.Models.Restaurant", b =>
