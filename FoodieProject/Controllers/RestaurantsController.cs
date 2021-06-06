@@ -75,18 +75,7 @@ namespace FoodieProject.Controllers
             // If we have got an image
             if(myFile != null)
             {
-                // Create the image name (uses the time in order to avoid people overide pics)
-                var pathToSaveInRest = DateTime.Now.Ticks.ToString() + Path.GetExtension(myFile.FileName);
-                var path = Path.Combine(restPicDir, pathToSaveInRest);
-                
-                // Save the path in the resturant object
-                restaurant.PicturePath = pathToSaveInRest;
-
-                // save the image in the server side
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await myFile.CopyToAsync(stream);
-                }
+                restaurant.PicturePath = ImageUpload(myFile);
             }
 
             if (ModelState.IsValid)
@@ -100,6 +89,22 @@ namespace FoodieProject.Controllers
             }
             //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
+        }
+
+        // Take Care the image Upload and returns the path
+        private string ImageUpload(IFormFile inputImage)
+        {
+            // Create the image name (uses the time in order to avoid people overide pics)
+            var pathToSaveInRest = DateTime.Now.Ticks.ToString() + Path.GetExtension(inputImage.FileName);
+            var path = Path.Combine(restPicDir, pathToSaveInRest);
+
+            // save the image in the server side
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                inputImage.CopyToAsync(stream);
+            }
+            
+            return pathToSaveInRest;
         }
 
         // GET: Restaurants/Edit/5
