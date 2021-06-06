@@ -37,14 +37,18 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
                             </li>
                         }
-
-                        @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
-                        {
-                            <li class="nav-item">
-                                You are connected as @Context.User.Identities.FirstOrDefault().Name
-                            </li>
-                        }
                     </ul>
+
+                    @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item mr-auto">
+                                <a>You are connected as: </a><b>@Context.User.Identities.FirstOrDefault().Name</b>
+                            </li>
+                        </ul>
+                    }
+
+
                 </div>
             </div>
         </nav>
