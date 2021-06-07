@@ -52,14 +52,27 @@
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
             <div class="from-group">
-                <label asp-for="Tags" class="control-label"></label>
-                <select asp-for="Tags" class="form-control" asp-items="ViewBag.Tags"></select>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                @Html.LabelFor(model => model.Tags, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @for (int i = 0; i < Model.Tags.Count(); i++)
+                    {
+                        @Html.EditorFor(m => Model.Tags[i].Checked)
+                        @Html.DisplayFor(m => Model.Tags[i].Name)
+
+                        @Html.HiddenFor(m => Model.Tags[i].Name)
+                        @Html.HiddenFor(m => Model.Tags[i].Id)
+                    }
+
+                </div>
+                @*<div class="from-group">
+            <label asp-for="Tags" class="control-label"></label>
+            <select asp-for="Tags" class="form-control" asp-items="ViewBag.Tags"></select>
+        </div>*@
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+</form>
     </div>
 </div>
 

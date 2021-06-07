@@ -16,5 +16,6 @@ namespace FoodieProject.Models
 
         public List<Restaurant> Restaurants { get; set; }  // many to many (many Tags to many Restaurant)
 
+        public bool Checked { get; set; }
     }
 }

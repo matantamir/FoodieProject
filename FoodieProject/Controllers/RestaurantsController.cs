@@ -55,7 +55,7 @@ namespace FoodieProject.Controllers
         // GET: Restaurants/Create
         public IActionResult Create()
         {
-            //ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
+            ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
             return View();
         }
 
@@ -116,9 +116,87 @@ namespace FoodieProject.Controllers
             }
 
             var restaurant = await _context.Restaurant.FindAsync(id);
+
             if (restaurant == null)
             {
                 return NotFound();
+            }
+            //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
+
+            var Results = from t in _context.Tag
+                          select new
+                          {
+                              t.Id,
+                              t.Name,
+                              Checked = ((from rest in _context.Restaurant
+                                          where (rest.Id == id) & (rest.Tags.Contains(t))
+                                          select rest).Count() > 0)
+                          };
+
+            var CheckBoxList = new List<Tag>();
+
+            foreach (var item in Results)
+            {
+                CheckBoxList.Add(new Tag { Id = item.Id, Name = item.Name, Checked = item.Checked });
+            }
+
+
+            restaurant.Tags = CheckBoxList;
+
+            return View(restaurant);
+        }
+        // POST: Restaurants/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About,Tags")] Restaurant restaurant)
+        {
+            if (id != restaurant.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var rest = _context.Restaurant.Find(restaurant.Id);
+                rest.Name = restaurant.Name;
+                rest.Rate = restaurant.Rate;
+
+               /* foreach (var item in _context.Restaurant)
+                {
+                    if (item.Id == restaurant.Id)
+                    {
+                        _context.Entry(item).State = System.Data.Entity.
+                    }
+                }
+              */
+                foreach (var item in restaurant.Tags)
+                {
+                    if (item.Checked)
+                    {
+                        var tag = _context.Tag.Find(item.Id);  
+                        tag.Restaurants.Add(restaurant);
+                    }
+                }
+
+                try
+                {
+                    _context.Update(restaurant);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RestaurantExists(restaurant.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
             ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
@@ -129,7 +207,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant)
+        public async Task<IActionResult> EditOriginal(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {

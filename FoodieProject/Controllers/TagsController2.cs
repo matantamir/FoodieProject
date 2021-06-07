@@ -10,11 +10,11 @@ using FoodieProject.Models;
 
 namespace FoodieProject.Controllers
 {
-    public class TagsController : Controller
+    public class TagsController2 : Controller
     {
         private readonly FoodieProjectContext _context;
 
-        public TagsController(FoodieProjectContext context)
+        public TagsController2(FoodieProjectContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Checked")] Tag tag)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Checked")] Tag tag)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Tag tag)
         {
             if (id != tag.Id)
             {
