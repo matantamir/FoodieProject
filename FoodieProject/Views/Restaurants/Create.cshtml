@@ -52,8 +52,8 @@
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
             <div class="from-group">
-                <label asp-for="Tags" class="control-label"></label>
-                <select asp-for="Tags" class="form-control" asp-items="ViewBag.Tags"></select>
+                <label asp-for="Tags" name="tagToCare"class="control-label"></label>
+                <select asp-for="Tags" name="tagToCare" class="form-group" asp-items="ViewBag.Tags" ></select>
             </div>
             <br />
             <div class="form-group">

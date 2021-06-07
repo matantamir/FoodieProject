@@ -55,7 +55,7 @@ namespace FoodieProject.Controllers
         // GET: Restaurants/Create
         public IActionResult Create()
         {
-            //ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
+            ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> Create(
             [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
             [Bind("Id,City,Street,Number")] Address address,
-            [Bind("Id,Name")] List<Tag> tags,
+            [Bind("tagToCare")] List<int> tagToCare,
             // Get also a picture from user
             IFormFile myFile
             )
@@ -80,6 +80,12 @@ namespace FoodieProject.Controllers
 
             if (ModelState.IsValid)
             {
+                var restTagsList = new List<Tag>();
+                foreach(var tagcare in tagToCare)
+                {
+                    restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
+                }
+                restaurant.Tags = restTagsList;
                 _context.Add(address);
                 await _context.SaveChangesAsync();
                 restaurant.AddressId = address.Id;
