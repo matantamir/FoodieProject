@@ -18,10 +18,25 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="AddressId" class="control-label"></label>
                 <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
                 <span asp-validation-for="AddressId" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Street" class="control-label"></label>
+                <input asp-for="Address.Street" class="form-control" />
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Number" class="control-label"></label>
+                <input asp-for="Address.Number" class="form-control" />
+                <span asp-validation-for="Address.Number" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AveragePrice" class="control-label"></label>
@@ -42,6 +57,15 @@
                 <label asp-for="About" class="control-label"></label>
                 <input asp-for="About" class="form-control" />
                 <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                @foreach (var tag in ViewBag.Tags)
+                {
+                    <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
+                    <label>@tag.Name</label><br>
+                }
+                <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

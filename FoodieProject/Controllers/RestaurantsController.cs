@@ -55,7 +55,8 @@ namespace FoodieProject.Controllers
         // GET: Restaurants/Create
         public IActionResult Create()
         {
-            ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
+            //OLD-TAGS - ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
+            ViewData["Tags"] = _context.Tag.ToList();
             return View();
         }
 
@@ -66,8 +67,8 @@ namespace FoodieProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
             [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
-            [Bind("Id,City,Street,Number")] Address address,
-            [Bind("tagToCare")] List<int> tagToCare,
+            [Bind("Id,City,Street,Number")] Address address, int[] Tags,
+            //OLD-TAGS-[Bind("tagToCare")] List<int> tagToCare,
             // Get also a picture from user
             IFormFile myFile
             )
@@ -80,12 +81,17 @@ namespace FoodieProject.Controllers
 
             if (ModelState.IsValid)
             {
-                var restTagsList = new List<Tag>();
-                foreach(var tagcare in tagToCare)
-                {
-                    restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
-                }
-                restaurant.Tags = restTagsList;
+                var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
+                restaurant.Tags = new List<Tag>();
+                restaurant.Tags.AddRange(tags);
+                
+                /*OLD- TAGS:
+                 var restTagsList = new List<Tag>();
+                 foreach(var tagcare in tagToCare)
+                 {
+                     restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
+                 }
+                 restaurant.Tags = restTagsList;*/
                 _context.Add(address);
                 await _context.SaveChangesAsync();
                 restaurant.AddressId = address.Id;
@@ -121,12 +127,20 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurant.Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
             if (restaurant == null)
             {
                 return NotFound();
             }
-            ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
+
+
+            ViewData["Tags"] = _context.Tag.ToList();
+           // var address = await _context.Address.Where(a => a.Id == restaurant.AddressId).FirstOrDefaultAsync();
+            var address = await _context.Address.FindAsync(restaurant.AddressId);
+            //ViewData["Street"] = address.Street;
+           // ViewData["City"] = address.City;
+           // ViewData["Number"] = address.Number;
+
             return View(restaurant);
         }
 
@@ -135,7 +149,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant, [Bind("Id,City,Street,Number")] Address address, int[] Tags)
         {
             if (id != restaurant.Id)
             {
@@ -146,7 +160,24 @@ namespace FoodieProject.Controllers
             {
                 try
                 {
-                    _context.Update(restaurant);
+                    var rest = await _context.Restaurant.Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
+                    var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
+                   // var addr2 = _context.Address.Where(a => a.Id == address.Id);
+                    var addr = await _context.Address.FindAsync(rest.AddressId);
+                    addr.Street = address.Street;
+                    addr.City = address.City;
+                    addr.Number = address.Number;
+
+                    rest.Tags.Clear();
+                    rest.Tags.AddRange(tags);
+                    
+                    rest.Name = restaurant.Name;
+                    rest.AveragePrice = restaurant.AveragePrice;
+                    rest.Rate = restaurant.Rate;
+                    rest.About = restaurant.About;
+
+                    _context.Update(addr);
+                    _context.Update(rest);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
