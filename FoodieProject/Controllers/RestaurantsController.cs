@@ -17,7 +17,7 @@ namespace FoodieProject.Controllers
     public class RestaurantsController : Controller
     {
         // Create a Directory in order to save pictures in servere side
-        private readonly string restPicDir = Path.Combine(Directory.GetCurrentDirectory(), "Pictures\\Rest");
+        private readonly string restPicDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Pictures\\Rest");
 
         private readonly FoodieProjectContext _context;
 
@@ -48,6 +48,9 @@ namespace FoodieProject.Controllers
             {
                 return NotFound();
             }
+
+            // Send the pic path to the view
+            ViewData["picPath"] = "\\Pictures\\Rest\\";
 
             return View(restaurant);
         }
@@ -113,9 +116,10 @@ namespace FoodieProject.Controllers
             // save the image in the server side
             using (var stream = new FileStream(path, FileMode.Create))
             {
-                inputImage.CopyToAsync(stream);
+
+                inputImage.CopyTo(stream);
             }
-            
+
             return pathToSaveInRest;
         }
 
@@ -149,8 +153,22 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant, [Bind("Id,City,Street,Number")] Address address, int[] Tags)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
+            [Bind("Id,City,Street,Number")] Address address,
+            int[] Tags,
+            IFormFile newPic)
         {
+            // Check if we have got a new file. If we have got a new one we should delete the previous one and update to the new one
+            if (newPic != null)
+            {
+                var oldRest = await _context.Restaurant.FirstOrDefaultAsync(m => m.Id == id);
+                var oldPath = restPicDir + "\\" + oldRest.PicturePath;
+                System.IO.File.Delete(oldPath);
+                oldRest.PicturePath = ImageUpload(newPic);
+                _context.Update(oldRest);
+                await _context.SaveChangesAsync();
+            }
+
             if (id != restaurant.Id)
             {
                 return NotFound();

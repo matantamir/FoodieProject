@@ -15,7 +15,7 @@ namespace FoodieProject.Controllers
     public class DishesController : Controller
     {
         // Create the relative path for the dishes pictures folder
-        private readonly string dishPicDir = Path.Combine(Directory.GetCurrentDirectory(), "Pictures\\Dish");
+        private readonly string dishPicDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Pictures\\Dish");
 
         private readonly FoodieProjectContext _context;
 
@@ -44,6 +44,8 @@ namespace FoodieProject.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["picPath"] = "\\Pictures\\Dish\\";
 
             return View(dish);
         }
@@ -87,7 +89,7 @@ namespace FoodieProject.Controllers
             // save the image in the server side
             using (var stream = new FileStream(path, FileMode.Create))
             {
-                inputImage.CopyToAsync(stream);
+                inputImage.CopyTo(stream);
             }
 
             return pathToSaveInRest;
@@ -114,18 +116,35 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish,
+                    IFormFile newPic)
         {
+          
             if (id != dish.Id)
             {
                 return NotFound();
+            }
+
+            // Check if we have got a new file. If we have got a new one we should delete the previous one and update to the new one
+            if (newPic != null)
+            {
+                var oldDish = await _context.Dish.FirstOrDefaultAsync(m => m.Id == id);
+                var oldPath = dishPicDir + "\\" + oldDish.PicturePath;
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+                oldDish.PicturePath = ImageUpload(newPic);
+                _context.Update(oldDish);
+                await _context.SaveChangesAsync();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(dish);
+                    var oldDish = await _context.Dish.FirstOrDefaultAsync(m => m.Id == id);
+                    _context.Update(oldDish);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
