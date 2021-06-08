@@ -163,7 +163,10 @@ namespace FoodieProject.Controllers
             {
                 var oldRest = await _context.Restaurant.FirstOrDefaultAsync(m => m.Id == id);
                 var oldPath = restPicDir + "\\" + oldRest.PicturePath;
-                System.IO.File.Delete(oldPath);
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
                 oldRest.PicturePath = ImageUpload(newPic);
                 _context.Update(oldRest);
                 await _context.SaveChangesAsync();
