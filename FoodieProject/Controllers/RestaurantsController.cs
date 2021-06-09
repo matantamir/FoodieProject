@@ -87,7 +87,8 @@ namespace FoodieProject.Controllers
                 var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
                 restaurant.Tags = new List<Tag>();
                 restaurant.Tags.AddRange(tags);
-                
+             
+
                 /*OLD- TAGS:
                  var restTagsList = new List<Tag>();
                  foreach(var tagcare in tagToCare)
@@ -139,7 +140,9 @@ namespace FoodieProject.Controllers
 
 
             ViewData["Tags"] = _context.Tag.ToList();
-           // var address = await _context.Address.Where(a => a.Id == restaurant.AddressId).FirstOrDefaultAsync();
+            ViewData["Rate"] = restaurant.Rate;
+            ViewData["AveragePrice"] = restaurant.AveragePrice;
+            // var address = await _context.Address.Where(a => a.Id == restaurant.AddressId).FirstOrDefaultAsync();
             var address = await _context.Address.FindAsync(restaurant.AddressId);
             //ViewData["Street"] = address.Street;
            // ViewData["City"] = address.City;

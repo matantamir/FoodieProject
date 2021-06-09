@@ -4,6 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
+<link rel="stylesheet" href="~/css/rates.css" />
+
+
+
 <h1>Create</h1>
 
 <h4>Restaurant</h4>
@@ -33,33 +37,69 @@
                 <input asp-for="Address.Number" class="form-control" />
                 <span asp-validation-for="Address.Number" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AveragePrice" class="control-label"></label>
-                <input asp-for="AveragePrice" class="form-control" />
-                <span asp-validation-for="AveragePrice" class="text-danger"></span>
-            </div>
+
             <div>
                 Upload Restaurant Picture <input class="form-control" type="file" name="myFile" />
             </div>
-            <div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
-                <span asp-validation-for="Rate" class="text-danger"></span>
-            </div>
+            <br />
+
             <div class="form-group">
                 <label asp-for="About" class="control-label"></label>
-                <input asp-for="About" class="form-control" />
+                <textarea rows="5" cols="33" asp-for="About" class="form-control"></textarea>
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
+                <label asp-for="AveragePrice" class="control-label"></label>
+                <br />
+                <div class="price">
+                    <input type="radio" id="dollar3" name="AveragePrice" value="3" />
+                    <label for="dollar3" title="text"> 3 dollars</label>
+                    <input type="radio" id="dollar2" name="AveragePrice" value="2" />
+                    <label for="dollar2" title="text"> 2 dollars</label>
+                    <input type="radio" id="dollar1" name="AveragePrice" value="1" />
+                    <label for="dollar1" title="text"> 1 dollar</label>
+                </div>
+                <span asp-validation-for="AveragePrice" class="text-danger"></span>
+            </div>
+            <br /> <br />
+
+            <div class="form-group">
+                <label asp-for="Rate" class="control-label"></label>
+                <br />
+                <div class="rate">
+                    <input type="radio" id="star5" name="Rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="Rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="Rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="Rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="Rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <br /> <br />
+
+            <label asp-for="Tags" class="control-label"></label>
+            
+            <div class="form-group row" style="width:150%">
+                <br />
                 @foreach (var tag in ViewBag.Tags)
                 {
-                    <input type="checkbox" name="Tags" value="@tag.Id">
-                    <label>@tag.Name</label><br>
+                    <div class="col-4">
+                        <input type="checkbox" name="Tags" value="@tag.Id">
+                        <label>@tag.Name</label><br>
+                    </div>
                 }
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
+
+
+
+
             <!-- <div class="from-group">
         <label asp-for="Tags"  class="control-label"></label>
         <select asp-for="Tags" class="form-group" asp-items="ViewBag.Tags" ></select>
