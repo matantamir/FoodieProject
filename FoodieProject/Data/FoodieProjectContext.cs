@@ -18,8 +18,6 @@ namespace FoodieProject.Data
 
         public DbSet<FoodieProject.Models.Dish> Dish { get; set; }
 
-        public DbSet<FoodieProject.Models.DishTag> DishTag { get; set; }
-
         public DbSet<FoodieProject.Models.Restaurant> Restaurant { get; set; }
 
         public DbSet<FoodieProject.Models.Tag> Tag { get; set; }

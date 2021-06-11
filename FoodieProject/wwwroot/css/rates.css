@@ -38,6 +38,37 @@
     color: #c59b08;
 }
 
+.rateIndex {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+
+    .rateIndex:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+    }
+
+    .rateIndex:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+
+        .rateIndex:not(:checked) > label:before {
+            content: '★ ';
+        }
+
+    .rateIndex > input:checked ~ label {
+        color: #ffc700;
+    }
+
+/* Price rate styles
+-------------------------------------------------- */
 .price {
     float: left;
     height: 46px;
@@ -80,6 +111,9 @@
     .price > label:hover ~ input:checked ~ label {
         color: #379e00;
     }
+
+
+
 
 /* Modified from: https://github.com/mukulkant/dollar-rating-using-pure-css */
 

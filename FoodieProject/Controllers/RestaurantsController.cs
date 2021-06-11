@@ -29,6 +29,9 @@ namespace FoodieProject.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
+            // Send the pic path to the view
+            ViewData["picPath"] = "\\Pictures\\Rest\\";
+      
             var foodieProjectContext = _context.Restaurant.Include(r => r.Address);
             return View(await foodieProjectContext.ToListAsync());
         }

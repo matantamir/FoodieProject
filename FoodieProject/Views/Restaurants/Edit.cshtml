@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<link rel="stylesheet" href="~/css/rates.css" />
 <h1>Edit</h1>
 
 <h4>Restaurant</h4>
@@ -87,12 +86,15 @@
             </div>
             <br /> <br />
 
-            <div class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
+            <label asp-for="Tags" class="control-label"></label>
+            <div class="form-group row"  style="width:150%">
+                <br />
                 @foreach (var tag in ViewBag.Tags)
                 {
-                    <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
-                    <label>@tag.Name</label><br>
+                    <div class="col-4">
+                        <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
+                        <label>@tag.Name</label><br>
+                    </div>
                 }
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
