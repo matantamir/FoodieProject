@@ -2,7 +2,7 @@
 
 namespace FoodieProject.Migrations
 {
-    public partial class dishStringChange : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,19 +21,6 @@ namespace FoodieProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Address", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DishTag",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DishTag", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,8 +85,7 @@ namespace FoodieProject.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RestID = table.Column<int>(type: "int", nullable: false),
-                    RestaurantId = table.Column<int>(type: "int", nullable: true)
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +95,7 @@ namespace FoodieProject.Migrations
                         column: x => x.RestaurantId,
                         principalTable: "Restaurant",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,39 +122,10 @@ namespace FoodieProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DishDishTag",
-                columns: table => new
-                {
-                    DishTagsId = table.Column<int>(type: "int", nullable: false),
-                    DishesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DishDishTag", x => new { x.DishTagsId, x.DishesId });
-                    table.ForeignKey(
-                        name: "FK_DishDishTag_Dish_DishesId",
-                        column: x => x.DishesId,
-                        principalTable: "Dish",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DishDishTag_DishTag_DishTagsId",
-                        column: x => x.DishTagsId,
-                        principalTable: "DishTag",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Dish_RestaurantId",
                 table: "Dish",
                 column: "RestaurantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DishDishTag_DishesId",
-                table: "DishDishTag",
-                column: "DishesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Restaurant_AddressId",
@@ -185,7 +142,7 @@ namespace FoodieProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DishDishTag");
+                name: "Dish");
 
             migrationBuilder.DropTable(
                 name: "RestaurantTag");
@@ -194,16 +151,10 @@ namespace FoodieProject.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "Dish");
-
-            migrationBuilder.DropTable(
-                name: "DishTag");
+                name: "Restaurant");
 
             migrationBuilder.DropTable(
                 name: "Tag");
-
-            migrationBuilder.DropTable(
-                name: "Restaurant");
 
             migrationBuilder.DropTable(
                 name: "Address");

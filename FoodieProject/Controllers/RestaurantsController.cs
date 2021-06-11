@@ -31,7 +31,7 @@ namespace FoodieProject.Controllers
         {
             // Send the pic path to the view
             ViewData["picPath"] = "\\Pictures\\Rest\\";
-      
+
             var foodieProjectContext = _context.Restaurant.Include(r => r.Address);
             return View(await foodieProjectContext.ToListAsync());
         }
@@ -58,8 +58,8 @@ namespace FoodieProject.Controllers
             return View(restaurant);
         }
 
-        // GET: Restaurants/Create
-        public IActionResult Create()
+    // GET: Restaurants/Create
+    public IActionResult Create()
         {
             //OLD-TAGS - ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
             ViewData["Tags"] = _context.Tag.ToList();
@@ -80,7 +80,7 @@ namespace FoodieProject.Controllers
             )
         {
             // If we have got an image
-            if(myFile != null)
+            if (myFile != null)
             {
                 restaurant.PicturePath = ImageUpload(myFile);
             }
@@ -90,7 +90,7 @@ namespace FoodieProject.Controllers
                 var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
                 restaurant.Tags = new List<Tag>();
                 restaurant.Tags.AddRange(tags);
-             
+
 
                 /*OLD- TAGS:
                  var restTagsList = new List<Tag>();
@@ -148,8 +148,8 @@ namespace FoodieProject.Controllers
             // var address = await _context.Address.Where(a => a.Id == restaurant.AddressId).FirstOrDefaultAsync();
             var address = await _context.Address.FindAsync(restaurant.AddressId);
             //ViewData["Street"] = address.Street;
-           // ViewData["City"] = address.City;
-           // ViewData["Number"] = address.Number;
+            // ViewData["City"] = address.City;
+            // ViewData["Number"] = address.Number;
 
             return View(restaurant);
         }
@@ -189,7 +189,7 @@ namespace FoodieProject.Controllers
                 {
                     var rest = await _context.Restaurant.Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
                     var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
-                   // var addr2 = _context.Address.Where(a => a.Id == address.Id);
+                    // var addr2 = _context.Address.Where(a => a.Id == address.Id);
                     var addr = await _context.Address.FindAsync(rest.AddressId);
                     addr.Street = address.Street;
                     addr.City = address.City;
@@ -197,7 +197,7 @@ namespace FoodieProject.Controllers
 
                     rest.Tags.Clear();
                     rest.Tags.AddRange(tags);
-                    
+
                     rest.Name = restaurant.Name;
                     rest.AveragePrice = restaurant.AveragePrice;
                     rest.Rate = restaurant.Rate;
@@ -259,4 +259,5 @@ namespace FoodieProject.Controllers
             return _context.Restaurant.Any(e => e.Id == id);
         }
     }
+
 }

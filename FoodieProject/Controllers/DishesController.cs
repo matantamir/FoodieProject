@@ -51,8 +51,18 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int Restid)
         {
+            var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == Restid);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["dishRestName"] = restaurant.Name;
+            ViewData["dishRestId"] = restaurant.Id;
+            ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
             return View();
         }
 
@@ -61,7 +71,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish, IFormFile myFile)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PicturePath,RestaurantId")] Dish dish, IFormFile myFile)
         {
             // If we have got an image
             if (myFile != null)
@@ -70,8 +80,14 @@ namespace FoodieProject.Controllers
                 dish.PicturePath = ImageUpload(myFile);
             }
 
+            var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == dish.RestaurantId);
+            dish.Restaurant = restaurant;
+            dish.RestaurantId = restaurant.Id;
             if (ModelState.IsValid)
             {
+               // var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == 1);
+                //dish.Restaurant = restaurant;
+              //  dish.RestaurantId = restaurant.Id;
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -116,7 +132,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestID")] Dish dish,
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestaurantId")] Dish dish,
                     IFormFile newPic)
         {
           

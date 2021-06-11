@@ -24,9 +24,8 @@ namespace FoodieProject.Models
         [Display(Name = "Dish Picture")]
         public string PicturePath { get; set; }
 
-        [Display(Name = "Dish Tag")]
-
-        public int RestID { get; set; }  // many to one (many Dishs to one Restaurant) - this declare a foreign key
+        [Display(Name = "Dish Restaurant")]
+        public int RestaurantId { get; set; }  // many to one (many Dishs to one Restaurant) - this declare a foreign key
 
         public Restaurant Restaurant { get; set; }  // many to one (many Dishs to one Restaurant)
     }
