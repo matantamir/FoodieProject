@@ -62,7 +62,7 @@ namespace FoodieProject.Controllers
 
             ViewData["dishRestName"] = restaurant.Name;
             ViewData["dishRestId"] = restaurant.Id;
-            ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
+            //ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
             return View();
         }
 
@@ -119,11 +119,16 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
+
             var dish = await _context.Dish.FindAsync(id);
             if (dish == null)
             {
                 return NotFound();
             }
+
+            var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == dish.RestaurantId);
+            ViewData["dishRestName"] = restaurant.Name;
+
             return View(dish);
         }
 
@@ -141,25 +146,28 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
+            var oldDish = await _context.Dish.FirstOrDefaultAsync(m => m.Id == id);
+
             // Check if we have got a new file. If we have got a new one we should delete the previous one and update to the new one
             if (newPic != null)
             {
-                var oldDish = await _context.Dish.FirstOrDefaultAsync(m => m.Id == id);
+
                 var oldPath = dishPicDir + "\\" + oldDish.PicturePath;
                 if (System.IO.File.Exists(oldPath))
                 {
                     System.IO.File.Delete(oldPath);
                 }
                 oldDish.PicturePath = ImageUpload(newPic);
-                _context.Update(oldDish);
-                await _context.SaveChangesAsync();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var oldDish = await _context.Dish.FirstOrDefaultAsync(m => m.Id == id);
+                    oldDish.Name = dish.Name;
+                    oldDish.Description = dish.Description;
+                    oldDish.Price = dish.Price;
+                    oldDish.RestaurantId = dish.RestaurantId;
                     _context.Update(oldDish);
                     await _context.SaveChangesAsync();
                 }

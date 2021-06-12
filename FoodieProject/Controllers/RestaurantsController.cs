@@ -45,7 +45,7 @@ namespace FoodieProject.Controllers
             }
 
             var restaurant = await _context.Restaurant
-                .Include(r => r.Address)
+                .Include(r => r.Address).Include(r => r.Tags)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
@@ -72,7 +72,7 @@ namespace FoodieProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
+            [Bind("Id,Name,Phone,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
             [Bind("Id,City,Street,Number")] Address address, int[] Tags,
             //OLD-TAGS-[Bind("tagToCare")] List<int> tagToCare,
             // Get also a picture from user
@@ -85,11 +85,13 @@ namespace FoodieProject.Controllers
                 restaurant.PicturePath = ImageUpload(myFile);
             }
 
-            if (ModelState.IsValid)
+            var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
+            restaurant.Tags = new List<Tag>();
+            restaurant.Tags.AddRange(tags);
+
+            if (false)
             {
-                var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
-                restaurant.Tags = new List<Tag>();
-                restaurant.Tags.AddRange(tags);
+               
 
 
                 /*OLD- TAGS:
@@ -106,7 +108,14 @@ namespace FoodieProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
+            ViewData["Tags"] = _context.Tag.ToList();
+            ViewData["Rate"] = restaurant.Rate;
+            ViewData["AveragePrice"] = restaurant.AveragePrice;
+            ViewData["restTags"] = restaurant.Tags;
+            ViewData["serverError"] = "true";
+           
             return View(restaurant);
         }
 
@@ -159,7 +168,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Phone,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
             [Bind("Id,City,Street,Number")] Address address,
             int[] Tags,
             IFormFile newPic)

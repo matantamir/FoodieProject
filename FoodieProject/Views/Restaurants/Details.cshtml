@@ -4,46 +4,87 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Name</h1>
 
 <div>
-    <h4>Restaurant</h4>
+    
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address.City)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AveragePrice)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AveragePrice)
+        <dd class="col-sm-10">
+            <div class="staticPrice col-sm-2">
+                <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
+                <label for="dollar3" title="text"> 3 dollars</label>
+                <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
+                <label for="dollar2" title="text"> 2 dollars</label>
+                <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
+                <label for="dollar1" title="text"> 1 dollar</label>
+            </div>
         </dd>
-        <dt class = "col-sm-2">
+        <script>
+                prices = document.getElementsByName("AveragePrice");
+            var num = @Model.AveragePrice;
+            prices[3 - num].checked = true;
+        </script>
+
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PicturePath)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) style="max-width: 400px; max-height: 400px;">
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rate)
+        <dd class="col-sm-10">
+
+            <div class="staticRate">
+                <input type="radio" id="star5" name="Rate" value="5" disabled />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="Rate" value="4" disabled />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="Rate" value="3" disabled />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="Rate" value="2" disabled />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="Rate" value="1" disabled />
+                <label for="star1" title="text">1 star</label>
+            </div>
+            <script>
+                    stars = document.getElementsByName("Rate");
+                    var num = @Model.Rate;
+                            stars[5 - num].checked = true;
+            </script>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 ">
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="col-4 badge badge-secondary" style="background-color:@tag.Color">
+                    <span name="Tags" value="@tag.Id" disabled></span>
+                    <label>@tag.Name</label><br>
+                </div>
+            }
+        </dd>
+
+      
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.About)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.About)
         </dd>
     </dl>

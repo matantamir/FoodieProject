@@ -21,7 +21,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="badge badge-secondary" style="background-color:@item.Color">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>

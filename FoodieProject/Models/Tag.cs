@@ -14,6 +14,9 @@ namespace FoodieProject.Models
         [Required, Display(Name = "Restaurant Tag Name")]
         public string Name { get; set; }
 
+        [DataType("Color"), Display(Name = "Restaurant Tag Color")]
+        public string Color { get; set; }
+
         public List<Restaurant> Restaurants { get; set; }  // many to many (many Tags to many Restaurant)
 
     }
