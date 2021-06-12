@@ -73,14 +73,22 @@
         <dd class="col-sm-10">
             @foreach (var tag in Model.Tags)
             {
-                <div class="col-4 badge badge-secondary" style="background-color:@tag.Color">
+                <div class="col-3 badge badge-secondary" style="background-color:@tag.Color">
                     <span name="Tags" value="@tag.Id" disabled></span>
                     <label>@tag.Name</label><br>
                 </div>
             }
         </dd>
 
-      
+        <dt class="col-sm-2 ">
+            @Html.DisplayNameFor(model => model.Dishes)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var dish in Model.Dishes)
+            {  
+                    <label class="card col-3">@dish.Name</label><br>
+            }
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.About)
         </dt>
@@ -90,6 +98,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (this.User.IsInRole("Admin"))
+    {
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id" >Add Dish</a> <a> | </a>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

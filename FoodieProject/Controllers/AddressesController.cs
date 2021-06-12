@@ -22,7 +22,14 @@ namespace FoodieProject.Controllers
         // GET: Addresses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Address.ToListAsync());
+            var addressWithRest = _context.Address.Include(a => a.Restaurant);
+            return View(await addressWithRest.ToListAsync());
+        }
+
+        public async Task<IActionResult> Search(string query)
+        {
+            var addressSearch = _context.Address.Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null);
+            return View("Index", await addressSearch.ToListAsync());
         }
 
         // GET: Addresses/Details/5

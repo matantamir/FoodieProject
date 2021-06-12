@@ -25,6 +25,12 @@ namespace FoodieProject.Controllers
             return View(await _context.Tag.ToListAsync());
         }
 
+        public async Task<IActionResult> Search(string query)
+        {
+            var tagSearch = _context.Tag.Where(t => (t.Name.Contains(query) || query == null));
+            return View("Index", await tagSearch.ToListAsync());
+        }
+
         // GET: Tags/Details/5
         public async Task<IActionResult> Details(int? id)
         {

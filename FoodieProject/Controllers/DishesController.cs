@@ -27,7 +27,13 @@ namespace FoodieProject.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dish.ToListAsync());
+            var dishesListWithRest = _context.Dish.Include(d => d.Restaurant);
+            return View(await dishesListWithRest.ToListAsync());
+        }
+        public async Task<IActionResult> Search(string query)
+        {
+            var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null);
+            return View("Index",await dishSearch.ToListAsync());
         }
 
         // GET: Dishes/Details/5
@@ -53,15 +59,22 @@ namespace FoodieProject.Controllers
         // GET: Dishes/Create
         public async Task<IActionResult> Create(int Restid)
         {
-            var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == Restid);
-
-            if (restaurant == null)
+            if (Restid == 0)
             {
-                return NotFound();
+                ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
             }
+            else
+            {
+                var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == Restid);
 
-            ViewData["dishRestName"] = restaurant.Name;
-            ViewData["dishRestId"] = restaurant.Id;
+                if (restaurant == null)
+                {
+                    return NotFound();
+                }
+
+                ViewData["dishRestName"] = restaurant.Name;
+                ViewData["dishRestId"] = restaurant.Id;
+            }
             //ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
             return View();
         }

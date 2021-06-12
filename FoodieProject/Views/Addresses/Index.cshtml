@@ -9,6 +9,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search" class="float-md-right">
+    <input name=query placeholder="Ender dish to search" />
+    <input type="submit" value="Search" class="btn btn-primary"
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -20,6 +24,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MapLatitude)
@@ -41,6 +48,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MapLatitude)

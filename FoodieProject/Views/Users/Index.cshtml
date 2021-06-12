@@ -7,8 +7,12 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="RegisterAdmin">Register a new user</a>
 </p>
+<form asp-action="Search" class="float-md-right">
+    <input name=query placeholder="Ender dish to search" />
+    <input type="submit" value="Search" class="btn btn-primary"
+</form>
 <table class="table">
     <thead>
         <tr>
