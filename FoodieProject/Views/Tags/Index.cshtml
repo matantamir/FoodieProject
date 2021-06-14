@@ -9,8 +9,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form asp-action="Search" class="float-md-right">
-    <input name=query placeholder="Ender dish to search" />
+<form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
+    <input name="query" id="query" placeholder="Ender tag to search" />
     <input type="submit" value="Search" class="btn btn-primary"
 </form>
 <table class="table">
@@ -23,17 +23,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td class="badge badge-secondary" style="background-color:@item.Color">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="badge badge-secondary" style="background-color:@item.Color">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script type="text/html" id="hidden-template">
+        <tr>
+            <td class="badge badge-secondary" style="background-color:{color}">
+                {name}
+            </td>
+  
+            <td>
+                <a href="/Tasg/Edit/{id}">Edit</a> |
+                <a href="/Tasg/Details/{id}">Details</a> |
+                <a href="/Tasg/Delete/{id}">Delete</a>
+            </td>
+        </tr>
+    </script>
+}

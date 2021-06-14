@@ -9,8 +9,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form asp-action="Search" class="float-md-right">
-    <input name=query placeholder="Ender dish to search" />
+<form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
+    <input name="query" id="query" placeholder="Ender address to search" />
     <input type="submit" value="Search" class="btn btn-primary"
 </form>
 <table class="table">
@@ -67,3 +67,34 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+<script type="text/html" id="hidden-template">
+    <tr>
+        <td>
+            {city}
+        </td>
+        <td>
+            {street}
+        </td>
+        <td>
+            {number}
+        </td>
+        <td>
+            {restName}
+        </td>
+        <td>
+            {lat}
+        </td>
+        <td>
+            {lon}
+        </td>
+
+        <td>
+            <a href="/Addresses/Edit/{id}">Edit</a> |
+            <a href="/Addresses/Details/{id}">Details</a> |
+            <a href="/Addresses/Delete/{id}">Delete</a>
+        </td>
+    </tr>
+</script>
+}

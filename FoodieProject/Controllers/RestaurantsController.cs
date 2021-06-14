@@ -34,7 +34,20 @@ namespace FoodieProject.Controllers
             ViewData["picPath"] = "\\Pictures\\Rest\\";
 
             var foodieProjectContext = _context.Restaurant.Include(r => r.Address);
+       
             return View(await foodieProjectContext.ToListAsync());
+        }
+
+        // GET: Restaurants
+        public async Task<IActionResult> AveragePrice()
+        {
+
+            var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => d.Restaurant.Name).Select(a => new List<string> {a.Key.ToString(), a.Average(x => x.Price).ToString() } );
+            //var restListObj = _context.Restaurant.ToList();
+            //ViewData["RestList"] = restListObj;
+
+            ViewData["AVGmodel"] = AVGmodel;
+            return View();
         }
 
         // GET: Restaurants/Details/5

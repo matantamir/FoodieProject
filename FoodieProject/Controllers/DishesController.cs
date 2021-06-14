@@ -30,10 +30,18 @@ namespace FoodieProject.Controllers
             var dishesListWithRest = _context.Dish.Include(d => d.Restaurant);
             return View(await dishesListWithRest.ToListAsync());
         }
+
         public async Task<IActionResult> Search(string query)
         {
-            var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null);
-            return View("Index",await dishSearch.ToListAsync());
+            var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null).Select(z => new
+            { 
+                name = z.Name,
+                description = z.Description,
+                price = z.Price,
+                picturePath = z.PicturePath,
+                restName = z.Restaurant.Name
+            });
+            return Json(await dishSearch.ToListAsync());
         }
 
         // GET: Dishes/Details/5

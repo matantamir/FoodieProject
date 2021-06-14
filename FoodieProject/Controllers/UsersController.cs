@@ -27,8 +27,8 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Search(string query)
         {
-            var userSearch = _context.User.Include(u => u.Username.Contains(query) || query == null);
-            return View("Index", await userSearch.ToListAsync());
+            var userSearch = _context.User.Where(u => u.Username.Contains(query) || query == null);
+            return Json(await userSearch.ToListAsync());
         }
 
         //GET: Users/Register
@@ -72,7 +72,7 @@ namespace FoodieProject.Controllers
             return View(user);
         }
 
-        //GET: Users/Register
+        //GET: Users/RegisterAdmin
         public IActionResult RegisterAdmin()
         {
             return View();
@@ -279,34 +279,36 @@ namespace FoodieProject.Controllers
         //            return View(user);
         //        }
 
-        //        // GET: Users/Delete/5
-        //        public async Task<IActionResult> Delete(int? id)
-        //        {
-        //            if (id == null)
-        //            {
-        //                return NotFound();
-        //            }
+        [Authorize(Roles = "Admin")]
+        // GET: Users/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //            var user = await _context.User
-        //                .FirstOrDefaultAsync(m => m.Id == id);
-        //            if (user == null)
-        //            {
-        //                return NotFound();
-        //            }
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //            return View(user);
-        //        }
+            return View(user);
+        }
 
-        //        // POST: Users/Delete/5
-        //        [HttpPost, ActionName("Delete")]
-        //        [ValidateAntiForgeryToken]
-        //        public async Task<IActionResult> DeleteConfirmed(int id)
-        //        {
-        //            var user = await _context.User.FindAsync(id);
-        //            _context.User.Remove(user);
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
+        [Authorize(Roles = "Admin")]
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.User.FindAsync(id);
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         //        private bool UserExists(int id)
         //        {

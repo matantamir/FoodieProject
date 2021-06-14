@@ -1,0 +1,40 @@
+﻿@model IEnumerable<List<string>>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Average Price of Restaurants</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Restaurant ID
+            </th>
+            <th>
+                Average Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.AVGmodel)
+        {
+            <tr>
+                <td>
+                     
+                     @item[0]
+                </td>
+                <td>
+                    @item[1]
+                </td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@item[0]">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

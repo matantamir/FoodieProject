@@ -28,8 +28,19 @@ namespace FoodieProject.Controllers
 
         public async Task<IActionResult> Search(string query)
         {
-            var addressSearch = _context.Address.Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null);
-            return View("Index", await addressSearch.ToListAsync());
+            var addressSearch = _context.Address.Include(r => r.Restaurant).Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null).Select(z => new 
+            { 
+                id = z.Id,
+                city = z.City,
+                street = z.Street,
+                number = z.Number,
+                restName = z.Restaurant.Name,
+                lat = z.MapLatitude,
+                lon = z.MapLongitude
+            });
+            //var addressSearch = _context.Address.Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null);
+
+            return Json(await addressSearch.ToListAsync());
         }
 
         // GET: Addresses/Details/5
