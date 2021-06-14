@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/FoodieProject/Migrations
+/FoodieProject/wwwroot/Pictures/Rest
+/FoodieProject/Views/Restaurants/StyleSheet.css
