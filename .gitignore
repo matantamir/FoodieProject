@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /FoodieProject/Migrations
 /FoodieProject/wwwroot/Pictures/Rest
+/FoodieProject/Views/Restaurants/StyleSheet.css

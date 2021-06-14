@@ -7,7 +7,7 @@
 <h1>@Model.Name</h1>
 
 <div>
-    
+
     <hr />
     <dl class="row">
 
@@ -31,11 +31,7 @@
                 <label for="dollar1" title="text"> 1 dollar</label>
             </div>
         </dd>
-        <script>
-                prices = document.getElementsByName("AveragePrice");
-            var num = @Model.AveragePrice;
-            prices[3 - num].checked = true;
-        </script>
+        <script>@Model.AveragePrice</script>
 
 
         <dt class="col-sm-2">
@@ -61,11 +57,7 @@
                 <input type="radio" id="star1" name="Rate" value="1" disabled />
                 <label for="star1" title="text">1 star</label>
             </div>
-            <script>
-                    stars = document.getElementsByName("Rate");
-                    var num = @Model.Rate;
-                            stars[5 - num].checked = true;
-            </script>
+            <script>@Model.Rate</script>
         </dd>
         <dt class="col-sm-2 ">
             @Html.DisplayNameFor(model => model.Tags)
@@ -85,8 +77,8 @@
         </dt>
         <dd class="col-sm-10">
             @foreach (var dish in Model.Dishes)
-            {  
-                    <label class="card col-3">@dish.Name</label><br>
+            {
+                <label class="card col-3">@dish.Name</label><br>
             }
         </dd>
         <dt class="col-sm-2">
@@ -96,11 +88,18 @@
             @Html.DisplayFor(model => model.About)
         </dd>
     </dl>
+    <iframe width="600"
+            height="450"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Address.City)+@(Model.Address.Street)+@(Model.Address.Number)'
+    </iframe>
 </div>
 <div>
     @if (this.User.IsInRole("Admin"))
     {
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id" >Add Dish</a> <a> | </a>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
     }
     <a asp-action="Index">Back to List</a>
 </div>
