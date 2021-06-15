@@ -7,8 +7,6 @@
 
 
 <div>
-
-    <hr />
     <section class="product">
         <div class="product__photo">
             <div class="photo-container">
@@ -16,7 +14,7 @@
                     <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture">
                 </div>
                 <div class="map">
-                    <iframe width="300"
+                    <iframe width="500"
                             height="220"
                             style="border:0"
                             loading="lazy"
@@ -29,40 +27,42 @@
         <div class="product__info">
             <div class="title">
                 <h1>@Model.Name</h1>
+            </div>
+            <div class="sub-title" style="font-family:'Calibri Light'">
                 <span>@Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)</span>
             </div>
-            <div class="variant">
-                <div class="staticPrice col-sm-2">
-                    <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
-                    <label for="dollar3" title="text"> 3 dollars</label>
-                    <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
-                    <label for="dollar2" title="text"> 2 dollars</label>
-                    <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
-                    <label for="dollar1" title="text"> 1 dollar</label>
-                </div>
-                <div class="staticRate">
-                    <input type="radio" id="star5" name="Rate" value="5" disabled />
-                    <label for="star5" title="text">5 stars</label>
-                    <input type="radio" id="star4" name="Rate" value="4" disabled />
-                    <label for="star4" title="text">4 stars</label>
-                    <input type="radio" id="star3" name="Rate" value="3" disabled />
-                    <label for="star3" title="text">3 stars</label>
-                    <input type="radio" id="star2" name="Rate" value="2" disabled />
-                    <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star1" name="Rate" value="1" disabled />
-                    <label for="star1" title="text">1 star</label>
-                </div>
-                <script>
-                    stars = document.getElementsByName("Rate");
-                    var num = @Model.Rate;
-                            stars[5 - num].checked = true;
-                </script>
-                <script>
-                    prices = document.getElementsByName("AveragePrice");
-                    var num = @Model.AveragePrice;
-                    prices[3 - num].checked = true;
-                </script>
-                <br /><br />
+            <div class="staticPrice col-sm-2">
+                <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
+                <label for="dollar3" title="text"> 3 dollars</label>
+                <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
+                <label for="dollar2" title="text"> 2 dollars</label>
+                <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
+                <label for="dollar1" title="text"> 1 dollar</label>
+            </div>
+            <div class="staticRate">
+                <input type="radio" id="star5" name="Rate" value="5" disabled />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="Rate" value="4" disabled />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="Rate" value="3" disabled />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="Rate" value="2" disabled />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="Rate" value="1" disabled />
+                <label for="star1" title="text">1 star</label>
+            </div>
+            <script>
+                        stars = document.getElementsByName("Rate");
+                        var num = @Model.Rate;
+                                stars[5 - num].checked = true;
+            </script>
+            <script>
+                        prices = document.getElementsByName("AveragePrice");
+                        var num = @Model.AveragePrice;
+                        prices[3 - num].checked = true;
+            </script>
+            <br />
+            <div class="description">
                 @foreach (var tag in Model.Tags)
                 {
                     <div class="col-3 badge badge-secondary" style="background-color:@tag.Color">
@@ -71,49 +71,41 @@
                     </div>
                 }
             </div>
-            <div class="description">
-                <h3>DISHES</h3>
-                <ul>
-                    @foreach (var dish in Model.Dishes)
-                    {
-                        <li>@dish.Name - <i>@dish.Price NIS</i></li>
-                    }
-                </ul>
+            <br />
+            <div class="sub-title" style="font-family:'Calibri Light'">
+                DISHES
             </div>
-            <button class="buy--btn" id="aboutOpen">ABOUT</button>
-            <div id="aboutdiv"><p>@Html.DisplayFor(model => model.About)</p></div>
-        </div>
-        <script>
+            <ul>
+                @foreach (var dish in Model.Dishes)
+                {
+                    <li>@dish.Name - <i>@dish.Price NIS</i></li>
+                }
+            </ul>
+            @if(@Model.About != null) { 
+            <button id="aboutbtn" class="btn btn-primary btn-sm">ABOUT</button>
+            <br />
+            <br />
+            <div id="abouttext" class="card" style="display:none; max-width:500px;">
+                <div class="card-body">
+                    @Model.About
+                </div>
+            </div>
+            }
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-                $(document).ready(function(){
-                $('#aboutOpen').click(function () {
-                    $('#aboutdiv').slideToggle();
+            <script>
+                $(document).ready(function () {
+                    $("#aboutbtn").click(function () {
+                        $("#abouttext").slideToggle();
+                    });
                 });
-                });
-        </script>
-        </script>
+            </script>
+        </div>
     </section>
-
-    <footer>
-        <p>Design from <a href="https://dribbble.com/shots/5216438-Daily-UI-012">dribbble shot</a> of <a href="https://dribbble.com/rodrigorramos">Rodrigo Ramos</a></p>
-    </footer>
-
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.About)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.About)
-    </dd>
-    </dl>
-
-
-
-    <div>
-        @if (this.User.IsInRole("Admin"))
-        {
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
-        }
-        <a asp-action="Index">Back to List</a>
-    </div>
+</div>
+<div>
+    @if (this.User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+    }
+    <a asp-action="Index">Back to List</a>
 </div>
