@@ -3,104 +3,117 @@
 @{
     ViewData["Title"] = "Details";
 }
+<link rel="stylesheet" href="~/css/restaurantdetails.css" />
 
-<h1>@Model.Name</h1>
 
 <div>
 
     <hr />
-    <dl class="row">
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AveragePrice)
-        </dt>
-        <dd class="col-sm-10">
-            <div class="staticPrice col-sm-2">
-                <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
-                <label for="dollar3" title="text"> 3 dollars</label>
-                <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
-                <label for="dollar2" title="text"> 2 dollars</label>
-                <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
-                <label for="dollar1" title="text"> 1 dollar</label>
-            </div>
-        </dd>
-        <script>@Model.AveragePrice</script>
-
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PicturePath)
-        </dt>
-        <dd class="col-sm-10">
-            <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) style="max-width: 400px; max-height: 400px;">
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-        <dd class="col-sm-10">
-
-            <div class="staticRate">
-                <input type="radio" id="star5" name="Rate" value="5" disabled />
-                <label for="star5" title="text">5 stars</label>
-                <input type="radio" id="star4" name="Rate" value="4" disabled />
-                <label for="star4" title="text">4 stars</label>
-                <input type="radio" id="star3" name="Rate" value="3" disabled />
-                <label for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="Rate" value="2" disabled />
-                <label for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="Rate" value="1" disabled />
-                <label for="star1" title="text">1 star</label>
-            </div>
-            <script>@Model.Rate</script>
-        </dd>
-        <dt class="col-sm-2 ">
-            @Html.DisplayNameFor(model => model.Tags)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var tag in Model.Tags)
-            {
-                <div class="col-3 badge badge-secondary" style="background-color:@tag.Color">
-                    <span name="Tags" value="@tag.Id" disabled></span>
-                    <label>@tag.Name</label><br>
+    <section class="product">
+        <div class="product__photo">
+            <div class="photo-container">
+                <div class="photo-main">
+                    <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture">
                 </div>
-            }
-        </dd>
+                <div class="map">
+                    <iframe width="300"
+                            height="220"
+                            style="border:0"
+                            loading="lazy"
+                            allowfullscreen
+                            src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Name),@(Model.Address.City)+@(Model.Address.Street)'>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div class="product__info">
+            <div class="title">
+                <h1>@Model.Name</h1>
+                <span>@Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)</span>
+            </div>
+            <div class="variant">
+                <div class="staticPrice col-sm-2">
+                    <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
+                    <label for="dollar3" title="text"> 3 dollars</label>
+                    <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
+                    <label for="dollar2" title="text"> 2 dollars</label>
+                    <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
+                    <label for="dollar1" title="text"> 1 dollar</label>
+                </div>
+                <div class="staticRate">
+                    <input type="radio" id="star5" name="Rate" value="5" disabled />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="Rate" value="4" disabled />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="Rate" value="3" disabled />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="Rate" value="2" disabled />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="Rate" value="1" disabled />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <script>
+                    stars = document.getElementsByName("Rate");
+                    var num = @Model.Rate;
+                            stars[5 - num].checked = true;
+                </script>
+                <script>
+                    prices = document.getElementsByName("AveragePrice");
+                    var num = @Model.AveragePrice;
+                    prices[3 - num].checked = true;
+                </script>
+                <br /><br />
+                @foreach (var tag in Model.Tags)
+                {
+                    <div class="col-3 badge badge-secondary" style="background-color:@tag.Color">
+                        <span name="Tags" value="@tag.Id" disabled></span>
+                        <label>@tag.Name</label><br>
+                    </div>
+                }
+            </div>
+            <div class="description">
+                <h3>DISHES</h3>
+                <ul>
+                    @foreach (var dish in Model.Dishes)
+                    {
+                        <li>@dish.Name - <i>@dish.Price NIS</i></li>
+                    }
+                </ul>
+            </div>
+            <button class="buy--btn" id="aboutOpen">ABOUT</button>
+            <div id="aboutdiv"><p>@Html.DisplayFor(model => model.About)</p></div>
+        </div>
+        <script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                $(document).ready(function(){
+                $('#aboutOpen').click(function () {
+                    $('#aboutdiv').slideToggle();
+                });
+                });
+        </script>
+        </script>
+    </section>
 
-        <dt class="col-sm-2 ">
-            @Html.DisplayNameFor(model => model.Dishes)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var dish in Model.Dishes)
-            {
-                <label class="card col-3">@dish.Name</label><br>
-            }
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.About)
-        </dd>
+    <footer>
+        <p>Design from <a href="https://dribbble.com/shots/5216438-Daily-UI-012">dribbble shot</a> of <a href="https://dribbble.com/rodrigorramos">Rodrigo Ramos</a></p>
+    </footer>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.About)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.About)
+    </dd>
     </dl>
 
-    <iframe width="300"
-            height="220"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Name),@(Model.Address.City)+@(Model.Address.Street)'
-    </iframe>
-</div>
-<div>
-    @if (this.User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
-    }
-    <a asp-action="Index">Back to List</a>
+
+
+    <div>
+        @if (this.User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+        }
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

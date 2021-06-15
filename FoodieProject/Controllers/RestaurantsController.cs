@@ -105,7 +105,7 @@ namespace FoodieProject.Controllers
             restaurant.Tags = new List<Tag>();
             restaurant.Tags.AddRange(tags);
 
-            if (false)
+            if (ModelState.IsValid)
             {
                
 
