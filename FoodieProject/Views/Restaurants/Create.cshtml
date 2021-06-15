@@ -88,53 +88,68 @@
 
             <label asp-for="Tags" class="control-label"></label>
 
-            <div class="form-group row" style="width:150%">
-                <br />
-                @foreach (var tag in ViewBag.Tags)
-                {
-                    <div class="col-4">
-                        <input type="checkbox" name="Tags" value="@tag.Id">
-                        <label>@tag.Name</label><br>
-                    </div>
-                }
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-
-            <script>
-                if (@ViewData["serverError"])
-                {
+            @if (ViewData["serverError"] == null)
+            {
+                <div class="form-group row" style="width:150%">
+                    <br />
+                    @foreach (var tag in ViewBag.Tags)
+                    {
+                        <div class="col-4">
+                            <input type="checkbox" name="Tags" value="@tag.Id">
+                            <label>@tag.Name</label><br>
+                        </div>
+                    }
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+            }
+                <script>
+                if (@ViewData["serverError"]) {
                     prices = document.getElementsByName("AveragePrice");
                     var num = @ViewData["AveragePrice"];
                     prices[3 - num].checked = true;
-
                     stars = document.getElementsByName("Rate");
                     var num = @ViewData["Rate"];
                     stars[5 - num].checked = true;
 
                     // Care later!!! keep tags after server error on create
-                    //tags = document.getElementsByName("Tags");
+                    tags = document.getElementsByName("Tags");
 
-                    //var restTags = 
+                    //var restTags =
 
                     //for (var tag in tags)
                     //{
                     //    if (tag in restTags) { tag.checked = true; }
 
                     //}
+
+                }
+                </script>
+
+                @if (ViewData["serverError"] != null)
+                {
+                    <div class="form-group row" style="width:150%">
+                        <br />
+                        @foreach (var tag in ViewBag.Tags)
+                        {
+                            <div class="col-4">
+                                <input type="checkbox" name="Tags" value="@tag.Id" checked="@ViewBag.restTags.Contains(tag)">
+                                <label>@tag.Name</label><br>
+                            </div>
+                        }
+                        <span asp-validation-for="Tags" class="text-danger"></span>
+                    </div>
                 }
 
-            </script>
 
-
-            <!-- <div class="from-group">
-        <label asp-for="Tags"  class="control-label"></label>
-        <select asp-for="Tags" class="form-group" asp-items="ViewBag.Tags" ></select>
-    </div>-->
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <!-- <div class="from-group">
+            <label asp-for="Tags"  class="control-label"></label>
+            <select asp-for="Tags" class="form-group" asp-items="ViewBag.Tags" ></select>
+        </div>-->
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
     </div>
 </div>
 

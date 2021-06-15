@@ -108,8 +108,6 @@ namespace FoodieProject.Controllers
             if (ModelState.IsValid)
             {
                
-
-
                 /*OLD- TAGS:
                  var restTagsList = new List<Tag>();
                  foreach(var tagcare in tagToCare)
@@ -129,6 +127,7 @@ namespace FoodieProject.Controllers
             ViewData["Tags"] = _context.Tag.ToList();
             ViewData["Rate"] = restaurant.Rate;
             ViewData["AveragePrice"] = restaurant.AveragePrice;
+            //ViewData["restTags"] = restaurant.Tags.ToArray().ToString();
             ViewData["restTags"] = restaurant.Tags;
             ViewData["serverError"] = "true";
            
