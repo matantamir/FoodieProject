@@ -81,15 +81,16 @@
                     <li>@dish.Name - <i>@dish.Price NIS</i></li>
                 }
             </ul>
-            @if(@Model.About != null) { 
-            <button id="aboutbtn" class="btn btn-primary btn-sm">ABOUT</button>
-            <br />
-            <br />
-            <div id="abouttext" class="card" style="display:none; max-width:500px;">
-                <div class="card-body">
-                    @Model.About
+            @if (@Model.About != null)
+            {
+                <button id="aboutbtn" class="btn btn-primary btn-sm">ABOUT</button>
+                <br />
+                <br />
+                <div id="abouttext" class="card" style="display:none; max-width:500px;">
+                    <div class="card-body">
+                        @Model.About
+                    </div>
                 </div>
-            </div>
             }
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
@@ -100,12 +101,13 @@
                 });
             </script>
         </div>
+        <div>
+            @if (this.User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+            }
+            <a asp-action="Index">Back to List</a>
+        </div>
     </section>
 </div>
-<div>
-    @if (this.User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
-    }
-    <a asp-action="Index">Back to List</a>
-</div>
+
