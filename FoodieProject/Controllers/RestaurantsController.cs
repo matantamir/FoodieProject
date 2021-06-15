@@ -34,7 +34,8 @@ namespace FoodieProject.Controllers
             ViewData["picPath"] = "\\Pictures\\Rest\\";
 
             var foodieProjectContext = _context.Restaurant.Include(r => r.Address);
-       
+            ViewData["Tags"] = _context.Tag.ToList();
+
             return View(await foodieProjectContext.ToListAsync());
         }
 
@@ -42,7 +43,7 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> AveragePrice()
         {
 
-            var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => d.Restaurant.Name).Select(a => new List<string> {a.Key.ToString(), a.Average(x => x.Price).ToString() } );
+            var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => d.Restaurant.Name).Select(a => new List<string> { a.Key.ToString(), a.Average(x => x.Price).ToString() });
             //var restListObj = _context.Restaurant.ToList();
             //ViewData["RestList"] = restListObj;
 
@@ -107,7 +108,7 @@ namespace FoodieProject.Controllers
 
             if (ModelState.IsValid)
             {
-               
+
                 /*OLD- TAGS:
                  var restTagsList = new List<Tag>();
                  foreach(var tagcare in tagToCare)
@@ -130,7 +131,7 @@ namespace FoodieProject.Controllers
             //ViewData["restTags"] = restaurant.Tags.ToArray().ToString();
             ViewData["restTags"] = restaurant.Tags;
             ViewData["serverError"] = "true";
-           
+
             return View(restaurant);
         }
 
@@ -286,6 +287,61 @@ namespace FoodieProject.Controllers
         {
             return _context.Restaurant.Any(e => e.Id == id);
         }
-    }
 
+        public async Task<IActionResult> Search(string qAddr, string qRest, string qRate, int[] qTags)
+        {
+            {
+                ViewData["picPath"] = "\\Pictures\\Rest\\";
+                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != null);
+
+                if (qAddr != null)
+                {
+                    results = results.Where(r => r.Address.City.Contains(qAddr) || r.Address.Street.Contains(qAddr));
+                }
+
+                if (qRest != null)
+                {
+                    results = results.Where(r => r.Name.Contains(qRest)).Include(t => t.Tags);
+                }
+
+
+                if (qTags != null)
+                {
+                    foreach (var tag in qTags)
+                        {
+                        var tagObj = _context.Tag.Where(t => t.Id == tag).First();
+                        results = results.Where(r => r.Tags.Contains(tagObj));
+                        }
+                    
+                }
+
+                var resRest = results.Select(z => new
+                {
+                    restId = z.Id,
+                    restRate = z.Rate,
+                    restCity = z.Address.City,
+                    restStreet = z.Address.Street,
+                    restAddrNum = z.Address.Number,
+                    restPicPath = z.PicturePath,
+                    restName = z.Name
+                });
+
+                //if (qDish != null)
+                //{
+                //    results = results.Where(d => d.Dishes.ForEach))
+                //}
+
+
+                //if (!RestaurantExists(restaurant.Id))
+                //{
+                //    return NotFound();
+                //}
+
+
+                return Json(await resRest.ToListAsync());
+
+            }
+
+        }
+    }
 }

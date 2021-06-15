@@ -12,9 +12,41 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-    <div class="container">
-        <div class="row">
 
+<form asp-action="Search" id="SearchComplexAjaxForm" class="float-md-right">
+    Restaurant Filter <input name="qRest" id="qRest" placeholder="Ender address to search" />
+    <br>
+    Address Filter <input name="qAddr" id="qAddr" placeholder="Ender address to search" />
+    <br />
+    Tags
+    <div class="form-group row" style="width:150%">
+        <br />
+        @foreach (var tag in ViewBag.Tags)
+        {
+            <div class="col-2">
+                <input type="checkbox" name="qTags" value="@tag.Id">
+                <label>@tag.Name</label><br>
+            </div>
+        }
+    </div>
+    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row" id="toClean">
+        
             @foreach (var item in Model)
             {
 
@@ -51,32 +83,47 @@
                         </div>
                     </div>
                 </div>
-                <!--  <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address.Street) @Html.DisplayFor(modelItem => item.Address.Number), @Html.DisplayFor(modelItem => item.Address.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AveragePrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PicturePath)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.About)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr> -->
             }
 
+    </div>
+</div>
+
+@section Scripts 
+{
+    <div hidden type="text/html" id="hidden-template">
+        <div class="col-3">
+            <div class="card h-100">
+                <img class="card-img-top" src="@ViewData["picPath"]{restPicPath}" style="max-width: 450px; max-height: 300px" />
+                <div class="card-body">
+                    <h5 class="card-title">{restName}</h5>
+                    <p class="card-text"> {restStreet} {restAddrNum}, {restCity}</p>
+                    <div class="staticRate">
+                        <input type="radio" id="star5" name="Rate {restId}" value="5" disabled />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="Rate {restId}" value="4" disabled />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="Rate {restId}" value="3" disabled />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="Rate {restId}" value="2" disabled />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="Rate {restId}" value="1" disabled />
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                    <script>
+                        var rateSet = "Rate " + {restId};
+                        stars = document.getElementsByName(rateSet);
+                        var num = {restRate};
+                        stars[5 - num].checked = true;
+                    </script>
+
+                    <a href="/Restaurants/details/{restId}" class="btn btn-primary">Go Resturant</a>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <a href="/Restaurants/delete/{restId}" class="btn ">Delete</a>
+                    }
+
+                </div>
+            </div>
         </div>
     </div>
+}
