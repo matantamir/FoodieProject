@@ -150,6 +150,56 @@
 </div>
 
 
+<script>
+    function initialize() {
+        var invisiblePOI = [
+            {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }
+        ];
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 32.082796, lng: 34.793785 },
+            zoom: 10,
+            styles: invisiblePOI
+        });
+        let restaurantId = [];
+        let placeId = [];
+        let restaurantName = [];
+        @foreach (var item in Model)
+        {
+            @:restaurantId.push("@item.Id");
+            @:placeId.push("@item.Address.PlaceId")
+            @:restaurantName.push("@item.Name");
+        }
+        var service = new google.maps.places.PlacesService(map);
+        for (let i = 0; i < restaurantId.length; i++) {
+            service.getDetails({
+                placeId: placeId[i]
+            }, function (result, status) {
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        place: {
+                            placeId: placeId[i],
+                            location: result.geometry.location
+                        },
+                        url: "Restaurants\\Details\\" + restaurantId[i],
+                        label: {
+                            text: restaurantName[i],
+                            color: "#C70E20",
+                            fontWeight: "bold"}
+                    });
+                    marker.addListener('click', function () {
+                        window.location.href = this.url;
+                    });
+            });
+        }
+    }
+
+</script>
 <br>
 <div class="container">
     <div class="row" id="toClean">
@@ -181,7 +231,7 @@
                     stars = document.getElementsByName("Rate @item.Id");
                     var num = @item.Rate;
                             stars[5 - num].checked = true;
-                            </script>
+</script>
                             @if (this.User.IsInRole("Admin"))
                             {
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
@@ -199,8 +249,9 @@
     </div>
 
     <div id="hiddenError22" style="color:red;display:none;"> <h1>No results found</h1></div>
-
+    <div id="map" style="width:100%;height:600px"></div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
 
 @section Scripts
 {
