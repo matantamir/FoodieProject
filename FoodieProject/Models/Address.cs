@@ -20,11 +20,8 @@ namespace FoodieProject.Models
         [Required, Display(Name = "Number")]
         public int Number { get; set; }
 
-        [Display(Name = "Map Latitude")]
-        public int MapLatitude { get; set; }
-
-        [Display(Name = "Map Longitude")]
-        public int MapLongitude { get; set; }
+        [Display(Name = "Place Id")]
+        public String PlaceId { get; set; }
 
         public Restaurant Restaurant { get; set; } // one to one (one Address to one Restaurant)
     }

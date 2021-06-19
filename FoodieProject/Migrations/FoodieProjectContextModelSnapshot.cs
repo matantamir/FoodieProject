@@ -29,14 +29,11 @@ namespace FoodieProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MapLatitude")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MapLongitude")
-                        .HasColumnType("int");
-
                     b.Property<int>("Number")
                         .HasColumnType("int");
+
+                    b.Property<string>("PlaceId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()

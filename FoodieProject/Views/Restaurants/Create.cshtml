@@ -8,10 +8,38 @@
 
 <h4>Restaurant</h4>
 <hr />
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&libraries=places"></script>
+<script>
+    function initialize() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: Israel,
+            zoom: 15,
+        });
+        const input = document.getElementById("Name");
+        const options = {
+            componentRestrictions: { country: "il" }, // Restrict search to israel only.
+            fields: ["place_id", "name", "formatted_address", "price_level", "rating"], // the place search will return this fields as the .getDetails function api.
+            origin: map.getCenter(),
+            strictBounds: false, // Does not strict the bounds of the search, false is by default but mentioned to make sure.
+            types: ["establishment"], // Restricts search to only businesses.
+        };
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
+        
+    }
+</script>
+
+<div id="map" style="width:400px;height:400px;"></div>
 <div class="row">
     <div class="col-md-4">
-        <!--enctype="multipart/form-data" -> in order to get the file contetn from user-->
         <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" placeholder="Enter restaurant name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </form>
+        <!--enctype="multipart/form-data" -> in order to get the file contetn from user-->
+        <!--<form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -137,17 +165,17 @@
                     // Care later!!! keep tags after server error on create
                     tags = document.getElementsByName("Tags");
                 }
-            </script>
+</script>-->
 
-            <!-- <div class="from-group">
-        <label asp-for="Tags"  class="control-label"></label>
-        <select asp-for="Tags" class="form-group" asp-items="ViewBag.Tags" ></select>
-    </div>-->
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<!-- <div class="from-group">
+    <label asp-for="Tags"  class="control-label"></label>
+    <select asp-for="Tags" class="form-group" asp-items="ViewBag.Tags" ></select>
+</div>-->
+<!--<br />
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>-->
     </div>
 </div>
 
