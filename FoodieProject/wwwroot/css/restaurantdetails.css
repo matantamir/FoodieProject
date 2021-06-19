@@ -92,6 +92,9 @@ img {
     border-radius: 0 0 6px 6px;
     background-color: #fff;
 }
+#map {
+    height: 400;
+}
 
 /* ----- Informations Section ----- */
 .product__info {
