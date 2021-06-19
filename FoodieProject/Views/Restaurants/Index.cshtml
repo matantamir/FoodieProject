@@ -13,11 +13,27 @@
     </p>
 }
 
+
 <div class="pos-f-t">
+
+    <nav class="navbar navbar-light bg-light">
+
+        <button id="advancedSearch" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="float">
+            <div class="input-group rounded">
+                <input name="qBasicRest" id="qBasicRest" type="search" class="form-control rounded" placeholder="Search restaurant by name" aria-label="Search"
+                       aria-describedby="search-addon" size = "24"/>
+
+            </div>
+
+        </div>
+    </nav>
     <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-light p-4" >
-            <h4 class="text-black-50">חיפוש מתקדם</h4>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
+        <div class="bg-light p-4">
+            <h4 class="text-black-50">Advanced Search</h4>
+       
             <form asp-action="Search" id="SearchComplexAjaxForm" class="float">
                 <div class="container">
                     <div class="row">
@@ -33,7 +49,7 @@
                         </select>
                     </div>
                     <div class="row">
-                        <input name="qAddr" id="qAddr" placeholder="Address Search" class="basic-search col-2" />
+                        <input name="qAddr" id="qAddr" placeholder="Address Search" class="basic-search col-2">
                         <div class="col-1"></div>
                         <select class="form-select form-select-sm row col-2" style="margin-top: 1rem;" name="qPrice" id="qPrice">
                             <option value="0" selected disabled hidden>Restaurant Price</option>
@@ -62,68 +78,55 @@
             </form>
         </div>
     </div>
-    <nav class="navbar navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div  class="float">
-            <div class="input-group rounded">
-                <input name="qBasicRest" id="qBasicRest" type="search" class="form-control rounded" placeholder="חפש מסעדה לפי שם" aria-label="Search"
-                       aria-describedby="search-addon" />
-             
-            </div>
-
-        </div>
-    </nav>
 </div>
 
 
 <br>
 <div class="container">
     <div class="row" id="toClean">
-        
-            @foreach (var item in Model)
-            {
 
-                <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
-                    <div class="card h-100">
-                        <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath style="max-width: 450px; max-height: 300px;">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Name</h5>
-                            <p class="card-text"> @item.Address.Street @item.Address.Number, @item.Address.City</p>
-                            <div class="staticRate">
-                                <input type="radio" id="star5" name="Rate @item.Id" value="5" disabled />
-                                <label for="star5" title="text">5 stars</label>
-                                <input type="radio" id="star4" name="Rate @item.Id" value="4" disabled />
-                                <label for="star4" title="text">4 stars</label>
-                                <input type="radio" id="star3" name="Rate @item.Id" value="3" disabled />
-                                <label for="star3" title="text">3 stars</label>
-                                <input type="radio" id="star2" name="Rate @item.Id" value="2" disabled />
-                                <label for="star2" title="text">2 stars</label>
-                                <input type="radio" id="star1" name="Rate @item.Id" value="1" disabled />
-                                <label for="star1" title="text">1 star</label>
-                            </div>
-                            <script>
+        @foreach (var item in Model)
+        {
+
+            <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+                <div class="card h-100">
+                    <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath style="max-width: 450px; max-height: 300px;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text"> @item.Address.Street @item.Address.Number, @item.Address.City</p>
+                        <div class="staticRate">
+                            <input type="radio" id="star5" name="Rate @item.Id" value="5" disabled />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="Rate @item.Id" value="4" disabled />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="Rate @item.Id" value="3" disabled />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="Rate @item.Id" value="2" disabled />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="Rate @item.Id" value="1" disabled />
+                            <label for="star1" title="text">1 star</label>
+                        </div>
+                        <script>
                     stars = document.getElementsByName("Rate @item.Id");
                     var num = @item.Rate;
                             stars[5 - num].checked = true;
-                            </script>
+                        </script>
 
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Go Resturant</a>
-                            @if (this.User.IsInRole("Admin"))
-                            {
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
-                            }
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Go Resturant</a>
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
+                        }
 
-                        </div>
                     </div>
                 </div>
-            }
+            </div>
+        }
 
     </div>
 </div>
 
-@section Scripts 
+@section Scripts
 {
     <div hidden type="text/html" id="hidden-template">
         <div class="col-3">
@@ -145,9 +148,9 @@
                         <label for="star1" title="text">1 star</label>
                     </div>
                     <script>
-                        var rateSet = "Rate " + {restId};
+                        var rateSet = "Rate " + { restId };
                         stars = document.getElementsByName(rateSet);
-                        var num = {restRate};
+                        var num = { restRate };
                         stars[5 - num].checked = true;
                     </script>
 

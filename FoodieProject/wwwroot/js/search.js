@@ -134,3 +134,12 @@ $(function () {
 
     });
 });
+
+
+$(function () {
+    $('#advancedSearch').click(function () {
+
+        $('#qBasicRest').toggle()  
+    });
+});
+
