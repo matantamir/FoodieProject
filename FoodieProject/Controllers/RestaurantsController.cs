@@ -90,7 +90,7 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(
             [Bind("Id,Name,Phone,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
-            [Bind("Id,City,Street,Number")] Address address, int[] Tags,
+            [Bind("Id,City,Street,Number,PlaceId")] Address address, int[] Tags,
             //OLD-TAGS-[Bind("tagToCare")] List<int> tagToCare,
             // Get also a picture from user
             IFormFile myFile
