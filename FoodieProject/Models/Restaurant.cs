@@ -18,7 +18,7 @@ namespace FoodieProject.Models
         [Display(Name = "Restaurant Name")]
         public string Name { get; set; }
 
-        [DataType(DataType.PhoneNumber), RegularExpression("^[0-9]{2,3}-[0-9]{7}", ErrorMessage = "Phone number must match the form : 050-1234567 or 03-1234567"), Display(Name = "Restaurant Phone")]
+        [DataType(DataType.PhoneNumber), RegularExpression("[0-9-]{5,20}", ErrorMessage = "Phone number must match the form : 050-1234567 or 03-1234567"), Display(Name = "Restaurant Phone")]
         public string Phone { get; set; }
 
         public int AddressId { get; set; } // one to one (one Address to one Restaurant) - this declare a foreign key
