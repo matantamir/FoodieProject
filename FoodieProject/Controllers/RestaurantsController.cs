@@ -96,32 +96,44 @@ namespace FoodieProject.Controllers
             IFormFile myFile
             )
         {
-            // If we have got an image
-            if (myFile != null)
+            // Check if There is a restaurnts with such a name
+            var restExists = _context.Restaurant.FirstOrDefault(r => r.Name == restaurant.Name);
+   
+
+            if (restExists == null)
             {
-                restaurant.PicturePath = ImageUpload(myFile);
+                // If we have got an image
+                if (myFile != null)
+                {
+                    restaurant.PicturePath = ImageUpload(myFile);
+                }
+
+                var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
+                restaurant.Tags = new List<Tag>();
+                restaurant.Tags.AddRange(tags);
+
+                if (ModelState.IsValid)
+                {
+
+                    /*OLD- TAGS:
+                     var restTagsList = new List<Tag>();
+                     foreach(var tagcare in tagToCare)
+                     {
+                         restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
+                     }
+                     restaurant.Tags = restTagsList;*/
+                    _context.Add(address);
+                    await _context.SaveChangesAsync();
+                    restaurant.AddressId = address.Id;
+                    _context.Add(restaurant);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
-
-            var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
-            restaurant.Tags = new List<Tag>();
-            restaurant.Tags.AddRange(tags);
-
-            if (ModelState.IsValid)
+            else
             {
-
-                /*OLD- TAGS:
-                 var restTagsList = new List<Tag>();
-                 foreach(var tagcare in tagToCare)
-                 {
-                     restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
-                 }
-                 restaurant.Tags = restTagsList;*/
-                _context.Add(address);
-                await _context.SaveChangesAsync();
-                restaurant.AddressId = address.Id;
-                _context.Add(restaurant);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["ErrorRestExists"] = "Restaurant name already exists, Choose a different restaurant name";
             }
 
             //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
@@ -129,6 +141,10 @@ namespace FoodieProject.Controllers
             ViewData["Rate"] = restaurant.Rate;
             ViewData["AveragePrice"] = restaurant.AveragePrice;
             //ViewData["restTags"] = restaurant.Tags.ToArray().ToString();
+            
+            var tempTags = _context.Tag.Where(t => Tags.Contains(t.Id));
+            restaurant.Tags = new List<Tag>();
+            restaurant.Tags.AddRange(tempTags);
             ViewData["restTags"] = restaurant.Tags;
             ViewData["serverError"] = "true";
 
@@ -225,8 +241,10 @@ namespace FoodieProject.Controllers
                     rest.Tags.Clear();
                     rest.Tags.AddRange(tags);
 
+                    
                     rest.Name = restaurant.Name;
                     rest.AveragePrice = restaurant.AveragePrice;
+                    rest.Phone = restaurant.Phone;
                     rest.Rate = restaurant.Rate;
                     rest.About = restaurant.About;
 
@@ -288,11 +306,11 @@ namespace FoodieProject.Controllers
             return _context.Restaurant.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Search(string qAddr, string qRest, string qRate, int[] qTags)
+        public async Task<IActionResult> Search(string qAddr, string qRest, int qRate, int qPrice, int[] qTags)
         {
             {
                 ViewData["picPath"] = "\\Pictures\\Rest\\";
-                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != null);
+                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != null && z.Rate > -1);
 
                 if (qAddr != null)
                 {
@@ -305,7 +323,7 @@ namespace FoodieProject.Controllers
                 }
 
 
-                if (qTags != null)
+                if (qTags.Length != 0)
                 {
                     foreach (var tag in qTags)
                         {
@@ -313,6 +331,16 @@ namespace FoodieProject.Controllers
                         results = results.Where(r => r.Tags.Contains(tagObj));
                         }
                     
+                }
+
+                if (qRate != 0)
+                {
+                    results = results.Where(r => r.Rate >= qRate);
+                }
+
+                if (qPrice != 0)
+                {
+                    results = results.Where(r => r.AveragePrice == qPrice);
                 }
 
                 var resRest = results.Select(z => new
