@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<link rel="stylesheet" href="~/css/restaurantIndex.css" />
 <h1>Our Restaurants</h1>
 
 @if (this.User.IsInRole("Admin"))
@@ -117,9 +117,11 @@
         @foreach (var item in Model)
         {
 
-            <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+            <a asp-action="Details" asp-route-id="@item.Id">
                 <div class="card h-100">
-                    <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath style="max-width: 450px; max-height: 300px;">
+                    <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath style="max-width: 400px; max-height: 250px;">
+
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text"> @item.Address.Street @item.Address.Number, @item.Address.City</p>
@@ -141,15 +143,18 @@
                             stars[5 - num].checked = true;
                         </script>
 
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Go Resturant</a>
+                       @* <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Go Resturant</a>*@
                         @if (this.User.IsInRole("Admin"))
                         {
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn ">Edit</a>
                         }
 
                     </div>
+
                 </div>
-            </div>
+            </a>
+        </div>
         }
 
     </div>
