@@ -13,7 +13,13 @@
     </p>
 }
 
-
+<style>
+    body {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH0ViFwdGgBvS0jut4nkKxh_81IP61TGoV5Q&usqp=CAU");
+        background-size: cover;
+    }
+    
+</style>
 <div class="pos-f-t">
 
     <nav class="navbar navbar-light bg-light">
@@ -24,8 +30,14 @@
         <div class="float">
             <div class="input-group rounded">
                 <input name="qBasicRest" id="qBasicRest" type="search" class="form-control rounded" placeholder="Search restaurant by name" aria-label="Search"
-                       aria-describedby="search-addon" size = "24"/>
+                       aria-describedby="search-addon" size="24" />
+                <span class="input-group-text border-0" id="search-addon">
 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+
+                </span>
             </div>
 
         </div>
@@ -40,14 +52,23 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">$</span>
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
+                                    </svg>
+                                </span>
                             </div>
-                            <input type="text" class="form-control col-3" name="qRest" id="qRest" placeholder="Restaurant Name" aria-label="Restaurant Name" aria-describedby="basic-addon1">
+                            <input type="search" class="form-control col-3" name="qRest" id="qRest" placeholder="Restaurant Name" aria-label="Restaurant Name" aria-describedby="basic-addon1">
 
                             <div class="col-1"></div>
 
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="qRate">Rate</label>
+                                <label class="input-group-text" for="qPrice">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                    </svg>
+                                </label>
                             </div>
                             <select class="custom-select col-3" name="qRate" id="qRate">
                                 <option value="0" selected hidden disabled>Choose...</option>
@@ -64,14 +85,24 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">$</span>
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </span>
                             </div>
-                            <input type="text" class="form-control col-3" name="qAddr" id="qAddr" placeholder="Address Search" aria-label="Address Search" aria-describedby="basic-addon1">
+                            <input type="search" class="form-control col-3" name="qAddr" id="qAddr" placeholder="Address Search" aria-label="Address Search" aria-describedby="basic-addon1">
 
                             <div class="col-1"></div>
 
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="qPrice">Price</label>
+                                <label class="input-group-text" for="qPrice">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                                    </svg>
+                                </label>
                             </div>
                             <select class="custom-select col-3" name="qPrice" id="qPrice">
                                 <option value="0" selected disabled hidden>Choose..</option>
@@ -83,28 +114,37 @@
 
                     </div>
 
-                    <div class="input-group mb-3">
-                        <div class="form-group row" style="width:150%">
+
+                    <div class="row">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="qPrice">Tags</label>
+                                <label class="input-group-text" for="qTags">Tags</label>
+                                <label class="input-group-text" for="qTags">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+                                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                    </svg>
+                                </label>
                             </div>
-                            <br />
-                            @foreach (var tag in ViewBag.Tags)
-                            {
-                                <div class="col-2">
-                                    <input type="checkbox" name="qTags" value="@tag.Id">
-                                    <label>@tag.Name</label><br>
-                                </div>
-                            }
                         </div>
                     </div>
 
+                    <div class="form-group row" style="width:100%">
+                        @foreach (var tag in ViewBag.Tags)
+                        {
+                            <div class="col-2">
+                                <input type="checkbox" name="qTags" value="@tag.Id">
+                                <label>@tag.Name</label><br>
+                            </div>
+                        }
+
+                    </div>
                 </div>
 
-                    <br />
+                <br />
 
-                    <input type="submit" value="Search" class="btn btn-primary" />
-</form>
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <input type="reset" value="Clear" class="btn btn-outline-secondary" style="float: right;" />
+            </form>
         </div>
     </div>
 </div>
@@ -153,6 +193,8 @@
         }
 
     </div>
+
+    <div id="hiddenError22" style="color:red;display:none;"> <h1>No results found</h1></div>
 </div>
 
 @section Scripts
@@ -176,18 +218,13 @@
                         <input type="radio" id="star1" name="Rate {restId}" value="1" disabled />
                         <label for="star1" title="text">1 star</label>
                     </div>
-                    <script>
-                        var rateSet = "Rate " + {restId};
-                        stars = document.getElementsByName(rateSet);
-                        var num = {restRate};
-                        stars[5 - num].checked = true;
-                    </script>
-
+                 
                     <a href="/Restaurants/details/{restId}" class="btn btn-primary">Go Resturant</a>
                     @if (this.User.IsInRole("Admin"))
                     {
                         <a href="/Restaurants/delete/{restId}" class="btn ">Delete</a>
                     }
+
 
                 </div>
             </div>
