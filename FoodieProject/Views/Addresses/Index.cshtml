@@ -29,10 +29,7 @@
                 @Html.DisplayNameFor(model => model.Restaurant.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MapLatitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MapLongitude)
+                @Html.DisplayNameFor(model => model.PlaceId)
             </th>
             <th></th>
         </tr>
@@ -53,10 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Restaurant.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MapLatitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MapLongitude)
+                @Html.DisplayFor(modelItem => item.PlaceId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -84,10 +78,7 @@
             {restName}
         </td>
         <td>
-            {lat}
-        </td>
-        <td>
-            {lon}
+            {placeId}
         </td>
 
         <td>
