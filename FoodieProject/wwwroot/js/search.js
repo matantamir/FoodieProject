@@ -95,21 +95,27 @@ $(function () {
                 });
 
                 $('#toClean').append(temp);
-
                 var rateSet = "Rate " + val['restId'];
                 stars = document.getElementsByName(rateSet);
                 var num = val['restRate'];
                 stars[5 - num].checked = true;
             });
 
-
+            if (data.length == 0) {
+                $('#hiddenError22').show();
+            }
+            else {
+                $('#hiddenError22').hide();
+            }
+ 
         });
 
     });
 });
 
 $(function () {
-    $('#qBasicRest').keyup(function (e) {
+
+    $('#qBasicRest').on("input",function (e) {
         e.preventDefault();
         
         var qRest = $('#qBasicRest').val();
@@ -121,7 +127,7 @@ $(function () {
         }).done(function (data) {
 
             $('#toClean').html('');
-
+          
             var template = $('#hidden-template').html();
 
             $.each(data, function (i, val) {
@@ -132,8 +138,18 @@ $(function () {
                 });
 
                 $('#toClean').append(temp);
+                var rateSet = "Rate " + val['restId'];
+                stars = document.getElementsByName(rateSet);
+                var num = val['restRate'];
+                stars[5 - num].checked = true;
             });
 
+            if (data.length == 0) {
+                $('#hiddenError22').show();
+            }
+            else {
+                $('#hiddenError22').hide();
+            }
 
         });
 
