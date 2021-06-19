@@ -21,41 +21,41 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="Index">Search</a>
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Index">Search</a>
                         </li>
                         @if (this.User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                             </li>
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
                         </li>
 
                         @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-dark transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark transition_navbar_login" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
