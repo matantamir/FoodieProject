@@ -18,7 +18,7 @@
 
     <nav class="navbar navbar-light bg-light">
 
-        <button id="advancedSearch" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button title="Advanced search" id="advancedSearch" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="float">
@@ -37,45 +37,74 @@
             <form asp-action="Search" id="SearchComplexAjaxForm" class="float">
                 <div class="container">
                     <div class="row">
-                        <input name="qRest" class="basic-search col-2" id="qRest" placeholder="Restaurant Search" />
-                        <div class="col-1"></div>
-                        <select class="form-select form-select-sm col-2" name="qRate" id="qRate">
-                            <option value="0" selected hidden disabled>Restaurant Rate</option>
-                            <option value="1">Poor +</option>
-                            <option value="2">Ok +</option>
-                            <option value="3">Nice +</option>
-                            <option value="4">Good +</option>
-                            <option value="5">Excelent +</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <input name="qAddr" id="qAddr" placeholder="Address Search" class="basic-search col-2">
-                        <div class="col-1"></div>
-                        <select class="form-select form-select-sm row col-2" style="margin-top: 1rem;" name="qPrice" id="qPrice">
-                            <option value="0" selected disabled hidden>Restaurant Price</option>
-                            <option value="1">Cheap($)</option>
-                            <option value="2">Moderate($$)</option>
-                            <option value="3">Expensive($$$)</option>
-                        </select>
-                        <br />
-                    </div>
-                </div>
-                <div class="form-group row" style="width:150%">
-                    Tags
-                    <br />
-                    @foreach (var tag in ViewBag.Tags)
-                    {
-                        <div class="col-2">
-                            <input type="checkbox" name="qTags" value="@tag.Id">
-                            <label>@tag.Name</label><br>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">$</span>
+                            </div>
+                            <input type="text" class="form-control col-3" name="qRest" id="qRest" placeholder="Restaurant Name" aria-label="Restaurant Name" aria-describedby="basic-addon1">
+
+                            <div class="col-1"></div>
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="qRate">Rate</label>
+                            </div>
+                            <select class="custom-select col-3" name="qRate" id="qRate">
+                                <option value="0" selected hidden disabled>Choose...</option>
+                                <option value="1">Poor +</option>
+                                <option value="2">Ok +</option>
+                                <option value="3">Nice +</option>
+                                <option value="4">Good +</option>
+                                <option value="5">Excelent +</option>
+                            </select>
                         </div>
-                    }
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">$</span>
+                            </div>
+                            <input type="text" class="form-control col-3" name="qAddr" id="qAddr" placeholder="Address Search" aria-label="Address Search" aria-describedby="basic-addon1">
+
+                            <div class="col-1"></div>
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="qPrice">Price</label>
+                            </div>
+                            <select class="custom-select col-3" name="qPrice" id="qPrice">
+                                <option value="0" selected disabled hidden>Choose..</option>
+                                <option value="1">Cheap</option>
+                                <option value="2">Moderate</option>
+                                <option value="3">Expensive</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="form-group row" style="width:150%">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="qPrice">Tags</label>
+                            </div>
+                            <br />
+                            @foreach (var tag in ViewBag.Tags)
+                            {
+                                <div class="col-2">
+                                    <input type="checkbox" name="qTags" value="@tag.Id">
+                                    <label>@tag.Name</label><br>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
                 </div>
 
-                <br />
+                    <br />
 
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </form>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
         </div>
     </div>
 </div>
@@ -148,9 +177,9 @@
                         <label for="star1" title="text">1 star</label>
                     </div>
                     <script>
-                        var rateSet = "Rate " + { restId };
+                        var rateSet = "Rate " + {restId};
                         stars = document.getElementsByName(rateSet);
-                        var num = { restRate };
+                        var num = {restRate};
                         stars[5 - num].checked = true;
                     </script>
 

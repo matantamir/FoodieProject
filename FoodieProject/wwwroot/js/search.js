@@ -95,6 +95,11 @@ $(function () {
                 });
 
                 $('#toClean').append(temp);
+
+                var rateSet = "Rate " + val['restId'];
+                stars = document.getElementsByName(rateSet);
+                var num = val['restRate'];
+                stars[5 - num].checked = true;
             });
 
 
