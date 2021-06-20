@@ -251,10 +251,10 @@
                                 </script>
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    @:<script>var cards = document.getElementsByClassName("card-hover");
-                                    @: for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin"; }</script>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn ">Edit</a>
+                                    <script>var cards = document.getElementsByClassName("card-hover");
+                                    for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin"; }</script>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Edit</a>
                                 }
 
                             </div>
