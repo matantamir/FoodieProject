@@ -46,9 +46,11 @@
 
     for (var i = 1; i < table.rows.length; i++)
     {
-        elements.push(table.rows[i].cells[1]);
+        elements.push(table.rows[i].cells[1].innerText);
     }
 
     console.log(elements);
+
+    import { chart as chart1 } with { elements as data} from "@@d3/histogram"
 
 </script>

@@ -15,7 +15,7 @@
 
 <style>
     body {
-        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH0ViFwdGgBvS0jut4nkKxh_81IP61TGoV5Q&usqp=CAU");
+        background-image: url("../Pictures/wooden-board-empty-table-top-blurred-background.jpg");
         background-size: cover;
     }
 </style>
@@ -251,8 +251,8 @@
                                 </script>
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn ">Delete</a>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn ">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-light">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</a>
                                 }
 
                             </div>
