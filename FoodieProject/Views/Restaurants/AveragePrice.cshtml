@@ -23,14 +23,8 @@
         @foreach (var item in ViewBag.AVGmodel)
         {
             <tr>
-                <td>
-                     
-                     @item[0]
-                </td>
-                <td>
-                    @item[1]
-                </td>
-
+                <td>@item[0]</td>
+                <td>@item[1]</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item[0]">Details</a>
                 </td>
@@ -39,6 +33,8 @@
     </tbody>
 </table>
 
+<div id="Area" class="align-middle"></div>
+
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
     var elements = [];
@@ -46,9 +42,86 @@
 
     for (var i = 1; i < table.rows.length; i++)
     {
-        elements.push(table.rows[i].cells[1]);
+        var tempVal = { "name": table.rows[i].cells[0].innerHTML, "value": table.rows[i].cells[1].innerHTML };
+        elements.push(tempVal);
     }
 
     console.log(elements);
+
+    // Get maximum and minumum value
+    var min = 999
+    var max = 0
+    for (var i = 0; i < elements.length; i++)
+    {
+        if (elements[i].value > max) { max = elements[i].value; }
+        if (elements[i].value < min) { min = elements[i].value; }
+    }
+
+    // set the dimensions and margins of the graph
+    var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#Area")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    const toCsv = function (table) {
+        // Query all rows
+        const rows = table.querySelectorAll('tr');
+
+        return [].slice.call(rows)
+            .map(function (row) {
+                // Query all cells
+                const cells = row.querySelectorAll('th,td');
+                return [].slice.call(cells)
+                    .map(function (cell) {
+                        return cell.textContent;
+                    })
+                    .join(',');
+            })
+            .join('\n');
+    };
+
+    // Parse the Data
+    d3.csv(elements, function (data) {
+
+        // X axis
+        var x = d3.scaleBand()
+            .range([0, width])
+            .domain(data.map(function (d) { return d.name; }))
+            .padding(0.2);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, 13000])
+            .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        // Bars
+        svg.selectAll("mybar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function (d) { return x(d.name); })
+            .attr("y", function (d) { return y(d.value); })
+            .attr("width", x.bandwidth())
+            .attr("height", function (d) { return height - y(d.value); })
+            .attr("fill", "#69b3a2")
+
+    })
+
 
 </script>
