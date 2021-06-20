@@ -102,10 +102,10 @@ $(function () {
             });
 
             if (data.length == 0) {
-                $('#hiddenError22').show();
+                $('#hiddenError2').show();
             }
             else {
-                $('#hiddenError22').hide();
+                $('#hiddenError2').hide();
             }
  
         });
@@ -145,10 +145,10 @@ $(function () {
             });
 
             if (data.length == 0) {
-                $('#hiddenError22').show();
+                $('#hiddenError2').show();
             }
             else {
-                $('#hiddenError22').hide();
+                $('#hiddenError2').hide();
             }
 
         });

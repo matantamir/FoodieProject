@@ -267,7 +267,7 @@
 
     </div>
 
-    <div id="hiddenError22" class="alert alert-secondary"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+    <div id="hiddenError2" class="alert alert-secondary" style="display: none;"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
 
 </div>
 <div id="map" style="width:100%;height:600px;display:none;"></div>
@@ -302,8 +302,9 @@
                                 <script>
                                     var cards = document.getElementsByClassName("card-hover");
                                     for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin"; }</script>
-                                <a href="/Restaurants/delete/{restId}" class="btn ">Delete</a>
-                                <a href="/Restaurants/edit/{restId}" class="btn ">Edit</a>
+                                <a href="/Restaurants/delete/{restId}" class="btn  btn-danger text-light">Delete</a>
+                                <a href="/Restaurants/edit/{restId}" class="btn btn-light">Edit</a>
+
                             }
 
 

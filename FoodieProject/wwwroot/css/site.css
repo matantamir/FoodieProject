@@ -80,10 +80,9 @@ body {
 }
 
 
-
-/* Start rate styles
+    /* Start rate styles
 -------------------------------------------------- */
-.rate {
+    .rate {
     float: left;
     height: 46px;
     padding: 0 10px;
