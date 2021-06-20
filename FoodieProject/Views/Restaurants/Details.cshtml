@@ -490,7 +490,8 @@ b, strong {
                         prices[3 - num].checked = true;
                 </script>
 
-                <p class="mb-0" style="text-align: right;"> @Model.About</p>
+                @*<span class="mb-0" align="right" style="white-space: pre-line"> @Model.About</span>*@
+                <a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>
             </div><!-- / project-info-box -->
 
             <div class="project-info-box mt-0 mb-0">
