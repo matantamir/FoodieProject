@@ -3,7 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .card-img-top {
     width: 100%;
-    height: 15vw;
+    height: 10vw;
     object-fit: cover;
 }
 a.navbar-brand {
@@ -257,8 +257,8 @@ body {
     }
 
 .transition_navbar_login {
-    background: #92B901;
-    color: #ffffff;
+    background: #530275;
+    color: white;
     font-weight: bold;
     font-size: 15px;
     padding: 10px;
@@ -282,7 +282,7 @@ body {
     }
 
 .transition_navbar_logout {
-    background: #FF3679;
+    background: #530275;
     color: #ffffff;
     font-weight: bold;
     font-size: 15px;

@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #f5f3f0;>
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Restaurants" asp-action="Index"><img src="~/Pictures/FoodieLogo.PNG" width="50" height="50" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,47 +28,44 @@
                         </li>
                         @if (this.User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                        </li>
                         }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
                         </li>
-
-                        @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar_login" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
-                            </li>
-                        }
                     </ul>
 
-                    @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
                     {
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item mr-auto">
-                                <a>You are connected as: </a><b>@Context.User.Identities.FirstOrDefault().Name</b>
-                            </li>
-                        </ul>
-                    }
 
+                        <li class="nav-item mr-auto">
+                            <a>You are connected as: </a><b>@Context.User.Identities.FirstOrDefault().Name</b>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light transition_navbar_login" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                        </li>
+                    }
+                    </ul>
 
                 </div>
             </div>
@@ -87,6 +84,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - FoodieProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a hidden href="https://www.freepik.com/photos/background">Background photo created by tirachard - www.freepik.com</a>
         </div>
     </footer>
 </body>
