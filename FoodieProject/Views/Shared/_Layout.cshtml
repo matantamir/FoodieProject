@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #f5f3f0;">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Restaurants" asp-action="Index"><img src="~/Pictures/FoodieLogo.PNG" width="50" height="50" /></a>
+                <a class="navbar-brand"><img src="~/Pictures/FoodieLogo.PNG" class="logo" width="50"/></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,26 +55,31 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
-                    {
+                        {
 
-                        <li class="nav-item mr-auto">
-                            <div class="nav-link text-dark" style="padding: 10px; margin: 5px;"> You are connected as: <b>@Context.User.Identities.FirstOrDefault().Name</b></div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
-                        </li>
+                            <li class="nav-item mr-auto">
+                                <div class="nav-link text-dark" style="padding: 10px; margin: 5px;"> You are connected as: <b>@Context.User.Identities.FirstOrDefault().Name</b></div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
+                            </li>
 
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-light transition_navbar_login" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
-                        </li>
-                    }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light transition_navbar_login" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                            </li>
+                        }
                     </ul>
 
                 </div>
+
             </div>
+
+            <canvas id="canvas" width="50" height="50"></canvas>
+
+
         </nav>
     </header>
     <div class="container">
@@ -86,10 +91,11 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/search.js"></script>
+    <script src="~/js/clockCanvas.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <footer class="border-top footer text-muted">
         <div class="container text-light text_shadow">
-            &copy; 2021 - FoodieProject 
+            &copy; 2021 - FoodieProject
             <a hidden href="https://www.freepik.com/photos/background">Background photo created by tirachard - www.freepik.com</a>
         </div>
     </footer>
