@@ -293,7 +293,7 @@ namespace FoodieProject.Controllers
                 //}
 
 
-                return Json(await resRest.ToListAsync());
+                return Json(await resDish.ToListAsync());
 
             }
 
