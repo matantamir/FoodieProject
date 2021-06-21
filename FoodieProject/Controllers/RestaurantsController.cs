@@ -311,7 +311,7 @@ namespace FoodieProject.Controllers
         {
             {
                 ViewData["picPath"] = "\\Pictures\\Rest\\";
-                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != null && z.Rate > -1);
+                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != 0 && z.Rate > -1);
 
                 if (qAddr != null)
                 {

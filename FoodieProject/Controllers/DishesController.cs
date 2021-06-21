@@ -34,18 +34,18 @@ namespace FoodieProject.Controllers
             return View(await dishesListWithRest.ToListAsync());
         }
 
-        public async Task<IActionResult> Search(string query)
-        {
-            var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null).Select(z => new
-            { 
-                name = z.Name,
-                description = z.Description,
-                price = z.Price,
-                picturePath = z.PicturePath,
-                restName = z.Restaurant.Name
-            });
-            return Json(await dishSearch.ToListAsync());
-        }
+        //public async Task<IActionResult> Search(string query)
+        //{
+        //    var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null).Select(z => new
+        //    { 
+        //        name = z.Name,
+        //        description = z.Description,
+        //        price = z.Price,
+        //        picturePath = z.PicturePath,
+        //        restName = z.Restaurant.Name
+        //    });
+        //    return Json(await dishSearch.ToListAsync());
+        //}
 
         // GET: Dishes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -248,8 +248,8 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> Search(string qDish, int qDishRest, string qDescription, int qMaxPrice)
         {
             {
-              
-                var results = _context.Dish.Include(r => r.Restaurant).Where(z => z.Name != null && z.Price != null && z.RestaurantId != null && z.Description != null);
+             
+                  var results = _context.Dish.Include(d => d.Restaurant).Where(z => z.Name != null && z.Price != 0 && z.RestaurantId != 0 && z.Description != null);
 
                 if (qDish != null)
                 {
@@ -265,20 +265,18 @@ namespace FoodieProject.Controllers
                     results = results.Where(r => r.RestaurantId == qDishRest);
                 }
 
-
-                if (qMaxPrice != null)
+                if (qMaxPrice != 0)
                 {
                     results = results.Where(r => r.Price <= qMaxPrice);
                 }
 
                 var resDish = results.Select(z => new
                 {
-                    dishId = z.Id,
-                    dishName = z.Name,
-                    dishDescription = z.Description,
-                    dishPrice = z.Price,
-                    dishRestId = z.RestaurantId,
-                    dishRestName = z.Restaurant.Name
+                    name = z.Name,
+                    description = z.Description,
+                    price = z.Price,
+                    picturePath = z.PicturePath,
+                    restName = z.Restaurant.Name
                 });
 
                 //if (qDish != null)

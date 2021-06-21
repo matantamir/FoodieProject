@@ -18,6 +18,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Address.PlaceId" class="control-label"></label>
+                <input asp-for="Address.PlaceId" class="form-control" />
+                <span asp-validation-for="Address.PlaceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
@@ -96,10 +101,10 @@
                 <br />
                 @foreach (var tag in ViewBag.Tags)
                 {
-                <div class="col-4">
-                    <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
-                    <label>@tag.Name</label><br>
-                </div>
+                    <div class="col-4">
+                        <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
+                        <label>@tag.Name</label><br>
+                    </div>
                 }
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
