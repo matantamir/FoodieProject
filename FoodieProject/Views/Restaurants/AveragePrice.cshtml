@@ -33,7 +33,7 @@
     </tbody>
 </table>
 
-<div id="Area" class="text-center"></div>
+<div id="Area" class="text-center" width="400px" heigth="460px"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
@@ -57,18 +57,49 @@
 
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 600 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
 
     // append the svg object to the body of the page
     var svg = d3.select("#Area")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .call(responsivefy)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+    function responsivefy(svg) {
+        // get container + svg aspect ratio
+        var container = d3.select(svg.node().parentNode),
+            width = parseInt(svg.style("width")),
+            height = parseInt(svg.style("height")),
+            aspect = width / height;
+
+        // add viewBox and preserveAspectRatio properties,
+        // and call resize so that svg resizes on inital page load
+        svg.attr("viewBox", "0 0 " + width + " " + height)
+            .attr("preserveAspectRatio", "xMinYMid")
+            .call(resize);
+
+        // to register multiple listeners for same event type,
+        // you need to add namespace, i.e., 'click.foo'
+        // necessary if you call invoke this function for multiple svgs
+        // api docs: https://github.com/mbostock/d3/wiki/Selections#on
+        d3.select(window).on("resize." + container.attr("id"), resize);
+
+        // get width of container and resize svg to fit it
+        function resize() {
+            var targetWidth = parseInt(container.style("width"));
+            if (targetWidth < 700) {
+                svg.attr("width", targetWidth);
+                svg.attr("height", Math.round(targetWidth / aspect));
+            }
+        }
+
+    }
     // Parse the Data
    
     function build(data) {
