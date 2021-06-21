@@ -28,6 +28,9 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> Index()
         {
             var dishesListWithRest = _context.Dish.Include(d => d.Restaurant);
+
+            ViewData["Restaurants"] = _context.Restaurant.ToList();
+
             return View(await dishesListWithRest.ToListAsync());
         }
 
@@ -240,6 +243,60 @@ namespace FoodieProject.Controllers
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> Search(string qDish, int qDishRest, string qDescription, int qMaxPrice)
+        {
+            {
+              
+                var results = _context.Dish.Include(r => r.Restaurant).Where(z => z.Name != null && z.Price != null && z.RestaurantId != null && z.Description != null);
+
+                if (qDish != null)
+                {
+                    results = results.Where(r => r.Name.Contains(qDish));
+                }
+                if (qDescription != null)
+                {
+                    results = results.Where(r => r.Description.Contains(qDescription)) ;
+                }
+
+                if (qDishRest != 0)
+                {
+                    results = results.Where(r => r.RestaurantId == qDishRest);
+                }
+
+
+                if (qMaxPrice != null)
+                {
+                    results = results.Where(r => r.Price <= qMaxPrice);
+                }
+
+                var resDish = results.Select(z => new
+                {
+                    dishId = z.Id,
+                    dishName = z.Name,
+                    dishDescription = z.Description,
+                    dishPrice = z.Price,
+                    dishRestId = z.RestaurantId,
+                    dishRestName = z.Restaurant.Name
+                });
+
+                //if (qDish != null)
+                //{
+                //    results = results.Where(d => d.Dishes.ForEach))
+                //}
+
+
+                //if (!RestaurantExists(restaurant.Id))
+                //{
+                //    return NotFound();
+                //}
+
+
+                return Json(await resRest.ToListAsync());
+
+            }
+
         }
     }
 }
