@@ -23,26 +23,34 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Index">Home</a>
                         </li>
-         
+
+
                         @if (this.User.IsInRole("Admin"))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
                         }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
-                        </li>
+                        @if (this.User.IsInRole("Admin") || this.User.IsInRole("Client"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Articles">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                            </li>
+                        }
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -80,7 +88,7 @@
     <script src="~/js/search.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <footer class="border-top footer text-muted">
-        <div class="container text-light" style="text-shadow: 2px 2px 4px #000000;">
+        <div class="container text-light text_shadow">
             &copy; 2021 - FoodieProject 
             <a hidden href="https://www.freepik.com/photos/background">Background photo created by tirachard - www.freepik.com</a>
         </div>

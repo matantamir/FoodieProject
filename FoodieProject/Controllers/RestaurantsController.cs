@@ -39,7 +39,7 @@ namespace FoodieProject.Controllers
             return View(await foodieProjectContext.ToListAsync());
         }
 
-        // GET: Restaurants
+        // GET: AveragePrice
         public async Task<IActionResult> AveragePrice()
         {
 
@@ -50,6 +50,14 @@ namespace FoodieProject.Controllers
             ViewData["AVGmodel"] = AVGmodel;
             return View();
         }
+        // GET: Articles
+        public async Task<IActionResult> Articles()
+        {
+            return View();
+        }
+        
+
+
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)

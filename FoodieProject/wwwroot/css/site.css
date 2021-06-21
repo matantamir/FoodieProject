@@ -1,8 +1,17 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-h1 {
+.text_shadow {
     color: white;
     text-shadow: 2px 2px 4px #000000;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url(../Fonts/Sansation_Bold.ttf);
+    font-weight: bold;
+}
+
+.new_font {
+    font-family: myFirstFont;
 }
 .card-img-top {
     width: 100%;
@@ -234,7 +243,8 @@ body {
     color: #379e00;
 }
 
-
+/* Transition styles
+-------------------------------------------------- */
 .transition_navbar {
     background: #F8F9FA;
     color: #ffffff;
