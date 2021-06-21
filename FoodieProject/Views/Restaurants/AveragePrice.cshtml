@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<List<string>>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Average Price";
 }
 
 <h1>Average Price of Restaurants</h1>
@@ -33,15 +33,14 @@
     </tbody>
 </table>
 
-<div id="Area" class="align-middle"></div>
+<div id="Area" class="text-center" width="400px" heigth="460px"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
     var elements = [];
     var table = document.getElementById('restAvgTable');
 
-    for (var i = 1; i < table.rows.length; i++)
-    {
+    for (var i = 1; i < table.rows.length; i++) {
         var tempVal = { "name": table.rows[i].cells[0].innerHTML, "value": table.rows[i].cells[1].innerHTML };
         elements.push(tempVal);
     }
@@ -51,45 +50,59 @@
     // Get maximum and minumum value
     var min = 999
     var max = 0
-    for (var i = 0; i < elements.length; i++)
-    {
-        if (elements[i].value > max) { max = elements[i].value; }
-        if (elements[i].value < min) { min = elements[i].value; }
+    for (var i = 0; i < elements.length; i++) {
+        if (parseInt(elements[i].value) > parseInt(max)) { max = parseInt(elements[i].value); }
+        if (parseInt(elements[i].value) < parseInt(min)) { min = parseInt(elements[i].value); }
     }
 
     // set the dimensions and margins of the graph
     var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 600 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
 
     // append the svg object to the body of the page
     var svg = d3.select("#Area")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .call(responsivefy)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    const toCsv = function (table) {
-        // Query all rows
-        const rows = table.querySelectorAll('tr');
+    function responsivefy(svg) {
+        // get container + svg aspect ratio
+        var container = d3.select(svg.node().parentNode),
+            width = parseInt(svg.style("width")),
+            height = parseInt(svg.style("height")),
+            aspect = width / height;
 
-        return [].slice.call(rows)
-            .map(function (row) {
-                // Query all cells
-                const cells = row.querySelectorAll('th,td');
-                return [].slice.call(cells)
-                    .map(function (cell) {
-                        return cell.textContent;
-                    })
-                    .join(',');
-            })
-            .join('\n');
-    };
+        // add viewBox and preserveAspectRatio properties,
+        // and call resize so that svg resizes on inital page load
+        svg.attr("viewBox", "0 0 " + width + " " + height)
+            .attr("preserveAspectRatio", "xMinYMid")
+            .call(resize);
 
+        // to register multiple listeners for same event type,
+        // you need to add namespace, i.e., 'click.foo'
+        // necessary if you call invoke this function for multiple svgs
+        // api docs: https://github.com/mbostock/d3/wiki/Selections#on
+        d3.select(window).on("resize." + container.attr("id"), resize);
+
+        // get width of container and resize svg to fit it
+        function resize() {
+            var targetWidth = parseInt(container.style("width"));
+            if (targetWidth < 700) {
+                svg.attr("width", targetWidth);
+                svg.attr("height", Math.round(targetWidth / aspect));
+            }
+        }
+
+    }
     // Parse the Data
-    d3.csv(elements, function (data) {
+   
+    function build(data) {
 
         // X axis
         var x = d3.scaleBand()
@@ -105,7 +118,7 @@
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([0, 13000])
+            .domain([0, max*1.2])
             .range([height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y));
@@ -121,7 +134,7 @@
             .attr("height", function (d) { return height - y(d.value); })
             .attr("fill", "#69b3a2")
 
-    })
-
+    }
+    build(elements);
 
 </script>
