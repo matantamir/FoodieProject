@@ -167,17 +167,18 @@
                 </div>
             }
             <script>
-                        if (@ViewData["serverError"]) {
-                            prices = document.getElementsByName("AveragePrice");
-                            var num = @ViewData["AveragePrice"];
-                            prices[3 - num].checked = true;
-                            stars = document.getElementsByName("Rate");
-                            var num = @ViewData["Rate"];
-                            stars[5 - num].checked = true;
+            @if (ViewData["serverError"] != null)
+            {
+                @:prices = document.getElementsByName("AveragePrice");
+                @:var num = @ViewData["AveragePrice"];
+                @:prices[3 - num].checked = true;
+                @:stars = document.getElementsByName("Rate");
+                @:var num = @ViewData["Rate"];
+                @:stars[5 - num].checked = true;
+                }
 
-                            // Care later!!! keep tags after server error on create
-                            tags = document.getElementsByName("Tags");
-                        }
+                // Care later!!! keep tags after server error on create
+                tags = document.getElementsByName("Tags");
             </script>
 
             <br />
@@ -187,7 +188,7 @@
             </div>
         </form>
 
-</div>
+    </div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
 <div>
