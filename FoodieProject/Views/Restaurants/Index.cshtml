@@ -181,16 +181,23 @@
             }, function (result, status) {
                     var marker = new google.maps.Marker({
                         map: map,
+                        title: restaurantName[i],
                         place: {
                             placeId: placeId[i],
                             location: result.geometry.location
                         },
                         url: "Restaurants\\Details\\" + restaurantId[i],
+                        icon: {
+                            scaledSize: new google.maps.Size(30, 40),
+                            url: "Pictures\\restMarker.png",
+                            labelOrigin: new google.maps.Point(10, 48)
+                        },
                         label: {
                             text: restaurantName[i],
-                            color: "#C70E20",
+                            color: "#ee7a3f",
                             fontWeight: "bold"}
                     });
+
                     marker.addListener('click', function () {
                         window.location.href = this.url;
                     });
