@@ -98,8 +98,8 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(
             [Bind("Id,Name,Phone,AddressId,AveragePrice,PicturePath,Rate,About")] Restaurant restaurant,
-            [Bind("Id,City,Street,Number,PlaceId")] Address address, int[] Tags,
-            //OLD-TAGS-[Bind("tagToCare")] List<int> tagToCare,
+            [Bind("Id,City,Street,Number,PlaceId")] Address address,
+            int[] Tags,
             // Get also a picture from user
             IFormFile myFile
             )
@@ -319,7 +319,7 @@ namespace FoodieProject.Controllers
         {
             {
                 ViewData["picPath"] = "\\Pictures\\Rest\\";
-                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != 0 && z.Rate > -1);
+                var results = _context.Restaurant.Include(t => t.Tags).Include(a => a.Address).Where(z => z.Name != null && z.Address.City != null && z.Tags.Count != null && z.Rate != null);
 
                 if (qAddr != null)
                 {

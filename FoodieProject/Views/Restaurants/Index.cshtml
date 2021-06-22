@@ -181,16 +181,23 @@
             }, function (result, status) {
                     var marker = new google.maps.Marker({
                         map: map,
+                        title: restaurantName[i],
                         place: {
                             placeId: placeId[i],
                             location: result.geometry.location
                         },
                         url: "Restaurants\\Details\\" + restaurantId[i],
+                        icon: {
+                            scaledSize: new google.maps.Size(30, 40),
+                            url: "Pictures\\restMarker.png",
+                            labelOrigin: new google.maps.Point(10, 48)
+                        },
                         label: {
                             text: restaurantName[i],
-                            color: "#C70E20",
+                            color: "#ee7a3f",
                             fontWeight: "bold"}
                     });
+
                     marker.addListener('click', function () {
                         window.location.href = this.url;
                     });
@@ -219,12 +226,12 @@
     }
 </script>
 <div class="container" id="cardDiv">
-    <div class="row" id="toClean">
+    <div class="row align-items-stretch" id="toClean">
 
         @foreach (var item in Model)
         {
 
-            <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+            <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto flex-fill" style="margin-top: 1rem;">
                 <a asp-action="Details" asp-route-id="@item.Id">
                     <div class="card-hover" name="cardStyle">
                         <div class="card h-100">
