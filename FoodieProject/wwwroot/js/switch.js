@@ -1,6 +1,24 @@
-﻿// ****************** Average price switch ***********************
+﻿// ****************** Restaurants switch ***********************
 $(function () {
-    $('#modeSwitch').click(function (e) {
+    $('#restSwitchButton').click(function (e) {
+        e.preventDefault();
+        if ($("#cardDiv").is(":hidden")) {
+            $("#cardDiv").show();
+            $("#map").hide()
+            $("#modeIndicator").html("Cards");
+        }
+        else {
+            $("#cardDiv").hide();
+            $("#map").show();
+            $("#modeIndicator").html("Map");
+        }
+
+    });
+});
+
+// ****************** Average price switch ***********************
+$(function () {
+    $('#priceSwitchButton').click(function (e) {
         e.preventDefault();
         if ($("table").is(":hidden")) {
             $("table").show();
@@ -15,6 +33,7 @@ $(function () {
 
     });
 });
+
 
 
 
