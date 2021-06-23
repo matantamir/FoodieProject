@@ -275,7 +275,7 @@ namespace FoodieProject.Controllers
                     name = z.Name,
                     description = z.Description,
                     price = z.Price,
-                    picturePath = z.PicturePath,
+                    picturePath = z.PicturePath != null ? z.PicturePath : "",
                     restName = z.Restaurant.Name
                 });
 
