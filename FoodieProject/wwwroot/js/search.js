@@ -1,6 +1,6 @@
 ﻿// ****************** Basic searches ***********************
 $(function () {
-    $('#SearchAjaxForm').submit(function (e) {
+    $('#SearchAjaxForm').on("input",function (e) {
         e.preventDefault();
 
         var query = $('#query').val();

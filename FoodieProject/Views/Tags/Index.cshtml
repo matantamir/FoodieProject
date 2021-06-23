@@ -4,17 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text_shadow">Tags</h1>
+<h1 class="title_font text_shadow">Tags</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="text-light text_shadow" asp-action="Create">Create New</a>
 </p>
+
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
-    <input name="query" id="query" placeholder="Ender tag to search" />
-    <input type="submit" value="Search" class="btn btn-primary"
+    <div class="d-flex align-items-center small">
+        <i class="fa fa-search fa-fw text-muted position-absolute pl-3"></i>
+        <input name="query" id="query" type="search" class="form-control rounded form-control-login search_box" placeholder="Ender tag to search" aria-label="Search"
+               aria-describedby="search-addon" size="24" />
+    </div>
 </form>
-<table class="table">
-    <thead>
+<br />
+<br />
+<table class="table table text-light table-striped">
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -22,17 +28,17 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text_shadow">
         @foreach (var item in Model)
         {
             <tr>
                 <td class="badge badge-secondary" style="background-color:@item.Color">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="edit_delete_details">
+                    <a class="edit_delete_details" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="edit_delete_details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="edit_delete_details" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
@@ -45,11 +51,11 @@
             <td class="badge badge-secondary" style="background-color:{color}">
                 {name}
             </td>
-  
-            <td>
-                <a href="/Tasg/Edit/{id}">Edit</a> |
-                <a href="/Tasg/Details/{id}">Details</a> |
-                <a href="/Tasg/Delete/{id}">Delete</a>
+
+            <td class="edit_delete_details">
+                <a class="edit_delete_details" href="/Tasg/Edit/{id}">Edit</a> |
+                <a class="edit_delete_details" href="/Tasg/Details/{id}">Details</a> |
+                <a class="edit_delete_details" href="/Tasg/Delete/{id}">Delete</a>
             </td>
         </tr>
     </script>

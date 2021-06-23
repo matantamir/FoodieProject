@@ -16,7 +16,7 @@ $(function () {
     });
 });
 
-// ****************** Average price switch ***********************
+// ****************** AveragePrice + Addresses switch ***********************
 $(function () {
     $('#priceSwitchButton').click(function (e) {
         e.preventDefault();
@@ -24,11 +24,24 @@ $(function () {
             $("table").show();
             $("#Area").hide()
             $("#modeIndicator").html("Table");
+
+            if ($('#query').length) {
+               // $('#query').val('');
+                $('#query').submit();
+                $('#query').show();
+                $('#icon').show();
+
+            }
         }
         else {
             $("table").hide();
             $("#Area").show();
             $("#modeIndicator").html("Graph");
+
+            if ($('#query').length) {
+                $('#query').hide();
+                $('#icon').hide();
+            }
         }
 
     });

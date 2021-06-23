@@ -4,73 +4,86 @@
     ViewData["Title"] = "Index";
 }
 
-<h1  class="text_shadow">Addresses</h1>
+
+<h1 class="title_font text_shadow">Addresses</h1>
+
+@*<div class="col-5">
+        <button type="button" class="btn btn-light float-right switch_button" id="priceSwitchButton">
+            Mode <span class="badge badge-dark" id="modeIndicator">Table</span>
+        </button>
+    </div>*@
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="text-light text_shadow" asp-action="Create">Create New</a>
 </p>
+<button type="button" class="btn btn-light" id="priceSwitchButton">
+    Mode <span class="badge badge-dark" id="modeIndicator">Table</span>
+</button>
+
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
-    <input name="query" id="query" placeholder="Ender address to search" />
-    <input type="submit" value="Search" class="btn btn-primary"
+    <div class="d-flex align-items-center small non_display" id="searchBox">
+        <i class="fa fa-search fa-fw text-muted position-absolute pl-3" id="icon"></i>
+        <input name="query" id="query" type="search" class="form-control rounded form-control-login search_box" placeholder="Ender address to search" aria-label="Search"
+               aria-describedby="search-addon" size="24" />
+    </div>
 </form>
-<table class="table" id="AddressTable">
-    <thead>
+<br />
+<br />
+<table class="table text-light table-striped" id="AddressTable">
+    <thead class="thead-light">
         <tr>
             <th>@Html.DisplayNameFor(model => model.City)</th>
             <th>@Html.DisplayNameFor(model => model.Street)</th>
             <th>@Html.DisplayNameFor(model => model.Number)</th>
             <th>@Html.DisplayNameFor(model => model.Restaurant.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.PlaceId)</th>
+            <th></th>
+
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.City)</td>
-            <td>@Html.DisplayFor(modelItem => item.Street)</td>
-            <td>@Html.DisplayFor(modelItem => item.Number)</td>
-            <td>@Html.DisplayFor(modelItem => item.Restaurant.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.PlaceId)</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody class="text_shadow">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>@Html.DisplayFor(modelItem => item.Street)</td>
+                <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                <td>@Html.DisplayFor(modelItem => item.Restaurant.Name)</td>
+
+                <td class="edit_delete_details">
+                    <a class="edit_delete_details" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="edit_delete_details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="edit_delete_details" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-<div id="Area" class="text-center" width="400px" heigth="460px"></div>
+<div id="Area" class="text-center non_display" width="400px" heigth="460px"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
     var elements = [];
     var table = document.getElementById('AddressTable');
 
-    for (var i = 1; i < table.rows.length; i++)
-    {
+    for (var i = 1; i < table.rows.length; i++) {
         var currCity = table.rows[i].cells[0].innerHTML;
         var flag = false;
         var pos = -1;
 
 
         // Check if the city is already exists in the element object
-        for (var j = 0; j < elements.length; j++)
-        {
-            if (elements[j].name == currCity && flag == false)
-            {
+        for (var j = 0; j < elements.length; j++) {
+            if (elements[j].name == currCity && flag == false) {
                 pos = j;
                 flag = true;
             }
         }
 
-        if (pos != -1)
-        {
+        if (pos != -1) {
             elements[pos].value++
         }
-        else
-        {
+        else {
             elements.push({ "name": table.rows[i].cells[0].innerHTML, "value": 1 });
         }
     }
@@ -78,8 +91,7 @@
     // Get maximum and minumum value
     var min = 999
     var max = 0
-    for (var i = 0; i < elements.length; i++)
-    {
+    for (var i = 0; i < elements.length; i++) {
         if (parseInt(elements[i].value) > parseInt(max)) { max = parseInt(elements[i].value); }
         if (parseInt(elements[i].value) < parseInt(min)) { min = parseInt(elements[i].value); }
     }
@@ -168,19 +180,19 @@
 </script>
 
 @section Scripts {
-<script type="text/html" id="hidden-template">
-    <tr>
-        <td>{city}</td>
-        <td>{street}</td>
-        <td>{number}</td>
-        <td>{restName}</td>
-        <td>{placeId}</td>
+    <script type="text/html" id="hidden-template">
+        <tr>
+            <td>{city}</td>
+            <td>{street}</td>
+            <td>{number}</td>
+            <td>{restName}</td>
+          
 
-        <td>
-            <a href="/Addresses/Edit/{id}">Edit</a> |
-            <a href="/Addresses/Details/{id}">Details</a> |
-            <a href="/Addresses/Delete/{id}">Delete</a>
-        </td>
-    </tr>
-</script>
+            <td class="edit_delete_details">
+                <a class="edit_delete_details" href="/Addresses/Edit/{id}">Edit</a> |
+                <a class="edit_delete_details" href="/Addresses/Details/{id}">Details</a> |
+                <a class="edit_delete_details" href="/Addresses/Delete/{id}">Delete</a>
+            </td>
+        </tr>
+    </script>
 }

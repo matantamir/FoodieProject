@@ -44,8 +44,8 @@ namespace FoodieProject.Controllers
         {
 
             var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => d.Restaurant.Name).Select(a => new List<string> { a.Key.ToString(), a.Average(x => x.Price).ToString() });
-            //var restListObj = _context.Restaurant.ToList();
-            //ViewData["RestList"] = restListObj;
+            var restListObj = _context.Restaurant.ToList();
+            ViewData["RestList"] = restListObj;
 
             ViewData["AVGmodel"] = AVGmodel;
             return View();

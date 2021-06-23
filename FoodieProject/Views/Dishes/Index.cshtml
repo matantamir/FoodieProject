@@ -11,14 +11,14 @@
         <a class="text-light text_shadow" asp-action="Create">Create New</a>
     </p>
 }
-    @*<form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
-            <input name="query" placeholder="Ender dish to search" id="query" />
-            <input type="submit" value="Search" class="btn btn-primary"
-        </form>*@
+            else
+            {
+                <br />
+            }
 
     <div class="pos-f-t">
 
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light" style="background-color:#e9ecef">
 
             <button title="Advanced search" id="advancedSearch" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -124,7 +124,6 @@
     </div>
 
 
-
     <table class="table text-light table-striped">
         <thead class="thead-light">
             <tr>
@@ -143,7 +142,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.RestaurantId)
                 </th>
-                <th></th>
+                <th> </th>
             </tr>
         </thead>
         <tbody class="text_shadow">
@@ -167,10 +166,10 @@
                 </td>
                 @if (this.User.IsInRole("Admin"))
                 {
-                    <td class="text-light">
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <td class="edit_delete_details"> 
+                        <a class="edit_delete_details" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="edit_delete_details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="edit_delete_details" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 }
                 </tr>
@@ -178,7 +177,7 @@
         </tbody>
     </table>
 
-    <div id="hiddenError2" class="alert alert-secondary" style="display: none;"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+    <div id="hiddenError2" class="alert alert-secondary non_display" > <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
 
 
     @section Scripts {
@@ -199,13 +198,13 @@
                 <td>
                     {restName}
                 </td>
-                <td>
+                
                     @if (this.User.IsInRole("Admin"))
                     {
-<td>
-                    <a href="/Dishes/Edit/{id}">Edit</a> |
-                    <a href="/Dishes/Details/{id}">Details</a> |
-                    <a href="/Dishes/Delete/{id}">Delete</a>
+                  <td class="edit_delete_details">
+                    <a class="edit_delete_details" href="/Dishes/Edit/{id}">Edit</a> |
+                    <a class="edit_delete_details" href="/Dishes/Details/{id}">Details</a> |
+                    <a class="edit_delete_details" href="/Dishes/Delete/{id}">Delete</a>
                 </td>
                     }
             </tr>

@@ -65,12 +65,18 @@ for details on configuring this project to bundle and minify static web assets. 
     box-shadow: 0 0 0 0.2rem #a7c6d4;
 }
 
-.switch_button {
-    
+.switch_button { 
     margin: 11px 0px;
 }
 .non_display {
     display: none;
+}
+.edit_delete_details {
+    color: #f8f9fa;
+    text-shadow: 0px 0px 0px #000000;
+}
+.search_box {
+    padding-left: 38px;
 }
 /*.logo {
     width: 20%;
