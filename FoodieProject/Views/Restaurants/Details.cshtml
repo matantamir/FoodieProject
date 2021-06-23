@@ -595,4 +595,10 @@
         </div><!-- / column -->
     </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
+<div>
+    @if (this.User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+    }
+    <a asp-action="Index">Back to List</a>
+</div>

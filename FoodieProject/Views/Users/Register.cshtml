@@ -4,38 +4,41 @@
     ViewData["Title"] = "Register";
     Layout = "_LoginLayout";
 }
+<br />
+<h1 class="login_font text_shadow">Register a new user</h1>
 
-<h1 class="text_shadow">Register a new user</h1>
-
-<hr />
+<hr class="login_hr"/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <label asp-for="Username" class="control-label login_div"></label>
+                <input asp-for="Username" class="form-control form-control-login" />
+                <span asp-validation-for="Username" class="font-weight-bold login_danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="Password" class="control-label login_div"></label>
+                <input asp-for="Password" class="form-control form-control-login" />
+                <span asp-validation-for="Password" class="font-weight-bold login_danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Register user" class="btn btn-primary" />
+                <input type="submit" value="Register user" class="btn btn-light" />
             </div>
         </form>
-        
+
         @if (ViewData.ContainsKey("ErrorUserExists"))
         {
-            <div class="text-danger">@ViewData["ErrorUserExists"]</div>
+            <div class="font-weight-bold login_danger">@ViewData["ErrorUserExists"]</div>
         }
+    </div>
+    <div class="col-md-4 login_image">
+        <img src="~/Pictures/login.png" />
     </div>
 </div>
 
-<div>
-    Already Registered? <a asp-action="Login">Click here</a> to login
+<div class="login_div">
+    Already Registered? <a class="login_link" asp-action="Login">Click here</a> to login
 </div>
 
 @section Scripts {
