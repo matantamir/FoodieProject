@@ -440,6 +440,41 @@
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+@* Script to edit the open status and the reviews.*@
+<script>
+    function initialize() {
+            service = new google.maps.places.PlacesService(googleMap);
+            var openStatus;
+            var reviews;
+            var request = {
+                placeId: '@Model.Address.PlaceId',
+                fields: ['opening_hours', 'reviews']
+            };
+            service.getDetails(request, callback);
+        }
+    function callback(place, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                openStatus = place.opening_hours.open_now;
+                
+                if (openStatus) {
+                    document.getElementById("restOpenStatus").className = "badge bg-success";
+                    document.getElementById("restOpenStatus").innerHTML = "Open";
+                }
+                else {
+                    document.getElementById("restOpenStatus").className = "badge bg-danger";
+                    document.getElementById("restOpenStatus").innerHTML = "Closed";
+                }
+                reviews = place.reviews;
+                for (let i = 0; i <= 2; i++) {
+                    document.getElementById("reviewHead" + i).innerHTML = reviews[i].author_name;
+                    document.getElementById("review" + i).innerHTML = reviews[i].text;
+                }
+            }
+        }
+    </script>
+<div id="googleMap" style="width:0px;height:0px;" hidden></div>
+
 <div class="container">
     <div class="row">
 
@@ -447,7 +482,8 @@
 
         <div class="col-md-5">
             <div class="project-info-box mt-0">
-                <h1>@Model.Name</h1>
+                <h1>@Model.Name</h1> 
+                <span id="restOpenStatus" class="badge bg-danger">Closed</span>
                 <br />
 
                 @foreach (var tag in Model.Tags)
@@ -534,6 +570,26 @@
             <div class="project-info-box">
                 <p><b>Categories:</b> Design, Illustration</p>
                 <p><b>Skills:</b> Illustrator</p>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" id="reviewHead0">Subheading</div>
+                            <p id="review0"></p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" id="reviewHead1">Subheading</div>
+                            <p id="review1"></p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold" id="reviewHead2">Subheading</div>
+                            <p id="review2"></p>
+                        </div>
+                    </li>
+                </ol>
 
             </div><!-- / project-info-box -->
         </div><!-- / column -->
