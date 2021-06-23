@@ -4,6 +4,12 @@
     ViewData["Title"] = "Articles";
 }
 
+<table>
+    <tbody class="row">
+
+    </tbody>
+</table>
+
 <center>
     <h1 class="new_font text_shadow">Noa Eats</h1>
     <img src="../Pictures/noa.jpg" />
@@ -46,4 +52,29 @@
     <source src="../Videos/vegan.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
+
+@section Scripts
+{
+    <div hidden type="text/html" id="hidden-template">
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+            <span id="tweet{id}" class="col-2"></span>
+        </div>
+    </div>
+
+    <script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <script>
+    var tweets = @Html.Raw(ViewBag.Tweets);
+    for (var i = 0; i < tweets.data.length; i++)
+    {
+        var template = $('#hidden-template').html();
+        template = template.replaceAll("{id}", i);
+        $('tbody').append(template);
+    }
+
+    for (var i = 0; i < tweets.data.length; i++)
+    {
+        twttr.widgets.createTweet(tweets.data[i].id, document.getElementById('tweet'+i), { theme: 'light' });
+    }
+    </script>
+}
 

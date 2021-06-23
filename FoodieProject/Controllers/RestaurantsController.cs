@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
 using FoodieProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace FoodieProject.Controllers
 {
@@ -53,6 +54,17 @@ namespace FoodieProject.Controllers
         // GET: Articles
         public async Task<IActionResult> Articles()
         {
+            
+            WebRequest request = WebRequest.Create("https://api.twitter.com/2/users/110365072/tweets?max_results=5");
+            request.Headers.Add("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAAJl8QwEAAAAAqc68K%2BOX9n%2BrIl9tOWiTtnsr0Kw%3DIJPft7t2lDWfEQmkryTNDr6X2X4pAvRK9HKn6tFIz5aNNquClX");
+            using (System.IO.Stream s = request.GetResponse().GetResponseStream())
+            {
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(s))
+                {
+                    var jsonResponse = sr.ReadToEnd();
+                    ViewData["Tweets"] = jsonResponse;
+                }
+            }
             return View();
         }
         
