@@ -4,11 +4,18 @@
     ViewData["Title"] = "Average Price";
 }
 
-<h1 class="text_shadow">Average Price of Restaurants</h1>
-
-
-<table id="restAvgTable" class="table">
-    <thead>
+<div class="row">
+<h1 class="title_font text_shadow">Average Price of Restaurants</h1>
+   
+<div class="col-5">
+    <button type="button" class="btn btn-light float-right switch_button" id="modeSwitch">
+        Mode <span class="badge badge-dark" id="modeIndicator">Table</span>
+    </button>
+</div>
+</div>
+<br />
+<table id="restAvgTable" class="table text-light table-striped">
+    <thead class="thead-light">
         <tr>
             <th>
                 Restaurant ID
@@ -19,21 +26,21 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text_shadow">
         @foreach (var item in ViewBag.AVGmodel)
         {
             <tr>
                 <td>@item[0]</td>
                 <td>@item[1]</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item[0]">Details</a>
+                    <a class="text-light" asp-action="Details" asp-route-id="@item[0]">Details</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<div id="Area" class="text-center" width="400px" heigth="460px"></div>
+<div id="Area" class="text-center non_display" width="400px" heigth="460px"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
@@ -101,7 +108,7 @@
 
     }
     // Parse the Data
-   
+
     function build(data) {
 
         // X axis
@@ -118,7 +125,7 @@
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([0, max*1.2])
+            .domain([0, max * 1.2])
             .range([height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y));

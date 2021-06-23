@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿// ****************** Basic searches ***********************
+$(function () {
     $('#SearchAjaxForm').submit(function (e) {
         e.preventDefault();
 
