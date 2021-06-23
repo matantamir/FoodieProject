@@ -1,9 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+
+/********** text-shadow ***************/
 .text_shadow {
     color: white;
     text-shadow: 2px 2px 4px #000000;
 }
+
+/********** @font-face ***************/
 @font-face {
     font-family: myFirstFont;
     src: url(../Fonts/Sansation_Bold.ttf);
@@ -13,7 +17,16 @@ for details on configuring this project to bundle and minify static web assets. 
     font-family: myFirstFont;
 }
 
-/********** Login Page***************/
+@font-face {
+    font-family: titleFont;
+    src: url("../Fonts/MADE TOMMY Bold_PERSONAL USE.otf");
+    font-weight: bold;
+}
+
+.title_font {
+    font-family: titleFont;
+}
+/********** Login Page ***************/
 @font-face {
     font-family: LoginFont;
     src: url(../Fonts/KGRedHands.ttf);
@@ -50,7 +63,15 @@ for details on configuring this project to bundle and minify static web assets. 
 .form-control-login:focus {
     border-color: white;
     box-shadow: 0 0 0 0.2rem #a7c6d4;
-} 
+}
+
+.switch_button {
+    
+    margin: 11px 0px;
+}
+.non_display {
+    display: none;
+}
 /*.logo {
     width: 20%;
     height: auto;

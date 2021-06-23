@@ -4,11 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text_shadow">All Dishes</h1>
+<h1 class="title_font text_shadow">All Dishes</h1>
 @if (this.User.IsInRole("Admin"))
 {
     <p>
-        <a asp-action="Create">Create New</a>
+        <a class="text-light text_shadow" asp-action="Create">Create New</a>
     </p>
 }
     @*<form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
@@ -125,8 +125,8 @@
 
 
 
-    <table class="table">
-        <thead>
+    <table class="table text-light table-striped">
+        <thead class="thead-light">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
@@ -146,7 +146,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text_shadow">
             @foreach (var item in Model)
             {
             <tr>
@@ -167,7 +167,7 @@
                 </td>
                 @if (this.User.IsInRole("Admin"))
                 {
-                    <td>
+                    <td class="text-light">
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

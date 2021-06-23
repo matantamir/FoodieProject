@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="~/css/restaurantIndex.css" />
+<script src="~/js/switch.js"></script>
+
 <h1 class="text_shadow">Our Restaurants</h1>
 
 @if (this.User.IsInRole("Admin"))
@@ -207,24 +209,11 @@
 
 </script>
 <br>
-<button type="button" onclick="modeSwitch()" class="btn btn-primary">
+<button type="button" class="btn btn-primary" id="restSwitchButton">
     Mode <span class="badge badge-light" id="modeIndicator">Cards</span>
 </button>
 <br />
-<script>
-    function modeSwitch() {
-        if (document.getElementById("cardDiv").style.display === "none") {
-            document.getElementById("cardDiv").style.display = "inherit";
-            document.getElementById("map").style.display = "none";
-            document.getElementById("modeIndicator").innerHTML = "Cards";
-        }
-        else {
-            document.getElementById("cardDiv").style.display = "none";
-            document.getElementById("map").style.display = "inherit";
-            document.getElementById("modeIndicator").innerHTML = "Map";
-        }
-    }
-</script>
+
 <div class="container" id="cardDiv">
     <div class="row align-items-stretch" id="toClean">
 
@@ -274,7 +263,7 @@
 
     </div>
 
-    <div id="hiddenError2" class="alert alert-secondary" style="display: none;"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+    <div id="hiddenError2" class="alert alert-secondary non_display" > <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
 
 </div>
 <div id="map" style="width:100%;height:600px;display:none;"></div>
@@ -282,6 +271,8 @@
 
 @section Scripts
 {
+    
+
     <div hidden type="text/html" id="hidden-template">
         <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
             <a href="/Restaurants/details/{restId}">
