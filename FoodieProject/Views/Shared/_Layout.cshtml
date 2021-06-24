@@ -24,10 +24,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Index">Home</a>
                         </li>
+
+
                         @if (this.User.IsInRole("Admin") || this.User.IsInRole("Client"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Articles">Media</a>
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Articles">Articles</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
@@ -37,20 +39,19 @@
                             </li>
                         }
 
+
                         @if (this.User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
-                        }
-
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark transition_navbar" style="border-color: #ffb7b7" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark transition_navbar" style="border-color: #ffb7b7" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark transition_navbar" style="border-color: #ffb7b7" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                </li>
+                      }
 
                     </ul>
 
