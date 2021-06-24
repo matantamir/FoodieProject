@@ -45,6 +45,7 @@ namespace FoodieProject
                 {
                     options.LoginPath = "/Users/Login";
                     options.AccessDeniedPath = "/Users/AccessDenied";
+                    
                 });
 
             services.AddCors(options =>
