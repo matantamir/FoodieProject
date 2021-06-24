@@ -4,39 +4,39 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="title_font text_shadow">Address Details</h1>
 
 <div>
-    <h4>Address</h4>
-    <hr />
+    
+    <hr class="form_hr"/>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 details_titles">
             @Html.DisplayNameFor(model => model.City)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 text_shadow">
             @Html.DisplayFor(model => model.City)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 details_titles">
             @Html.DisplayNameFor(model => model.Street)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 text_shadow">
             @Html.DisplayFor(model => model.Street)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 details_titles">
             @Html.DisplayNameFor(model => model.Number)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 text_shadow">
             @Html.DisplayFor(model => model.Number)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 details_titles">
             @Html.DisplayNameFor(model => model.PlaceId)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 text_shadow">
             @Html.DisplayFor(model => model.PlaceId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="edit_delete_details" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>  <a class="delete_titles">|</a>
+    <a class="edit_delete_details" asp-action="Index">Back to List</a>
 </div>
