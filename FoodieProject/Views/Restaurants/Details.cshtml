@@ -742,14 +742,14 @@ http://stackoverflow.com/a/34696029/383904
                         prices[3 - num].checked = true;
                 </script>
 
-                @*<span class="mb-0" align="right" style="white-space: pre-line"> @Model.About</span>*@
+                <i class="fas fa-phone"></i><span class="mb-0" align="right" style="white-space: pre-line"> @Model.Phone</span><br />
                 @if (@Model.About != null)
                 {
-                    <span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span>
+            <i class="fas fa-clock"></i><span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span>
                     <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer;"></i>
                     <br />
                     <br />
-                    <div id="abouttext" class="card" style="display:none; max-width:500px; font-size:12px;">
+                    <div id="abouttext" class="card" style="display:none; max-width:500px; font-size:12px; white-space: pre-line;">
                         <div class="card-body">
                             @Model.About
                         </div>
