@@ -95,6 +95,9 @@ for details on configuring this project to bundle and minify static web assets. 
     cursor: pointer;
     margin-left: 200px;
 }
+.delete_titles {
+   color: #1e2c3a
+}
 
 /*.logo {
     width: 20%;

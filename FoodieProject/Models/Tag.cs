@@ -11,10 +11,10 @@ namespace FoodieProject.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, Display(Name = "Restaurant Tag Name")]
+        [Required, Display(Name = "Tag Name")]
         public string Name { get; set; }
 
-        [DataType("Color"), Display(Name = "Restaurant Tag Color")]
+        [DataType("Color"), Display(Name = "Tag Color")]
         public string Color { get; set; }
 
         public List<Restaurant> Restaurants { get; set; }  // many to many (many Tags to many Restaurant)
