@@ -4,10 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="title_font text_shadow">Create Restaurant</h1>
 
-<h4>Restaurant</h4>
-<hr />
+<hr class="form_hr"/>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script>
     function initialize() {
@@ -69,39 +68,39 @@
     <div class="col-md-4">
         <!--enctype="multipart/form-data" -> in order to get the file content from user-->
         <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="form_danger"></div>
             <div class="form-group">
-                <input id="Name" name="Name" class="form-control" placeholder="Restaurant name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input id="Name" name="Name" class="form-control form-control-light" placeholder="Restaurant name" />
+                <span asp-validation-for="Name" class="form_danger"></span>
             </div>
             @if (ViewData.ContainsKey("ErrorRestExists"))
             {
-                <div class="text-danger">@ViewData["ErrorRestExists"]</div>
+                <div class="form_danger">@ViewData["ErrorRestExists"]</div>
             }
             <div class="form-group">
                 <input asp-for="Phone" type="tel" placeholder="Phone number" pattern="[0-9-]{5,20}" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <span asp-validation-for="Phone" class="form_danger"></span>
             </div>
             <div class="form-group">
                 <input asp-for="Address.City" class="form-control" placeholder="City" />
-                <span asp-validation-for="Address.City" class="text-danger"></span>
+                <span asp-validation-for="Address.City" class="form_danger"></span>
             </div>
             <div class="form-group">
                 <input asp-for="Address.Street" class="form-control" placeholder="Street" />
-                <span asp-validation-for="Address.Street" class="text-danger"></span>
+                <span asp-validation-for="Address.Street" class="form_danger"></span>
             </div>
             <div class="form-group">
                 <input asp-for="Address.Number" class="form-control" placeholder="No." />
-                <span asp-validation-for="Address.Number" class="text-danger"></span>
+                <span asp-validation-for="Address.Number" class="form_danger"></span>
             </div>
             <div>
-                Upload Restaurant Picture <input class="form-control" type="file" name="myFile" />
+                Upload Restaurant Picture <input class="form-control form-control-light" type="file" name="myFile" />
             </div>
             <br />
 
             <div class="form-group">
                 <textarea rows="5" cols="33" asp-for="About" class="form-control" placeholder="Write about the restaurant"></textarea>
-                <span asp-validation-for="About" class="text-danger"></span>
+                <span asp-validation-for="About" class="form_danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AveragePrice" class="control-label"></label>
@@ -114,7 +113,7 @@
                     <input type="radio" id="dollar1" name="AveragePrice" value="1" />
                     <label for="dollar1" title="text"> 1 dollar</label>
                 </div>
-                <span asp-validation-for="AveragePrice" class="text-danger"></span>
+                <span asp-validation-for="AveragePrice" class="form_danger"></span>
             </div>
             <br /> <br />
 
@@ -133,7 +132,7 @@
                     <input type="radio" id="star1" name="Rate" value="1" />
                     <label for="star1" title="text">1 star</label>
                 </div>
-                <span asp-validation-for="Rate" class="text-danger"></span>
+                <span asp-validation-for="Rate" class="form_danger"></span>
             </div>
             <br />
             <label asp-for="Tags" class="control-label"></label>
@@ -149,7 +148,7 @@
                             <label>@tag.Name</label><br>
                         </div>
                     }
-                    <span asp-validation-for="Tags" class="text-danger"></span>
+                    <span asp-validation-for="Tags" class="form_danger"></span>
                 </div>
             }
             else
@@ -163,7 +162,7 @@
                             <label>@tag.Name</label><br>
                         </div>
                     }
-                    <span asp-validation-for="Tags" class="text-danger"></span>
+                    <span asp-validation-for="Tags" class="form_danger"></span>
                 </div>
             }
             <script>
@@ -184,7 +183,7 @@
             <br />
             <input asp-for="Address.PlaceId" hidden class="form-control" placeholder="No." />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-light" />
             </div>
         </form>
 

@@ -4,28 +4,23 @@
     ViewData["Title"] = "Login";
     Layout = "_LoginLayout";
 }
-<style>
-    input, textarea {
-        background-color: #d1d1d1;
-    }
-</style>
 <br />
-<h1 class="login_font">Login to Foodie!</h1>
+<h1 class="login_title_font">Login to Foodie!</h1>
 
-<hr class="login_hr" />
+<hr class="form_hr" />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username" class="control-label login_div"></label>
-                <input asp-for="Username" class="form-control form-control-login" />
-                <span asp-validation-for="Username" class="font-weight-bold login_danger"></span>
+                <label asp-for="Username" class="control-label form_text_font"></label>
+                <input asp-for="Username" class="form-control form-control-light" />
+                <span asp-validation-for="Username" class="font-weight-bold form_danger"></span>
             </div>
             <div class="form-group ">
-                <label asp-for="Password" class="control-label login_div"></label>
-                <input asp-for="Password" class="form-control form-control-login" />
-                <span asp-validation-for="Password" class="font-weight-bold login_danger"></span>
+                <label asp-for="Password" class="control-label form_text_font"></label>
+                <input asp-for="Password" class="form-control form-control-light" />
+                <span asp-validation-for="Password" class="font-weight-bold form_danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Foodin" class="btn btn-light" />
@@ -34,14 +29,14 @@
         </form>
         @if (ViewData.ContainsKey("ErrorLoginFailed"))
         {
-            <div class="font-weight-bold login_danger">@ViewData["ErrorLoginFailed"]</div>
+            <div class="font-weight-bold form_danger">@ViewData["ErrorLoginFailed"]</div>
         }
     </div>
     <div class="col-md-4 login_image">
         <img src="~/Pictures/login.png" />
     </div>
 </div>
-<div class="login_div">
+<div class="form_text_font">
     Dont have a Foodie's account?? <a class="login_link" asp-action="Register">Click here</a> to Register
 </div>
 

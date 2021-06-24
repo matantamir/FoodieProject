@@ -33,12 +33,12 @@ for details on configuring this project to bundle and minify static web assets. 
     font-weight: bold;
 }
 
-.login_font {
+.login_title_font {
     font-family: LoginFont;
     text-shadow: 3px 3px 5px #000000;
     color:white;
 }
-.login_div {
+.form_text_font {
     font-family: monospace;
     color: white;
     text-shadow: 2px 2px 4px #000000;
@@ -48,7 +48,7 @@ for details on configuring this project to bundle and minify static web assets. 
     vertical-align:middle;
     margin:-80px 150px;
 }
-.login_hr {
+.form_hr {
     border-top: 2px solid white;
     opacity: 0.6;
 }
@@ -56,11 +56,12 @@ for details on configuring this project to bundle and minify static web assets. 
     color: white; 
     text-shadow: 2px 2px 4px #67b1c5;
 }
-.login_danger {
-    color: #b61424
+.form_danger {
+    color: #b61424;
+    font-weight:bold;
 }
 
-.form-control-login:focus {
+.form-control-light:focus {
     border-color: white;
     box-shadow: 0 0 0 0.2rem #a7c6d4;
 }

@@ -7,12 +7,6 @@
 
 <h1 class="title_font text_shadow">Addresses</h1>
 
-@*<div class="col-5">
-        <button type="button" class="btn btn-light float-right switch_button" id="priceSwitchButton">
-            Mode <span class="badge badge-dark" id="modeIndicator">Table</span>
-        </button>
-    </div>*@
-
 <p>
     <a class="text-light text_shadow" asp-action="Create">Create New</a>
 </p>
@@ -23,7 +17,7 @@
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
     <div class="d-flex align-items-center small non_display" id="searchBox">
         <i class="fa fa-search fa-fw text-muted position-absolute pl-3" id="icon"></i>
-        <input name="query" id="query" type="search" class="form-control rounded form-control-login search_box" placeholder="Ender address to search" aria-label="Search"
+        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Ender address to search" aria-label="Search"
                aria-describedby="search-addon" size="24" />
     </div>
 </form>
