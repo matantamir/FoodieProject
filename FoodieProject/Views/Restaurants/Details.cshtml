@@ -662,14 +662,13 @@ http://stackoverflow.com/a/34696029/383904
             var reviews;
             var request = {
                 placeId: '@Model.Address.PlaceId',
-                fields: ['opening_hours']
+                fields: ['opening_hours', 'website']
             };
             service.getDetails(request, callback);
         }
     function callback(place, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                openStatus = place.opening_hours.open_now;
-                
+                openStatus = place.opening_hours.isOpen();
                 if (openStatus) {
                     document.getElementById("restOpenStatus").style.color = 'green';
                     document.getElementById("restOpenStatus").innerHTML = "Opened";
@@ -678,6 +677,7 @@ http://stackoverflow.com/a/34696029/383904
                     document.getElementById("restOpenStatus").style.color = "orangered";
                     document.getElementById("restOpenStatus").innerHTML = "Closed";
                 }
+                document.getElementById("websiteLink").innerHTML = place.website;
             }
         }
     </script>
@@ -687,7 +687,7 @@ http://stackoverflow.com/a/34696029/383904
     <div class="row">
         <div class="col-md-5">
             <div class="project-info-box mt-0">
-                <h1>@Model.Name</h1> 
+                <h1>@Model.Name</h1>
                 <br />
 
                 @foreach (var tag in Model.Tags)
@@ -745,11 +745,11 @@ http://stackoverflow.com/a/34696029/383904
                 @*<span class="mb-0" align="right" style="white-space: pre-line"> @Model.About</span>*@
                 @if (@Model.About != null)
                 {
-                    <span id="restOpenStatus" style="color:orangered;">Closed</span>
-                    <i id="arrow" class="fas fa-chevron-right"></i>
+                    <span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span>
+                    <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer;"></i>
                     <br />
                     <br />
-                    <div id="abouttext" class="card" style="display:none; max-width:500px;">
+                    <div id="abouttext" class="card" style="display:none; max-width:500px; font-size:12px;">
                         <div class="card-body">
                             @Model.About
                         </div>
@@ -758,7 +758,7 @@ http://stackoverflow.com/a/34696029/383904
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(function () {
-                        $("#restOpenStatus").click(function () {
+                        $("#restOpenStatus, #arrow").click(function () {
                             $("#abouttext").slideToggle();
                             if ($("#arrow").attr('class') == 'fas fa-chevron-right') {
                                 $("#arrow").attr('class', 'fas fa-chevron-down');
@@ -811,10 +811,10 @@ http://stackoverflow.com/a/34696029/383904
                         @foreach (var dish in Model.Dishes)
                         {
                             <div style="background:#85b;">
-                                <img src="~/Pictures/Dish/@dish.PicturePath" style="width: 40%; height: auto; "/>
+                                <img src="~/Pictures/Dish/@dish.PicturePath" style="width: 40%; height: auto; " />
                             </div>
                         }
-                        </div>
+                    </div>
 
                     <div class="prevNext">
                         <div><a href="#s4"></a><a href="#s2"></a></div>
@@ -832,36 +832,17 @@ http://stackoverflow.com/a/34696029/383904
 
                 </div>
                 <p><b>Categories:</b> Design, Illustration</p>
-                <p><b>Skills:</b> Illustrator</p>
-                <ol class="list-group list-group-numbered">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" id="reviewHead0">Subheading</div>
-                            <p id="review0"></p>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" id="reviewHead1">Subheading</div>
-                            <p id="review1"></p>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold" id="reviewHead2">Subheading</div>
-                            <p id="review2"></p>
-                        </div>
-                    </li>
-                </ol>
+                <p><b>Website:</b> <span id="websiteLink">Website_link</span></p>
 
             </div><!-- / project-info-box -->
         </div><!-- / column -->
     </div>
-</div>
-<div class="edit_delete_details form_text_font">
-    @if (this.User.IsInRole("Admin"))
-    {
-        <a class="edit_delete_details form_text_font" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a class="edit_delete_details form_text_font" asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
-    }
-    <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
+    <div class="edit_delete_details form_text_font">
+        @if (this.User.IsInRole("Admin"))
+        {
+            <a class="edit_delete_details form_text_font" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a class="edit_delete_details form_text_font" asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+        }
+        <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
+    </div>
 </div>
