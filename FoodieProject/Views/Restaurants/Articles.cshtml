@@ -4,67 +4,77 @@
     ViewData["Title"] = "Articles";
 }
 
-<table>
-    <tbody class="row">
-        <tr></tr>
-    </tbody>
-</table>
 
-<div class="row">
-    <div class="col 3">
-        <h1 class="new_font text_shadow">Gordon Ramsay</h1>
-        <img src="../Pictures/GordonRamsay.jpg" style=" max-block-size: 150px;" />
+
+<div id="AllContent">
+    <div id="GordonContent" style="width: 50%;float: right;padding: 40px;">
+        <div class="row">
+            <div class="col 3">
+                <h1 class="new_font text_shadow">Gordon Ramsay</h1>
+                <img src="../Pictures/GordonRamsay.jpg" style="max-block-size: 150px;border-radius: 50%;" />
+
+                <table>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="col-3">
-        <h1 class="new_font text_shadow">Noa Eats</h1>
-        <img src="../Pictures/noa.jpg" />
+
+    <div id="NoaContent" style="width: 50%;float: left;padding: 40px;">
+        <div class="row">
+            <div class="col 3">
+                <h1 class="new_font text_shadow">Noa Eats</h1>
+                <img src="../Pictures/noa.jpg" />
+            </div>
+
+            <div class="w-100"></div>
+            <div class="col 3">
+                <h2 class="new_font text_shadow">Pizza &nbsp;</h2>
+                <img style="width: 5%;" src="../Pictures/pizza.png" />
+                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
+                    <source src="../Videos/pizza.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div class="w-100"></div>
+            <div class="col 3">
+                <h2 class="new_font text_shadow">Meat &nbsp;</h2>
+                <img style="width: 5%;" src="../Pictures/meat.png" />
+                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
+                    <source src="../Videos/meat.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div class="w-100"></div>
+            <div class="col 3">
+                <h2 class="new_font text_shadow">Vegan</h2>
+                <img style="width: 5%;" src="../Pictures/vegan.png" />
+                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
+                    <source src="../Videos/vegan.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
     </div>
 </div>
-
-
-<div class="row">
-    <h2 class="new_font text_shadow">Pizza &nbsp;</h2>
-    <img style="width: 5%;" src="../Pictures/pizza.png" />
-</div>
-<video width="620" height="400" controls>
-    <source src="../Videos/pizza.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-<br />
-<br />
-<br />
-<br />
-
-<div class="row">
-    <h2 class="new_font text_shadow">Meat &nbsp;</h2>
-    <img style="width: 5%;" src="../Pictures/meat.png" />
-</div>
-<video width="620" height="400" controls>
-    <source src="../Videos/meat.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-<br />
-<br />
-<br />
-<br />
-
-<div class="row">
-    <h2 class="new_font text_shadow">Vegan</h2>
-    <img style="width: 5%;" src="../Pictures/vegan.png" />
-</div>
-<video width="620" height="400" controls>
-    <source src="../Videos/vegan.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
 
 @section Scripts
 {
     <div hidden type="text/html" id="hidden-template">
-        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
-            <span id="tweet{id}" class="col-2"></span>
-        </div>
+            <span id="tweet{id}" style="padding-bottom:10px"></span>
     </div>
 
     <script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>

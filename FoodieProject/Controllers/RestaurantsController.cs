@@ -44,10 +44,7 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> AveragePrice()
         {
 
-            var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => d.Restaurant.Name).Select(a => new List<string> { a.Key.ToString(), a.Average(x => x.Price).ToString() });
-            var restListObj = _context.Restaurant.ToList();
-            ViewData["RestList"] = restListObj;
-
+            var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => new { d.Restaurant.Name, d.Restaurant.Id}).Select(a => new List<string> {a.Key.Id.ToString(), a.Key.Name, a.Average(x => x.Price).ToString() });
             ViewData["AVGmodel"] = AVGmodel;
             return View();
         }
