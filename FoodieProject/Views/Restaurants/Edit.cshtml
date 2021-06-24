@@ -102,7 +102,7 @@
                 {
                     <div class="col-4">
                         <input type="checkbox" name="Tags" value="@tag.Id" checked="@Model.Tags.Contains(tag)">
-                        <label>@tag.Name</label><br>
+                        <label class="tags_titles">@tag.Name</label><br>
                     </div>
                 }
                 <span asp-validation-for="Tags" class="form_danger"></span>

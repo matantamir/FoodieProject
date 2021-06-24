@@ -55,7 +55,7 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
-            var dish = await _context.Dish
+            var dish = await _context.Dish.Include(d => d.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dish == null)
             {

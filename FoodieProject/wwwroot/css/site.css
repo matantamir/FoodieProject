@@ -102,6 +102,11 @@ for details on configuring this project to bundle and minify static web assets. 
     color: #1e2c3a;
     text-shadow: 1px 1px 3px #e6e6e6;
 }
+.tags_titles {
+    color: #1e2c3a;
+    text-shadow: 0.2px 0.2px 2.2px #e6e6e6;
+    font-weight: bold;
+}
 
 
 /*.logo {
