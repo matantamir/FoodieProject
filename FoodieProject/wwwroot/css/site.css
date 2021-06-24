@@ -71,8 +71,8 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /********** site styles ***************/
 
-.edit_user_input {
-    width: 60%;
+.login_input {
+    width: 70%;
 }
 .switch_button { 
     margin: 11px 0px;
@@ -87,11 +87,8 @@ for details on configuring this project to bundle and minify static web assets. 
 .search_box {
     padding-left: 38px;
 }
+
 .password_eye {
-    cursor: pointer;
-    margin-left: 160px;
-}
-.password_eye_big {
     cursor: pointer;
     margin-left: 200px;
 }

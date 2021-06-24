@@ -15,18 +15,16 @@
             <div asp-validation-summary="ModelOnly" class="font-weight-bold form_danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label form_text_font"></label>
-                <input asp-for="Username" class="form-control form-control-light" />
+                <input asp-for="Username" class="form-control form-control-light login_input" />
                 <span asp-validation-for="Username" class="font-weight-bold form_danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label form_text_font"></label>
-                <input asp-for="Password" class="form-control form-control-light"  />
-                <span asp-validation-for="Password" class="form_danger"></span>
-                @*<div class="d-flex align-items-center small">
-            <i class="far fa-eye text-muted position-absolute pl-3 password_eye" id="togglePassword"></i>
-            <input asp-for="Password" class="form-control form-control-light" id="id_password" />
-            <span asp-validation-for="Password" class="form_danger"></span>
-        </div>*@
+                <div class="d-flex align-items-center small">
+                    <i class="far fa-eye text-muted position-absolute pl-3 password_eye" id="togglePassword"></i>
+                    <input asp-for="Password" class="form-control form-control-light login_input" id="id_password" />
+                    <span asp-validation-for="Password" class="form_danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Register user" class="btn btn-light" />
