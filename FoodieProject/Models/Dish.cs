@@ -18,7 +18,7 @@ namespace FoodieProject.Models
         [Display(Name = "Dish Description")]
         public string Description { get; set; }
 
-        [Required, DataType(DataType.Currency),Display(Name ="Dish Price")]
+        [Required, DataType(DataType.Currency),Display(Name ="Dish Price"),DisplayFormat(DataFormatString = "{0:#,###0.00} ₪")]
         public int Price { get; set; }
 
         [Display(Name = "Dish Picture")]
