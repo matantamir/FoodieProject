@@ -79,40 +79,46 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="form_danger"></div>
             <div class="form-group">
-                <input id="Name" name="Name" class="form-control form-control-light" placeholder="Restaurant name" />
+                <label asp-for="Name" class="control-label form_text_font"></label>
+                <input id="Name" name="Name" class="form-control form-control-light" placeholder="Enter a restaurant"/>
                 <span asp-validation-for="Name" class="form_danger"></span>
             </div>
             @if (ViewData.ContainsKey("ErrorRestExists"))
             {
                 <div class="form_danger">@ViewData["ErrorRestExists"]</div>
             }
-            <div class="form-group">
-                <input asp-for="Phone" type="tel" placeholder="Phone number" pattern="[0-9-]{5,20}" class="form-control" />
-                <span asp-validation-for="Phone" class="form_danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Address.City" class="form-control" placeholder="City" />
-                <span asp-validation-for="Address.City" class="form_danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Address.Street" class="form-control" placeholder="Street" />
-                <span asp-validation-for="Address.Street" class="form_danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Address.Number" class="form-control" placeholder="No." />
-                <span asp-validation-for="Address.Number" class="form_danger"></span>
-            </div>
-            <div>
-                Upload Restaurant Picture <input class="form-control form-control-light" type="file" name="myFile" />
-            </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label form_text_font"></label>
+            <input asp-for="Phone" type="tel" pattern="[0-9-]{5,20}" class="form-control form-control-light" />
+            <span asp-validation-for="Phone" class="form_danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address.City" class="control-label form_text_font"></label>
+            <input asp-for="Address.City" class="form-control form-control-light" />
+            <span asp-validation-for="Address.City" class="form_danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address.Street" class="control-label form_text_font"></label>
+            <input asp-for="Address.Street" class="form-control form-control-light"  />
+            <span asp-validation-for="Address.Street" class="form_danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address.Number" class="control-label form_text_font"></label>
+            <input asp-for="Address.Number" class="form-control form-control-light" />
+            <span asp-validation-for="Address.Number" class="form_danger"></span>
+        </div>
+        <div>
+            <label class="control-label form_text_font"> Upload Restaurant Picture</label> <input class="form-control form-control-light" type="file" name="myFile" />
+        </div>
             <br />
 
             <div class="form-group">
-                <textarea rows="5" cols="33" asp-for="About" class="form-control" placeholder="Write about the restaurant"></textarea>
+                <label asp-for="About" class="control-label form_text_font"></label>
+                <textarea rows="5" cols="33" asp-for="About" class="form-control form-control-light" placeholder="Write about the restaurant"></textarea>
                 <span asp-validation-for="About" class="form_danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AveragePrice" class="control-label"></label>
+                <label asp-for="AveragePrice" class="control-label form_text_font"></label>
                 <br />
                 <div class="price">
                     <input type="radio" id="dollar3" name="AveragePrice" value="3" required />
@@ -127,7 +133,7 @@
             <br /> <br />
 
             <div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
+                <label asp-for="Rate" class="control-label form_text_font"></label>
                 <br />
                 <div class="rate">
                     <input type="radio" id="star5" name="Rate" value="5" required />
@@ -144,7 +150,8 @@
                 <span asp-validation-for="Rate" class="form_danger"></span>
             </div>
             <br />
-            <label asp-for="Tags" class="control-label"></label>
+            <br />
+            <label asp-for="Tags" class="control-label form_text_font"></label>
 
             @if (ViewData["serverError"] == null)
             {
@@ -154,7 +161,7 @@
                     {
                         <div class="col-4">
                             <input type="checkbox" name="Tags" value="@tag.Id">
-                            <label>@tag.Name</label><br>
+                            <label class="tags_titles">@tag.Name</label><br>
                         </div>
                     }
                     <span asp-validation-for="Tags" class="form_danger"></span>
@@ -168,7 +175,7 @@
                     {
                         <div class="col-4">
                             <input type="checkbox" name="Tags" value="@tag.Id" checked="@ViewBag.restTags.Contains(tag)">
-                            <label>@tag.Name</label><br>
+                            <label class="tags_titles">@tag.Name</label><br>
                         </div>
                     }
                     <span asp-validation-for="Tags" class="form_danger"></span>
@@ -200,7 +207,7 @@
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
