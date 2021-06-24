@@ -2,6 +2,7 @@
 $(function () {
     $('#restSwitchButton').off("click").on("click",function (e) {
         e.preventDefault();
+        alert('in');
         if ($("#cardDiv").is(":hidden")) {
             $("#cardDiv").show();
             $("#map").hide()

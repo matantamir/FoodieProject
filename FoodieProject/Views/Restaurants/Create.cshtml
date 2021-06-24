@@ -17,7 +17,7 @@
         const input = document.getElementById("Name");
         const options = {
             componentRestrictions: { country: "il" }, // Restrict search to israel only.
-            fields: ["place_id", "formatted_phone_number", "geometry", "name", "address_component", "price_level", "rating"], // the place search will return this fields as the .getDetails function api.
+            fields: ["place_id", "formatted_phone_number", "geometry", "name", "address_component", "price_level", "rating", "opening_hours"], // the place search will return this fields as the .getDetails function api.
             origin: map.getCenter(),
             strictBounds: false, // Does not strict the bounds of the search, false is by default but mentioned to make sure.
             types: ["establishment"], // Restricts search to only businesses.
@@ -26,7 +26,7 @@
         autocomplete.addListener("place_changed", () => {
             const place = autocomplete.getPlace();
             if (!place.geometry || !place.geometry.location) {
-                window.alert("No details availble for input: " + place.name);
+                window.alert(place.name + " not found as a restaurant in google, manually fill is needed.");
                 return;
             }
 
@@ -58,6 +58,15 @@
             }
             document.getElementById("Name").value = place.name;
             document.getElementById("Address_PlaceId").value = place.place_id;
+            var openPeriods = 'No working hours';
+            if (!!place.opening_hours.weekday_text) {
+                openPeriods = place.opening_hours.weekday_text[6] + "\n";
+                for (var i = 0; i < place.opening_hours.weekday_text.length - 1; i++) {
+                    openPeriods += place.opening_hours.weekday_text[i] + "\n";
+                }
+
+            }
+            document.getElementById("About").value = openPeriods;
         });
 
     }
