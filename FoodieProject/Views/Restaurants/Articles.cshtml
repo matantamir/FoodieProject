@@ -71,26 +71,16 @@
     </div>
 </div>
 
+<script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<script>
+    var tweets = @Html.Raw(ViewBag.Tweets);
+    $(document).ready(function () { embedTweet(tweets);});
+</script>
+                                                                                                 
 @section Scripts
 {
     <div hidden type="text/html" id="hidden-template">
             <span id="tweet{id}" style="padding-bottom:10px"></span>
     </div>
-
-    <script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-    <script>
-    var tweets = @Html.Raw(ViewBag.Tweets);
-    for (var i = 0; i < tweets.data.length; i++)
-    {
-        var template = $('#hidden-template').html();
-        template = template.replaceAll("{id}", i);
-        $('tbody').append(template);
-    }
-
-    for (var i = 0; i < tweets.data.length; i++)
-    {
-        twttr.widgets.createTweet(tweets.data[i].id, document.getElementById('tweet'+i), { theme: 'light' });
-    }
-    </script>
 }
 

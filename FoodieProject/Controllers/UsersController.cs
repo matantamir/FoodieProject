@@ -188,46 +188,6 @@ namespace FoodieProject.Controllers
             return View(await _context.User.ToListAsync());
         }
 
-        //        // GET: Users/Details/5
-        //        public async Task<IActionResult> Details(int? id)
-        //        {
-        //            if (id == null)
-        //            {
-        //                return NotFound();
-        //            }
-
-        //            var user = await _context.User
-        //                .FirstOrDefaultAsync(m => m.Id == id);
-        //            if (user == null)
-        //            {
-        //                return NotFound();
-        //            }
-
-        //            return View(user);
-        //        }
-
-        //        // GET: Users/Create
-        //        public IActionResult Create()
-        //        {
-        //            return View();
-        //        }
-
-        //        // POST: Users/Create
-        //        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //        [HttpPost]
-        //        [ValidateAntiForgeryToken]
-        //        public async Task<IActionResult> Create([Bind("Id,Username,Password,Type")] User user)
-        //        {
-        //            if (ModelState.IsValid)
-        //            {
-        //                _context.Add(user);
-        //                await _context.SaveChangesAsync();
-        //                return RedirectToAction(nameof(Index));
-        //            }
-        //            return View(user);
-        //        }
-
         // GET: Users/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
