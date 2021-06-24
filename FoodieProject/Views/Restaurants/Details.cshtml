@@ -4,689 +4,8 @@
     ViewData["Title"] = "Details";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-        background-color: #7c939c;
-        margin-top: 20px;
-    }
-    /*------- portfolio -------*/
-    .project {
-        margin: 15px 0;
-    }
-
-    .no-gutter .project {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .has-spacer {
-        margin-left: 30px;
-        margin-right: 30px;
-        margin-bottom: 30px;
-    }
-
-    .has-spacer-extra-space {
-        margin-left: 30px;
-        margin-right: 30px;
-        margin-bottom: 30px;
-    }
-
-    .has-side-spacer {
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-
-    .project-title {
-        font-size: 1.25rem;
-    }
-
-    .project-skill {
-        font-size: 0.9rem;
-        font-weight: 400;
-        letter-spacing: 0.06rem;
-    }
-
-    .project-info-box {
-        margin: 15px 0;
-        background-color: #fff;
-        padding: 30px 40px;
-        border-radius: 5px;
-    }
-
-        .project-info-box p {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #d5dadb;
-        }
-
-            .project-info-box p:last-child {
-                margin-bottom: 0;
-                padding-bottom: 0;
-                border-bottom: none;
-            }
-
-    img {
-        height: auto;
-        -webkit-backface-visibility: hidden;
-        max-width: 110%;
-    }
-
-    .rounded {
-        border-radius: 5px !important;
-    }
-
-    .btn-xs.btn-icon {
-        width: 34px;
-        height: 34px;
-        max-width: 34px !important;
-        max-height: 34px !important;
-        font-size: 10px;
-        line-height: 34px;
-    }
-    /* facebook button */
-    .btn-facebook, .btn-facebook:active, .btn-facebook:focus {
-        color: #fff !important;
-        background: #4e68a1;
-        border: 2px solid #4e68a1;
-    }
-
-        .btn-facebook:hover {
-            color: #fff !important;
-            background: #3b4f7a;
-            border: 2px solid #3b4f7a;
-        }
-
-    .btn-facebook-link, .btn-facebook-link:active, .btn-facebook-link:focus {
-        color: #4e68a1 !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-facebook-link:hover {
-            color: #3b4f7a !important;
-        }
-
-    .btn-outline-facebook, .btn-outline-facebook:active, .btn-outline-facebook:focus {
-        color: #4e68a1 !important;
-        background: transparent;
-        border: 2px solid #4e68a1;
-    }
-
-        .btn-outline-facebook:hover {
-            color: #fff !important;
-            background: #4e68a1;
-            border: 2px solid #4e68a1;
-        }
-
-    /* twitter button */
-    .btn-twitter, .btn-twitter:active, .btn-twitter:focus {
-        color: #fff !important;
-        background: #65b5f2;
-        border: 2px solid #65b5f2;
-    }
-
-        .btn-twitter:hover {
-            color: #fff !important;
-            background: #5294c6;
-            border: 2px solid #5294c6;
-        }
-
-        .btn-twitter:hover {
-            color: #fff !important;
-            background: #5294c6;
-            border: 2px solid #5294c6;
-        }
-
-    .btn-twitter-link, .btn-twitter-link:active, .btn-twitter-link:focus {
-        color: #65b5f2 !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-twitter-link:hover {
-            color: #5294c6 !important;
-        }
-
-    .btn-outline-twitter, .btn-outline-twitter:active, .btn-outline-twitter:focus {
-        color: #65b5f2 !important;
-        background: transparent;
-        border: 2px solid #65b5f2;
-    }
-
-        .btn-outline-twitter:hover {
-            color: #fff !important;
-            background: #65b5f2;
-            border: 2px solid #65b5f2;
-        }
-
-    /* google button */
-    .btn-google, .btn-google:active, .btn-google:focus {
-        color: #fff !important;
-        background: #e05d4b;
-        border: 2px solid #e05d4b;
-    }
-
-        .btn-google:hover {
-            color: #fff !important;
-            background: #b94c3d;
-            border: 2px solid #b94c3d;
-        }
-
-    .btn-google-link, .btn-google-link:active, .btn-google-link:focus {
-        color: #e05d4b !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-google-link:hover {
-            color: #b94c3d !important;
-        }
-
-    .btn-outline-google, .btn-outline-google:active, .btn-outline-google:focus {
-        color: #e05d4b !important;
-        background: transparent;
-        border: 2px solid #e05d4b;
-    }
-
-        .btn-outline-google:hover {
-            color: #fff !important;
-            background: #e05d4b;
-            border: 2px solid #e05d4b;
-        }
-
-    /* linkedin button */
-    .btn-linkedin, .btn-linkedin:active, .btn-linkedin:focus {
-        color: #fff !important;
-        background: #2083bc;
-        border: 2px solid #2083bc;
-    }
-
-        .btn-linkedin:hover {
-            color: #fff !important;
-            background: #186592;
-            border: 2px solid #186592;
-        }
-
-    .btn-linkedin-link, .btn-linkedin-link:active, .btn-linkedin-link:focus {
-        color: #2083bc !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-linkedin-link:hover {
-            color: #186592 !important;
-        }
-
-    .btn-outline-linkedin, .btn-outline-linkedin:active, .btn-outline-linkedin:focus {
-        color: #2083bc !important;
-        background: transparent;
-        border: 2px solid #2083bc;
-    }
-
-        .btn-outline-linkedin:hover {
-            color: #fff !important;
-            background: #2083bc;
-            border: 2px solid #2083bc;
-        }
-
-    /* pinterest button */
-    .btn-pinterest, .btn-pinterest:active, .btn-pinterest:focus {
-        color: #fff !important;
-        background: #d2373b;
-        border: 2px solid #d2373b;
-    }
-
-        .btn-pinterest:hover {
-            color: #fff !important;
-            background: #ad2c2f;
-            border: 2px solid #ad2c2f;
-        }
-
-    .btn-pinterest-link, .btn-pinterest-link:active, .btn-pinterest-link:focus {
-        color: #d2373b !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-pinterest-link:hover {
-            color: #ad2c2f !important;
-        }
-
-    .btn-outline-pinterest, .btn-outline-pinterest:active, .btn-outline-pinterest:focus {
-        color: #d2373b !important;
-        background: transparent;
-        border: 2px solid #d2373b;
-    }
-
-        .btn-outline-pinterest:hover {
-            color: #fff !important;
-            background: #d2373b;
-            border: 2px solid #d2373b;
-        }
-
-    /* dribble button */
-    .btn-dribbble, .btn-dribbble:active, .btn-dribbble:focus {
-        color: #fff !important;
-        background: #ec5f94;
-        border: 2px solid #ec5f94;
-    }
-
-        .btn-dribbble:hover {
-            color: #fff !important;
-            background: #b4446e;
-            border: 2px solid #b4446e;
-        }
-
-    .btn-dribbble-link, .btn-dribbble-link:active, .btn-dribbble-link:focus {
-        color: #ec5f94 !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-dribbble-link:hover {
-            color: #b4446e !important;
-        }
-
-    .btn-outline-dribbble, .btn-outline-dribbble:active, .btn-outline-dribbble:focus {
-        color: #ec5f94 !important;
-        background: transparent;
-        border: 2px solid #ec5f94;
-    }
-
-        .btn-outline-dribbble:hover {
-            color: #fff !important;
-            background: #ec5f94;
-            border: 2px solid #ec5f94;
-        }
-
-    /* instagram button */
-    .btn-instagram, .btn-instagram:active, .btn-instagram:focus {
-        color: #fff !important;
-        background: #ea4c89;
-        border: 2px solid #ea4c89;
-    }
-
-        .btn-instagram:hover {
-            color: #fff !important;
-            background: #cc4177;
-            border: 2px solid #cc4177;
-        }
-
-    .btn-instagram-link, .btn-instagram-link:active, .btn-instagram-link:focus {
-        color: #ea4c89 !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-instagram-link:hover {
-            color: #cc4177 !important;
-        }
-
-    .btn-outline-instagram, .btn-outline-instagram:active, .btn-outline-instagram:focus {
-        color: #ea4c89 !important;
-        background: transparent;
-        border: 2px solid #ea4c89;
-    }
-
-        .btn-outline-instagram:hover {
-            color: #fff !important;
-            background: #ea4c89;
-            border: 2px solid #ea4c89;
-        }
-
-    /* youtube button */
-    .btn-youtube, .btn-youtube:active, .btn-youtube:focus {
-        color: #fff !important;
-        background: #e52d27;
-        border: 2px solid #e52d27;
-    }
-
-        .btn-youtube:hover {
-            color: #fff !important;
-            background: #b31217;
-            border: 2px solid #b31217;
-        }
-
-    .btn-youtube-link, .btn-youtube-link:active, .btn-youtube-link:focus {
-        color: #e52d27 !important;
-        background: transparent;
-        border: none;
-    }
-
-        .btn-youtube-link:hover {
-            color: #b31217 !important;
-        }
-
-    .btn-outline-youtube, .btn-outline-youtube:active, .btn-outline-youtube:focus {
-        color: #e52d27 !important;
-        background: transparent;
-        border: 2px solid #e52d27;
-    }
-
-        .btn-outline-youtube:hover {
-            color: #fff !important;
-            background: #e52d27;
-            border: 2px solid #e52d27;
-        }
-
-    .btn-xs.btn-icon span, .btn-xs.btn-icon i {
-        line-height: 34px;
-    }
-
-    .btn-icon.btn-circle span, .btn-icon.btn-circle i {
-        margin-top: -1px;
-        margin-right: -1px;
-    }
-
-    .btn-icon i {
-        margin-top: -1px;
-    }
-
-    .btn-icon span, .btn-icon i {
-        display: block;
-        line-height: 50px;
-    }
-
-    a.btn, a.btn-social {
-        display: inline-block;
-    }
-
-    .mr-5 {
-        margin-right: 5px !important;
-    }
-
-    .mb-0 {
-        margin-bottom: 0 !important;
-    }
-
-    .btn-facebook, .btn-facebook:active, .btn-facebook:focus {
-        color: #fff !important;
-        background: #4e68a1;
-        border: 2px solid #4e68a1;
-    }
-
-    .btn-circle {
-        border-radius: 50% !important;
-    }
-
-    .project-info-box p {
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #d5dadb;
-    }
-
-    p {
-        font-family: "Barlow", sans-serif !important;
-        font-weight: 300;
-        font-size: 1rem;
-        color: #686c6d;
-        letter-spacing: 0.03rem;
-        margin-bottom: 10px;
-    }
-
-    b, strong {
-        font-weight: 700 !important;
-    }
-
-    .map {
-        padding: 0.7em 1em;
-        border-radius: 0 0 6px 6px;
-        background-color: #fff;
-    }
-
-    #map {
-        height: 400px;
-    }
-</style>
-
-<style>
-    * {
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-    }
-
-    html, body {
-        height: 100%;
-    }
-
-    body {
-        margin: 0;
-        font: 16px/1.3 sans-serif;
-    }
-
-    /*
-PURE RESPONSIVE CSS3 SLIDESHOW GALLERY by Roko C. buljan
-http://stackoverflow.com/a/34696029/383904
-*/
-
-    .CSSgal {
-        position: relative;
-        overflow: hidden;
-        height: 100%; /* Or set a fixed height */
-    }
-
-        /* SLIDER */
-
-        .CSSgal .slider {
-            height: 100%;
-            white-space: nowrap;
-            font-size: 0;
-            transition: 0.8s;
-        }
-
-            /* SLIDES */
-
-            .CSSgal .slider > * {
-                font-size: 1rem;
-                display: inline-block;
-                white-space: normal;
-                vertical-align: top;
-                height: 100%;
-                width: 100%;
-                background: none 50% no-repeat;
-                background-size: cover;
-            }
-
-        /* PREV/NEXT, CONTAINERS & ANCHORS */
-
-        .CSSgal .prevNext {
-            position: absolute;
-            z-index: 1;
-            top: 50%;
-            width: 100%;
-            height: 0;
-        }
-
-            .CSSgal .prevNext > div + div {
-                visibility: hidden; /* Hide all but first P/N container */
-            }
-
-            .CSSgal .prevNext a {
-                background: #fff;
-                position: absolute;
-                width: 60px;
-                height: 60px;
-                line-height: 60px; /* If you want to place numbers */
-                text-align: center;
-                opacity: 0.7;
-                -webkit-transition: 0.3s;
-                transition: 0.3s;
-                -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-                left: 0;
-            }
-
-                .CSSgal .prevNext a:hover {
-                    opacity: 1;
-                }
-
-                .CSSgal .prevNext a + a {
-                    left: auto;
-                    right: 0;
-                }
-
-        /* NAVIGATION */
-
-        .CSSgal .bullets {
-            position: absolute;
-            z-index: 2;
-            bottom: 0;
-            padding: 10px 0;
-            width: 100%;
-            text-align: center;
-        }
-
-            .CSSgal .bullets > a {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                line-height: 30px;
-                text-decoration: none;
-                text-align: center;
-                background: rgba(255, 255, 255, 1);
-                -webkit-transition: 0.3s;
-                transition: 0.3s;
-            }
-
-                .CSSgal .bullets > a + a {
-                    background: rgba(255, 255, 255, 0.5); /* Dim all but first */
-                }
-
-                .CSSgal .bullets > a:hover {
-                    background: rgba(255, 255, 255, 0.7) !important;
-                }
-
-        /* NAVIGATION BUTTONS */
-        /* ALL: */
-        .CSSgal > s:target ~ .bullets > * {
-            background: rgba(255, 255, 255, 0.5);
-        }
-    /* ACTIVE */
-    #s1:target ~ .bullets > *:nth-child(1) {
-        background: rgba(255, 255, 255, 1);
-    }
-
-    #s2:target ~ .bullets > *:nth-child(2) {
-        background: rgba(255, 255, 255, 1);
-    }
-
-    #s3:target ~ .bullets > *:nth-child(3) {
-        background: rgba(255, 255, 255, 1);
-    }
-
-    #s4:target ~ .bullets > *:nth-child(4) {
-        background: rgba(255, 255, 255, 1);
-    }
-    /* More slides? Add here more rules */
-
-    /* PREV/NEXT CONTAINERS VISIBILITY */
-    /* ALL: */
-    .CSSgal > s:target ~ .prevNext > * {
-        visibility: hidden;
-    }
-    /* ACTIVE: */
-    #s1:target ~ .prevNext > *:nth-child(1) {
-        visibility: visible;
-    }
-
-    #s2:target ~ .prevNext > *:nth-child(2) {
-        visibility: visible;
-    }
-
-    #s3:target ~ .prevNext > *:nth-child(3) {
-        visibility: visible;
-    }
-
-    #s4:target ~ .prevNext > *:nth-child(4) {
-        visibility: visible;
-    }
-    /* More slides? Add here more rules */
-
-    /* SLIDER ANIMATION POSITIONS */
-
-    #s1:target ~ .slider {
-        transform: translateX( 0%);
-        -webkit-transform: translateX( 0%);
-    }
-
-    #s2:target ~ .slider {
-        transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-    }
-
-    #s3:target ~ .slider {
-        transform: translateX(-200%);
-        -webkit-transform: translateX(-200%);
-    }
-
-    #s4:target ~ .slider {
-        transform: translateX(-300%);
-        -webkit-transform: translateX(-300%);
-    }
-    /* More slides? Add here more rules */
-
-
-    /* YOU'RE THE DESIGNER! 
-   ____________________
-   All above was mainly to get it working :)
-   CSSgal CUSTOM STYLES / OVERRIDES HERE: */
-
-    .CSSgal {
-        color: #fff;
-        text-align: center;
-    }
-
-        .CSSgal .slider h2 {
-            margin-top: 40vh;
-            font-weight: 200;
-            letter-spacing: -0.06em;
-            word-spacing: 0.2em;
-            font-size: 3em;
-        }
-
-        .CSSgal a {
-            border-radius: 50%;
-            margin: 0 3px;
-            color: rgba(0,0,0,0.8);
-            text-decoration: none;
-        }
-
-
-</style>
-<style>
-    /* Next & previous buttons */
-    .prev,
-    .next {
-        cursor: pointer;
-        position: absolute;
-        top: 40%;
-        width: auto;
-        padding: 16px;
-        margin-top: -50px;
-        color: white;
-        font-weight: bold;
-        font-size: 20px;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-        -webkit-user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-        /* On hover, add a black background color with a little bit see-through */
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-</style>
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
+<link rel="stylesheet" href="~/css/restDetails.css" />
 @* Script to edit the open status and the reviews.*@
 <script>
     function initialize() {
@@ -778,7 +97,7 @@ http://stackoverflow.com/a/34696029/383904
                 @if (@Model.About != null)
                 {
 
-                    <span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span><i class="fas fa-clock float-right" style="color: #686c6d"></i>
+                    <span id="restOpenStatus" class="open_close">Closed</span><i class="fas fa-clock float-right" style="color: #686c6d"></i>
 
                     <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer; color:#686c6d"></i>
                     
@@ -786,6 +105,8 @@ http://stackoverflow.com/a/34696029/383904
                         <div class="card-body">
                             <b>Opening Hours:</b>
                             @Model.About
+                            <i class="far fa-angle-right"></i>
+                            <span class="glyphicon glyphicon-chevron-left"></span>
                         </div>
                     </div>
 
@@ -822,16 +143,16 @@ http://stackoverflow.com/a/34696029/383904
                         @foreach (var dish in Model.Dishes)
                         {
                             <div >
-                                <img src="~/Pictures/Dish/@dish.PicturePath" style="width: auto; max-height: 600px;" />
+                                <img src="~/Pictures/Dish/@dish.PicturePath"  class="img_dish"/>
                             </div>
                         }
                     </div>
 
                     <div class="prevNext">
-                        <div><a href="#s4"></a><a href="#s2"></a></div>
-                        <div><a href="#s1"></a><a href="#s3"></a></div>
-                        <div><a href="#s2"></a><a href="#s4"></a></div>
-                        <div><a href="#s3"></a><a href="#s1"></a></div>
+                        <div ><a href="#s4"> <i class="fas fa-chevron-left"> </i></a><a  href="#s2"> <i class="fas fa-chevron-right"> </i></a></div>
+                        <div><a href="#s1"> <i class="fas fa-chevron-left" ></i> </a><a href="#s3"> <i class="fas fa-chevron-right"></i></a></div>
+                        <div><a href="#s2"><i class="fas fa-chevron-left"></i> </a><a href="#s4"><i class="fas fa-chevron-right"></i> </a></div>
+                        <div><a href="#s3"><i class="fas fa-chevron-left"></i> </a><a href="#s1"><i class="fas fa-chevron-right"></i></a></div>
                     </div>
 
                     <div class="bullets">
@@ -849,9 +170,9 @@ http://stackoverflow.com/a/34696029/383904
 
 
         <div class="col-md-7">
-
-            <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded" style="width: auto; max-height: 250px; max-width: 600px;" >
-
+          
+                    <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded img_rest">
+               
             <div class="map">
                 <iframe width="585"
                         height="220"
@@ -861,7 +182,7 @@ http://stackoverflow.com/a/34696029/383904
                         src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Name),@(Model.Address.City)+@(Model.Address.Street)'>
                 </iframe>
             </div>
-        <br />
+            <br />
             <div class="project-info-box mt-0 mb-0">
                 <p class="mb-0">
                     <b> <span class="fw-bold mr-10 va-middle hide-mobile">Share:</span></b>
@@ -870,14 +191,16 @@ http://stackoverflow.com/a/34696029/383904
                     <a href="#" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer" id="websiteLink"><i class="fa fa-globe"></i></a>
                 </p>
             </div><!-- / project-info-box -->
+        <br />
+            <div class="edit_delete_details form_text_font ">
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <a class="edit_delete_details form_text_font" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a class="edit_delete_details form_text_font" asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
+                }
+                <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
+            </div>
         </div><!-- / column -->
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
-    <div class="edit_delete_details form_text_font">
-        @if (this.User.IsInRole("Admin"))
-        {
-            <a class="edit_delete_details form_text_font" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a> | </a> <a class="edit_delete_details form_text_font" asp-controller="Dishes" asp-action="Create" asp-route-RestId="@Model.Id">Add Dish</a> <a> | </a>
-        }
-        <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
-    </div>
+ 
 </div>
