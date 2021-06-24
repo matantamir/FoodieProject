@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
         background-color: #7c939c;
@@ -302,36 +302,36 @@
     /* instagram button */
     .btn-instagram, .btn-instagram:active, .btn-instagram:focus {
         color: #fff !important;
-        background: #4c5fd7;
-        border: 2px solid #4c5fd7;
+        background: #ea4c89;
+        border: 2px solid #ea4c89;
     }
 
         .btn-instagram:hover {
             color: #fff !important;
-            background: #4252ba;
-            border: 2px solid #4252ba;
+            background: #cc4177;
+            border: 2px solid #cc4177;
         }
 
     .btn-instagram-link, .btn-instagram-link:active, .btn-instagram-link:focus {
-        color: #4c5fd7 !important;
+        color: #ea4c89 !important;
         background: transparent;
         border: none;
     }
 
         .btn-instagram-link:hover {
-            color: #4252ba !important;
+            color: #cc4177 !important;
         }
 
     .btn-outline-instagram, .btn-outline-instagram:active, .btn-outline-instagram:focus {
-        color: #4c5fd7 !important;
+        color: #ea4c89 !important;
         background: transparent;
-        border: 2px solid #4c5fd7;
+        border: 2px solid #ea4c89;
     }
 
         .btn-outline-instagram:hover {
             color: #fff !important;
-            background: #4c5fd7;
-            border: 2px solid #4c5fd7;
+            background: #ea4c89;
+            border: 2px solid #ea4c89;
         }
 
     /* youtube button */
@@ -651,7 +651,40 @@ http://stackoverflow.com/a/34696029/383904
             text-decoration: none;
         }
 
+
 </style>
+<style>
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+</style>
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
 @* Script to edit the open status and the reviews.*@
@@ -677,7 +710,7 @@ http://stackoverflow.com/a/34696029/383904
                     document.getElementById("restOpenStatus").style.color = "orangered";
                     document.getElementById("restOpenStatus").innerHTML = "Closed";
                 }
-                document.getElementById("websiteLink").innerHTML = place.website;
+                document.getElementById("websiteLink").setAttribute("href", place.website);
             }
         }
     </script>
@@ -687,7 +720,7 @@ http://stackoverflow.com/a/34696029/383904
     <div class="row">
         <div class="col-md-5">
             <div class="project-info-box mt-0">
-                <h1>@Model.Name</h1>
+                <h1 class="title_font">@Model.Name</h1>
                 <br />
 
                 @foreach (var tag in Model.Tags)
@@ -728,7 +761,6 @@ http://stackoverflow.com/a/34696029/383904
                 </p>
 
 
-
                 <br /><br />
 
 
@@ -742,18 +774,21 @@ http://stackoverflow.com/a/34696029/383904
                         prices[3 - num].checked = true;
                 </script>
 
-                <i class="fas fa-phone"></i><span class="mb-0" align="right" style="white-space: pre-line"> @Model.Phone</span><br />
+                <p> <span class="mb-0" align="right" style="white-space: pre-line; " text-align: right;"> @Model.Phone</span><i class="fas fa-phone float-right"></i></p><br />
                 @if (@Model.About != null)
                 {
-            <i class="fas fa-clock"></i><span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span>
-                    <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer;"></i>
-                    <br />
-                    <br />
+
+                    <span id="restOpenStatus" style="color:orangered;cursor:pointer;">Closed</span><i class="fas fa-clock float-right" style="color: #686c6d"></i>
+
+                    <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer; color:#686c6d"></i>
+                    
                     <div id="abouttext" class="card" style="display:none; max-width:500px; font-size:12px; white-space: pre-line;">
                         <div class="card-body">
+                            <b>Opening Hours:</b>
                             @Model.About
                         </div>
                     </div>
+
                 }
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
@@ -771,33 +806,9 @@ http://stackoverflow.com/a/34696029/383904
                 </script>
                 @*<a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>*@
             </div><!-- / project-info-box -->
-
-            <div class="project-info-box mt-0 mb-0">
-                <p class="mb-0">
-                    <span class="fw-bold mr-10 va-middle hide-mobile">Share:</span>
-                    <a href="#x" class="btn btn-xs btn-facebook btn-circle btn-icon mr-5 mb-0"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#x" class="btn btn-xs btn-twitter btn-circle btn-icon mr-5 mb-0"><i class="fab fa-twitter"></i></a>
-                    <a href="#x" class="btn btn-xs btn-pinterest btn-circle btn-icon mr-5 mb-0"><i class="fab fa-pinterest"></i></a>
-                    <a href="#x" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0"><i class="fab fa-linkedin-in"></i></a>
-                </p>
-            </div><!-- / project-info-box -->
-        </div><!-- / column -->
-
-
-        <div class="col-md-7">
-
-            <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded">
-
-            <div class="map">
-                <iframe width="585"
-                        height="220"
-                        style="border:0"
-                        loading="lazy"
-                        allowfullscreen
-                        src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Name),@(Model.Address.City)+@(Model.Address.Street)'>
-                </iframe>
-            </div>
             <div class="project-info-box">
+                <p><b>Dishes:</b> </p>
+                <br />
                 <div class="CSSgal">
 
                     <!-- Don't wrap targets in parent -->
@@ -810,8 +821,8 @@ http://stackoverflow.com/a/34696029/383904
 
                         @foreach (var dish in Model.Dishes)
                         {
-                            <div style="background:#85b;">
-                                <img src="~/Pictures/Dish/@dish.PicturePath" style="width: 40%; height: auto; " />
+                            <div >
+                                <img src="~/Pictures/Dish/@dish.PicturePath" style="width: auto; max-height: 600px;" />
                             </div>
                         }
                     </div>
@@ -831,9 +842,33 @@ http://stackoverflow.com/a/34696029/383904
                     </div>
 
                 </div>
-                <p><b>Categories:</b> Design, Illustration</p>
-                <p><b>Website:</b> <span id="websiteLink">Website_link</span></p>
 
+            </div><!-- / project-info-box -->
+            
+        </div><!-- / column -->
+
+
+        <div class="col-md-7">
+
+            <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded" style="width: auto; max-height: 250px; max-width: 600px;" >
+
+            <div class="map">
+                <iframe width="585"
+                        height="220"
+                        style="border:0"
+                        loading="lazy"
+                        allowfullscreen
+                        src='https://www.google.com/maps/embed/v1/place?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&q=@(Model.Name),@(Model.Address.City)+@(Model.Address.Street)'>
+                </iframe>
+            </div>
+        <br />
+            <div class="project-info-box mt-0 mb-0">
+                <p class="mb-0">
+                    <b> <span class="fw-bold mr-10 va-middle hide-mobile">Share:</span></b>
+                    <a href="https://www.facebook.com/MilgoMilbar/" class="btn btn-xs btn-facebook btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/milgomilbar/" class="btn btn-xs btn-instagram btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer" id="websiteLink"><i class="fa fa-globe"></i></a>
+                </p>
             </div><!-- / project-info-box -->
         </div><!-- / column -->
     </div>

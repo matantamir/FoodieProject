@@ -107,6 +107,11 @@ for details on configuring this project to bundle and minify static web assets. 
     text-shadow: 0.2px 0.2px 2.2px #e6e6e6;
     font-weight: bold;
 }
+.admin_menu {
+    border-color: #8e659e;
+    border-style: solid;
+    border-width: 2px;
+}
 
 
 /*.logo {

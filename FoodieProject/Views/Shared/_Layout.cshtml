@@ -43,13 +43,13 @@
                         @if (this.User.IsInRole("Admin"))
                         {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark transition_navbar" style="border-color: #f78484; border-style: solid; border-width: 2px;" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                                    <a class="nav-link text-dark transition_navbar admin_menu"  asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark transition_navbar" style="border-color: #f78484; border-style: solid; border-width: 2px; " asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                                    <a class="nav-link text-dark transition_navbar admin_menu" asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark transition_navbar" style="border-color: #f78484; border-style: solid; border-width: 2px; " asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                    <a class="nav-link text-dark transition_navbar admin_menu" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                                 </li>
                       }
 
