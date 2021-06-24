@@ -24,7 +24,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Index">Home</a>
                         </li>
-
+                        @if (this.User.IsInRole("Admin") || this.User.IsInRole("Client"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Articles">Media</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
+                            </li>
+                        }
 
                         @if (this.User.IsInRole("Admin"))
                         {
@@ -40,18 +51,7 @@
                             </li>
                         }
 
-                        @if (this.User.IsInRole("Admin") || this.User.IsInRole("Client"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="Articles">Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Restaurants" asp-action="AveragePrice">Average Prices</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark transition_navbar" asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a>
-                            </li>
-                        }
+
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

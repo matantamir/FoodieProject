@@ -166,12 +166,16 @@
                 </td>
                 @if (this.User.IsInRole("Admin"))
                 {
-                    <td class="edit_delete_details"> 
+                    <td class="edit_delete_details">
                         <a class="edit_delete_details" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a class="edit_delete_details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a class="edit_delete_details" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 }
+                else
+                {
+                    <td></td>
+                    }
                 </tr>
             }
         </tbody>

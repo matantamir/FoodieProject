@@ -96,8 +96,13 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-left: 200px;
 }
 .delete_titles {
-   color: #1e2c3a
+   color: #1e2c3a;
 }
+.details_titles {
+    color: #1e2c3a;
+    text-shadow: 1px 1px 3px #e6e6e6;
+}
+
 
 /*.logo {
     width: 20%;
