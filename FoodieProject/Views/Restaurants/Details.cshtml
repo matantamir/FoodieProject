@@ -458,11 +458,11 @@
                 openStatus = place.opening_hours.open_now;
                 
                 if (openStatus) {
-                    document.getElementById("restOpenStatus").className = "badge bg-success";
-                    document.getElementById("restOpenStatus").innerHTML = "Open";
+                    document.getElementById("restOpenStatus").style.color = 'green';
+                    document.getElementById("restOpenStatus").innerHTML = "Opened";
                 }
                 else {
-                    document.getElementById("restOpenStatus").className = "badge bg-danger";
+                    document.getElementById("restOpenStatus").style.color = "orangered";
                     document.getElementById("restOpenStatus").innerHTML = "Closed";
                 }
                 reviews = place.reviews;
@@ -483,7 +483,6 @@
         <div class="col-md-5">
             <div class="project-info-box mt-0">
                 <h1>@Model.Name</h1> 
-                <span id="restOpenStatus" class="badge bg-danger">Closed</span>
                 <br />
 
                 @foreach (var tag in Model.Tags)
@@ -539,7 +538,33 @@
                 </script>
 
                 @*<span class="mb-0" align="right" style="white-space: pre-line"> @Model.About</span>*@
-                <a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>
+                @if (@Model.About != null)
+                {
+                    <span id="restOpenStatus" style="color:orangered;">Closed</span>
+                    <i id="arrow" class="fas fa-chevron-right"></i>
+                    <br />
+                    <br />
+                    <div id="abouttext" class="card" style="display:none; max-width:500px;">
+                        <div class="card-body">
+                            @Model.About
+                        </div>
+                    </div>
+                }
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $("#restOpenStatus").click(function () {
+                            $("#abouttext").slideToggle();
+                            if ($("#arrow").attr('class') == 'fas fa-chevron-right') {
+                                $("#arrow").attr('class', 'fas fa-chevron-down');
+                            }
+                            else {
+                                $("#arrow").attr('class', 'fas fa-chevron-right');
+                            }
+                        });
+                    });
+                </script>
+                @*<a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>*@
             </div><!-- / project-info-box -->
 
             <div class="project-info-box mt-0 mb-0">
