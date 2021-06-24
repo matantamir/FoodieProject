@@ -5,9 +5,10 @@
     Layout = "_LoginLayout";
 }
 <br />
-<h1 class="login_title_font">Register a new user - Admin</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<h1 class="login_title_font">Register a new user</h1>
 
-<hr class="form_hr"/>
+<hr class="form_hr" />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="RegisterAdmin">
@@ -20,21 +21,24 @@
             <div class="form-group">
                 <label asp-for="Password" class="control-label form_text_font"></label>
                 <input asp-for="Password" class="form-control form-control-light" />
-                <span asp-validation-for="Password" class="font-weight-bold form_danger"></span>
+                <span asp-validation-for="Password" class="form_danger"></span>
+                @*<div class="d-flex align-items-center small">
+            <i class="far fa-eye text-muted position-absolute pl-3 password_eye_big" id="togglePassword"></i>
+            <input asp-for="Password" class="form-control form-control-light" id="id_password" />
+            <span asp-validation-for="Password" class="form_danger"></span>
+        </div>*@
             </div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label form_text_font"></label>
-                <select asp-for="Type" asp-items="Html.GetEnumSelectList<UserRole>()" class="form-control" />
-                    <option>Admin</option>
-                    <option>Client</option>
-                </select>
+                <select asp-for="Type" asp-items="@Html.GetEnumSelectList<UserRole>()" class="form-control form-control-light"></select>
+
                 <span asp-validation-for="Type" class="font-weight-bold form_danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Register user" class="btn btn-light" />
             </div>
         </form>
-        
+
         @if (ViewData.ContainsKey("ErrorUserExists"))
         {
             <div class="font-weight-bold form_danger">@ViewData["ErrorUserExists"]</div>

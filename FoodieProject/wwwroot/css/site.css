@@ -38,6 +38,9 @@ for details on configuring this project to bundle and minify static web assets. 
     text-shadow: 3px 3px 5px #000000;
     color:white;
 }
+.edit_user_input{
+    width: 60%;
+}
 .form_text_font {
     font-family: monospace;
     color: white;
@@ -79,6 +82,15 @@ for details on configuring this project to bundle and minify static web assets. 
 .search_box {
     padding-left: 38px;
 }
+.password_eye {
+    cursor: pointer;
+    margin-left: 160px;
+}
+.password_eye_big {
+    cursor: pointer;
+    margin-left: 200px;
+}
+
 /*.logo {
     width: 20%;
     height: auto;

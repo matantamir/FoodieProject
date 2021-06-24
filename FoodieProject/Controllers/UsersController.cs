@@ -242,6 +242,7 @@ namespace FoodieProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["Password"] = user.Password;
             return View(user);
         }
 
