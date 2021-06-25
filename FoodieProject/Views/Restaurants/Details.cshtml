@@ -69,17 +69,13 @@
                 </p>
 
                 <p class="staticPrice col-12">
-
                     <input type="radio" id="dollar3" name="AveragePrice" value="3" disabled />
                     <label for="dollar3" title="text"> 3 dollars</label>
                     <input type="radio" id="dollar2" name="AveragePrice" value="2" disabled />
                     <label for="dollar2" title="text"> 2 dollars</label>
                     <input type="radio" id="dollar1" name="AveragePrice" value="1" disabled />
                     <label for="dollar1" title="text"> 1 dollar</label>
-
                 </p>
-
-
                 <br /><br />
 
 
@@ -130,27 +126,92 @@
             <div class="project-info-box">
                 <p><b>Dishes:</b> </p>
                 <br />
-                <div class="CSSgal">
+                <div class="CSSgal" id="CSSgal_container">
 
                     <!-- Don't wrap targets in parent -->
-                    <s id="s1"></s>
-                    <s id="s2"></s>
-                    <s id="s3"></s>
-                    <s id="s4"></s>
+
+                    <script>
+                        for (var i = 1; i <= 5; i++)
+                        {
+                            $('#CSSgal_container').append('<s id="s'+i+'"></s>')
+                        }
+
+                    </script>
+                    <div class="slider">
+
+                        @foreach (var dish in Model.Dishes)
+                        {
+                        
+                        <div>
+                            @*<h2>@dish.Name</h2>*@
+                            <img src="~/Pictures/Dish/@dish.PicturePath" class="img_dish" />
+                        </div>
+                        }
+                    </div>
+
+                    <div class="prevNext" id="prevNext_container">
+
+
+                    </div>
+                    <script>
+                            dishCount = 5
+                            for (var i = 1; i <= dishCount ; i++)
+                        {
+                            if (i - 1 == 0) { prev = dishCount  }
+                            else { prev = i - 1 }
+
+                            if (i == dishCount) { next = 1 }
+                                else { next = i + 1 }
+
+                                $('#prevNext_container').append('<div><a href="#s' + prev + '"> <i class="fas fa-chevron-left"> </i></a><a href="#s' + next+'"> <i class="fas fa-chevron-right"> </i></a></div>')
+                        }
+
+                    </script>
+
+                    <div class="bullets" id="bullets_container">
+
+
+
+                    </div>
+                    <script>
+                        for (var i = 1; i <= 5; i++)
+                        {
+                            $('#bullets_container').append(' <a href="#s'+i+'">'+i+'</a>')
+                        }
+
+                    </script>
+
+                </div>
+                <!--<div class="CSSgal" id="CSSgal_container">-->
+
+                    <!-- Don't wrap targets in parent -->
+
+                    <!--<script>
+                        for (var i = 1; i < len(@Model.Dishes); i++)
+                        {
+                            $('#CSSgal_container').append('<s id="s'+i+'"></s>')
+                        }
+
+                    </script>
+
+                    <s href="#s1"></s>
+                    <s href="#s2"></s>
+                    <s href="#s3"></s>
+                    <s href="#s4"></s>
 
                     <div class="slider">
 
                         @foreach (var dish in Model.Dishes)
                         {
-                            <div >
-                                <img src="~/Pictures/Dish/@dish.PicturePath"  class="img_dish"/>
+                            <div>
+                                <img src="~/Pictures/Dish/@dish.PicturePath" class="img_dish" />
                             </div>
                         }
                     </div>
 
-                    <div class="prevNext">
-                        <div ><a href="#s4"> <i class="fas fa-chevron-left"> </i></a><a  href="#s2"> <i class="fas fa-chevron-right"> </i></a></div>
-                        <div><a href="#s1"> <i class="fas fa-chevron-left" ></i> </a><a href="#s3"> <i class="fas fa-chevron-right"></i></a></div>
+                    <div class="prevNext" id="prevNext container_prevNext">
+                        <div><a href="#s4"> <i class="fas fa-chevron-left"> </i></a><a href="#s2"> <i class="fas fa-chevron-right"> </i></a></div>
+                        <div><a href="#s1"> <i class="fas fa-chevron-left"></i> </a><a href="#s3"> <i class="fas fa-chevron-right"></i></a></div>
                         <div><a href="#s2"><i class="fas fa-chevron-left"></i> </a><a href="#s4"><i class="fas fa-chevron-right"></i> </a></div>
                         <div><a href="#s3"><i class="fas fa-chevron-left"></i> </a><a href="#s1"><i class="fas fa-chevron-right"></i></a></div>
                     </div>
@@ -162,7 +223,7 @@
                         <a href="#s4">4</a>
                     </div>
 
-                </div>
+                </div>-->
 
             </div><!-- / project-info-box -->
             
