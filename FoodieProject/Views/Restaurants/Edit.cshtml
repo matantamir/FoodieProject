@@ -4,8 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 <h1 class="title_font text_shadow">Edit Restaurant</h1>
+<hr class="form_hr" />
 
-<hr class="form_hr"/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
@@ -64,13 +64,7 @@
                 </div>
                 <span asp-validation-for="AveragePrice" class="form_danger"></span>
             </div>
-            <script>
-                prices = document.getElementsByName("AveragePrice");
-                var num = @ViewData["AveragePrice"];
-                prices[3 - num].checked = true;
-            </script>
             <br /> <br />
-
             <div class="form-group">
                 <label asp-for="Rate" class="control-label form_text_font"></label>
                 <br />
@@ -86,15 +80,9 @@
                     <input type="radio" id="star1" name="Rate" value="1" />
                     <label for="star1" title="text">1 star</label>
                 </div>
-                <script>
-                    stars = document.getElementsByName("Rate");
-                    var num = @ViewData["Rate"];
-                        stars[5 - num].checked = true;
-                </script>
                 <span asp-validation-for="Rate" class="form_danger"></span>
             </div>
             <br /> <br />
-
             <label asp-for="Tags" class="control-label form_text_font"></label>
             <div class="form-group row" style="width:150%">
                 <br />
@@ -120,4 +108,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+                prices = document.getElementsByName("AveragePrice");
+                var num = @ViewData["AveragePrice"];
+                prices[3 - num].checked = true;
+
+                stars = document.getElementsByName("Rate");
+                var num = @ViewData["Rate"];
+                stars[5 - num].checked = true;
+    </script>
 }

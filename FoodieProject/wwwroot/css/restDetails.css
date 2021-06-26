@@ -566,8 +566,23 @@ b, strong {
     border-radius: 0 0 6px 6px;
     background-color: #fff;
 }
-
+.clock {
+    color: #686c6d;
+}
 #map {
     height: 400px;
 }
 
+#arrow {
+    cursor:pointer; 
+    color:#686c6d;
+}
+#abouttext {
+    display:none; 
+    max-width:500px; 
+    font-size:15px; 
+    white-space: pre-line;
+}
+.card-body{
+    margin-top:-45px;
+}

@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-
+// ---------------------------------- Password eye ----------------------------------
 $('#togglePassword').click(function (e) {
     // Password toggle
     const password = document.querySelector('#id_password');
@@ -60,6 +60,7 @@ $('#togglePassword').click(function (e) {
     this.classList.toggle('fa-eye-slash');
 });
 
+// ---------------------------------- Tweets ----------------------------------
 function embedTweet(tweets)
 {
     for (var i = 0; i < tweets.data.length; i++) {
@@ -73,6 +74,7 @@ function embedTweet(tweets)
     }
 }
 
+// ---------------------------------- Google data ----------------------------------
 function initializeCreate() {
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 32.082796, lng: 34.793785 },
@@ -135,6 +137,7 @@ function initializeCreate() {
     });
 }
 
+// ---------------------------------- About rest ----------------------------------
 function aboutToggle() {
     $("#restOpenStatus, #arrow").click(function () {
         $("#abouttext").slideToggle();
@@ -145,6 +148,14 @@ function aboutToggle() {
             $("#arrow").attr('class', 'fas fa-chevron-right');
         }
     })
+}
+
+// ---------------------------------- Dish album ----------------------------------
+function createAlbumContainer(dishCount) {
+
+    for (var i = 1; i <= dishCount; i++) {
+        $('#CSSgal_container').append('<s id="s' + i + '"></s>')
+    }
 }
 
 // Addresses Graphs ---------------------------------------------------------------------------------

@@ -4,43 +4,29 @@
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="~/css/restaurantIndex.css" />
-<script src="~/js/switch.js"></script>
 
 <h1 class="text_shadow">Our Restaurants</h1>
 
 @if (this.User.IsInRole("Admin"))
 {
-    <p>
-        <a class="text-light text_shadow" asp-action="Create">Create New</a>
-    </p>
+    <p><a class="text-light text_shadow" asp-action="Create">Create New</a></p>
 }
 
-<style>
-    body {
-        background-image: url("../Pictures/wooden-board-empty-table-top-blurred-background.jpg");
-        background-size: cover;
-    }
-</style>
+<!-- Search bar div -->
 <div class="pos-f-t">
-
     <nav class="navbar navbar-light bg-light">
-
         <button title="Advanced search" id="advancedSearch" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="float">
             <div class="input-group rounded">
-                <input name="qBasicRest" id="qBasicRest" type="search" class="form-control rounded" placeholder="Search restaurant by name" aria-label="Search"
-                       aria-describedby="search-addon" size="24" />
+                <input name="qBasicRest" id="qBasicRest" type="search" class="form-control rounded" placeholder="Search restaurant by name" aria-label="Search" aria-describedby="search-addon" size="24" />
                 <span class="input-group-text border-0" id="search-addon" style="background-color: #f8f9fa">
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
-
                 </span>
             </div>
-
         </div>
     </nav>
     <div class="collapse" id="navbarToggleExternalContent">
@@ -50,7 +36,6 @@
             <form asp-action="Search" id="SearchComplexAjaxForm" class="float">
                 <div class="container">
                     <div class="row">
-
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -83,7 +68,6 @@
                     </div>
 
                     <div class="row">
-
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -112,9 +96,7 @@
                                 <option value="3">Expensive</option>
                             </select>
                         </div>
-
                     </div>
-
 
                     <div class="row">
                         <div class="input-group mb-3">
@@ -137,10 +119,8 @@
                                 <label>@tag.Name</label><br>
                             </div>
                         }
-
                     </div>
                 </div>
-
                 <br />
 
                 <input type="submit" value="Search" class="btn btn-primary" />
@@ -206,8 +186,8 @@
             });
         }
     }
-
 </script>
+
 <br>
 <button type="button" class="btn btn-primary" id="restSwitchButton">
     Mode <span class="badge badge-light" id="modeIndicator">Cards</span>
@@ -216,15 +196,13 @@
 
 <div class="container" id="cardDiv">
     <div class="row align-items-stretch" id="toClean">
-
         @foreach (var item in Model)
         {
-
-            <div class="col-xl-3 col-lg-auto col-md-4 col-sm-auto flex-fill" style="margin-top: 1rem;">
+            <div class="col-xl-3 col-lg-4 col-md-5 col-sm-auto flex-fill main_div">
                 <a asp-action="Details" asp-route-id="@item.Id">
                     <div class="card-hover h-100" name="cardStyle">
                         <div class="card h-100">
-                           <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath style="max-width: 400px;max-height: 250px;">
+                            <img class="card-img-top" src=@ViewData["picPath"]@item.PicturePath>
                             <div class="card-body">
                                 <h5 class="card-title">@item.Name</h5>
                                 <p class="card-text"> @item.Address.Street @item.Address.Number, @item.Address.City</p>
@@ -241,44 +219,42 @@
                                     <label for="star1" title="text">1 star</label>
                                 </div>
                                 <script>
-                    stars = document.getElementsByName("Rate @item.Id");
-                    var num = @item.Rate;
-                            stars[5 - num].checked = true;
+                                    stars = document.getElementsByName("Rate @item.Id");
+                                    var num = @item.Rate;
+                                    stars[5 - num].checked = true;
                                 </script>
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <script>var cards = document.getElementsByClassName("card-hover");
-                                        for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin h-100"; }</script>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-light">Delete</a>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</a>
+                                    <script>
+                                        var cards = document.getElementsByClassName("card-hover");
+                                        for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin h-100"; }
+                                    </script>
+                                    <label asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-light">Delete</label>
+                                    <label asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</label>
                                 }
-
                             </div>
-
                         </div>
                     </div>
                 </a>
             </div>
         }
-
     </div>
 
-    <div id="hiddenError2" class="alert alert-secondary non_display" > <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+    <div id="hiddenError2" class="alert alert-secondary non_display"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
 
 </div>
-<div id="map" style="width:100%;height:600px;display:none;"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
+<div id="map" class="map_mode"></div>
 
 @section Scripts
 {
-    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
 
     <div hidden type="text/html" id="hidden-template">
-        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto" style="margin-top: 1rem;">
+        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-auto flex-fill main_div">
             <a href="/Restaurants/details/{restId}">
-                <div class="card-hover">
+                <div class="card-hover h-100" name="cardStyle">
                     <div class="card h-100">
-                        <img class="card-img-top" src="@ViewData["picPath"]{restPicPath}" style="max-width: 400px; max-height: 250px" />
+                        <img class="card-img-top" src="@ViewData["picPath"]{restPicPath}" />
                         <div class="card-body">
                             <h5 class="card-title">{restName}</h5>
                             <p class="card-text"> {restStreet} {restAddrNum}, {restCity}</p>
@@ -299,13 +275,10 @@
                             {
                                 <script>
                                     var cards = document.getElementsByClassName("card-hover");
-                                    for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin"; }</script>
-                                <a href="/Restaurants/delete/{restId}" class="btn  btn-danger text-light">Delete</a>
-                                <a href="/Restaurants/edit/{restId}" class="btn btn-light">Edit</a>
-
+                                    for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin h-100"; }</script>
+                                <label href="/Restaurants/delete/{restId}" class="btn  btn-danger text-light">Delete</label>
+                                <label href="/Restaurants/edit/{restId}" class="btn btn-light">Edit</label>
                             }
-
-
                         </div>
                     </div>
                 </div>

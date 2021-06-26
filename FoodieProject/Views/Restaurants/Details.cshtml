@@ -3,9 +3,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 <link rel="stylesheet" href="~/css/restDetails.css" />
+
 @* Script to edit the open status and the reviews.*@
 <script>
     function initialize() {
@@ -33,7 +32,8 @@
             }
         }
     </script>
-<div id="googleMap" style="width:0px;height:0px;" hidden></div>
+
+<div id="googleMap" class="map_hide" hidden></div>
 
 <div class="container">
     <div class="row">
@@ -49,11 +49,10 @@
                         <label>@tag.Name</label><br>
                     </div>
                 }
-
-            </div><!-- / project-info-box -->
+            </div>
 
             <div class="project-info-box">
-                <p style="text-align: right;">@Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)</p>
+                <p>@Html.DisplayFor(model => model.Address.Street) @Html.DisplayFor(model => model.Address.Number), @Html.DisplayFor(model => model.Address.City)</p>
 
                 <p class="staticRate col-12">
                     <input type="radio" id="star5" name="Rate" value="5" disabled />
@@ -77,152 +76,81 @@
                     <label for="dollar1" title="text"> 1 dollar</label>
                 </p>
                 <br /><br />
-
                 <script>
                         stars = document.getElementsByName("Rate");
                         var num = @Model.Rate;
-                                stars[5 - num].checked = true;
+                        stars[5 - num].checked = true;
 
                         prices = document.getElementsByName("AveragePrice");
                         var num = @Model.AveragePrice;
                         prices[3 - num].checked = true;
                 </script>
 
-                <p> <span class="mb-0" align="right" style="white-space: pre-line; " text-align: right;"> @Model.Phone</span><i class="fas fa-phone float-right"></i></p><br />
+                <p> <span class="mb-0"> @Model.Phone</span><i class="fas fa-phone float-right"></i></p><br />
                 @if (@Model.About != null)
                 {
-
-                    <span id="restOpenStatus" class="open_close">Closed</span><i class="fas fa-clock float-right" style="color: #686c6d"></i>
-
-                    <i id="arrow" class="fas fa-chevron-right" style="cursor:pointer; color:#686c6d"></i>
-                    
-                    <div id="abouttext" class="card" style="display:none; max-width:500px; font-size:12px; white-space: pre-line;">
-                        <div class="card-body">
+                    <span id="restOpenStatus" class="open_close">Closed</span><i class="fas fa-clock float-right clock" ></i>
+                    <i id="arrow" class="fas fa-chevron-right" ></i>     
+                    <div id="abouttext">
+                        <div class="card-body" >
                             <b>Opening Hours:</b>
                             @Model.About
-                            <i class="far fa-angle-right"></i>
-                            <span class="glyphicon glyphicon-chevron-left"></span>
                         </div>
                     </div>
-
                 }
+
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(function () { aboutToggle() });
-                </script>
-                @*<a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>*@
-            </div><!-- / project-info-box -->
+                </script>              
+            </div>
+
             <div class="project-info-box">
                 <p><b>Dishes:</b> </p>
                 <br />
+                <!-- / Dish Album -->
                 <div class="CSSgal" id="CSSgal_container">
-
-                    <!-- Don't wrap targets in parent -->
-
                     <script>
-                        for (var i = 1; i <= 5; i++)
+                        for (var i = 1; i <= @Model.Dishes.Count(); i++)
                         {
                             $('#CSSgal_container').append('<s id="s'+i+'"></s>')
                         }
-
                     </script>
                     <div class="slider">
-
-                        @foreach (var dish in Model.Dishes)
-                        {
-                        
-                        <div>
-                            @*<h2>@dish.Name</h2>*@
-                            <img src="~/Pictures/Dish/@dish.PicturePath" class="img_dish" />
-                        </div>
-                        }
-                    </div>
-
-                    <div class="prevNext" id="prevNext_container">
-
-
-                    </div>
-                    <script>
-                            dishCount = 5
-                            for (var i = 1; i <= dishCount ; i++)
-                        {
-                            if (i - 1 == 0) { prev = dishCount  }
-                            else { prev = i - 1 }
-
-                            if (i == dishCount) { next = 1 }
-                                else { next = i + 1 }
-
-                                $('#prevNext_container').append('<div><a href="#s' + prev + '"> <i class="fas fa-chevron-left"> </i></a><a href="#s' + next+'"> <i class="fas fa-chevron-right"> </i></a></div>')
-                        }
-
-                    </script>
-
-                    <div class="bullets" id="bullets_container">
-
-
-
-                    </div>
-                    <script>
-                        for (var i = 1; i <= 5; i++)
-                        {
-                            $('#bullets_container').append(' <a href="#s'+i+'">'+i+'</a>')
-                        }
-
-                    </script>
-
-                </div>
-                <!--<div class="CSSgal" id="CSSgal_container">-->
-
-                    <!-- Don't wrap targets in parent -->
-
-                    <!--<script>
-                        for (var i = 1; i < len(@Model.Dishes); i++)
-                        {
-                            $('#CSSgal_container').append('<s id="s'+i+'"></s>')
-                        }
-
-                    </script>
-
-                    <s href="#s1"></s>
-                    <s href="#s2"></s>
-                    <s href="#s3"></s>
-                    <s href="#s4"></s>
-
-                    <div class="slider">
-
                         @foreach (var dish in Model.Dishes)
                         {
                             <div>
+                                @*<h2>@dish.Name</h2>*@
                                 <img src="~/Pictures/Dish/@dish.PicturePath" class="img_dish" />
                             </div>
                         }
                     </div>
+                    <div class="prevNext" id="prevNext_container"></div>
+                    <script>
+                        dishCount = @Model.Dishes.Count();
+                        for (var i = 1; i <= dishCount; i++) {
+                            if (i - 1 == 0) { prev = dishCount }
+                            else { prev = i - 1 }
 
-                    <div class="prevNext" id="prevNext container_prevNext">
-                        <div><a href="#s4"> <i class="fas fa-chevron-left"> </i></a><a href="#s2"> <i class="fas fa-chevron-right"> </i></a></div>
-                        <div><a href="#s1"> <i class="fas fa-chevron-left"></i> </a><a href="#s3"> <i class="fas fa-chevron-right"></i></a></div>
-                        <div><a href="#s2"><i class="fas fa-chevron-left"></i> </a><a href="#s4"><i class="fas fa-chevron-right"></i> </a></div>
-                        <div><a href="#s3"><i class="fas fa-chevron-left"></i> </a><a href="#s1"><i class="fas fa-chevron-right"></i></a></div>
-                    </div>
+                            if (i == dishCount) { next = 1 }
+                            else { next = i + 1 }
 
-                    <div class="bullets">
-                        <a href="#s1">1</a>
-                        <a href="#s2">2</a>
-                        <a href="#s3">3</a>
-                        <a href="#s4">4</a>
-                    </div>
+                            $('#prevNext_container').append('<div><a class="album" href="#s' + prev + '"onclick="return false;"> <i class="fas fa-chevron-left"> </i></a><a class="album" href="#s' + next + '"> <i class="fas fa-chevron-right"> </i></a></div>')
+                        }
+                    </script>
 
-                </div>-->
+                    <div class="bullets" id="bullets_container"></div>
+                    <script>
+                        for (var i = 1; i <= @Model.Dishes.Count(); i++) {
+                            $('#bullets_container').append(' <a class="album" href="#s' + i + '">' + i + '</a>')
+                        }
+                    </script>
+                </div>             
+            </div>           
+        </div>
 
-            </div><!-- / project-info-box -->
-            
-        </div><!-- / column -->
-
-
-        <div class="col-md-7">
-          
-                    <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded img_rest">
-               
+        <div class="col-md-7">         
+            <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded img_rest">             
             <div class="map">
                 <iframe width="585"
                         height="220"
@@ -240,7 +168,7 @@
                     <a href="https://www.instagram.com/milgomilbar/" class="btn btn-xs btn-instagram btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0" target="_blank" rel="noopener noreferrer" id="websiteLink"><i class="fa fa-globe"></i></a>
                 </p>
-            </div><!-- / project-info-box -->
+            </div>
         <br />
             <div class="edit_delete_details form_text_font ">
                 @if (this.User.IsInRole("Admin"))
@@ -249,8 +177,7 @@
                 }
                 <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
             </div>
-        </div><!-- / column -->
+        </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
- 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly&language=en" async></script>
 </div>

@@ -156,11 +156,7 @@ rect {
     max-width: 200px; 
     max-height: 200px;
 }
-.card-img-top {
-    width: 100%;
-    height: 10vw;
-    object-fit: cover;
-}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
