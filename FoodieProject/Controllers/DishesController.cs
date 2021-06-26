@@ -34,19 +34,6 @@ namespace FoodieProject.Controllers
             return View(await dishesListWithRest.ToListAsync());
         }
 
-        //public async Task<IActionResult> Search(string query)
-        //{
-        //    var dishSearch = _context.Dish.Include(d => d.Restaurant).Where(d => (d.Name.Contains(query) || d.Description.Contains(query)) || query == null).Select(z => new
-        //    { 
-        //        name = z.Name,
-        //        description = z.Description,
-        //        price = z.Price,
-        //        picturePath = z.PicturePath,
-        //        restName = z.Restaurant.Name
-        //    });
-        //    return Json(await dishSearch.ToListAsync());
-        //}
-
         // GET: Dishes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -86,7 +73,7 @@ namespace FoodieProject.Controllers
                 ViewData["dishRestName"] = restaurant.Name;
                 ViewData["dishRestId"] = restaurant.Id;
             }
-            //ViewData["RestaurantId"] = new SelectList(_context.Set<Restaurant>(), "Id", "Name");
+           
             return View();
         }
 
@@ -107,11 +94,9 @@ namespace FoodieProject.Controllers
             var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == dish.RestaurantId);
             dish.Restaurant = restaurant;
             dish.RestaurantId = restaurant.Id;
+            
             if (ModelState.IsValid)
             {
-               // var restaurant = _context.Restaurant.FirstOrDefault(m => m.Id == 1);
-                //dish.Restaurant = restaurant;
-              //  dish.RestaurantId = restaurant.Id;
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -143,7 +128,6 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
-
             var dish = await _context.Dish.FindAsync(id);
             if (dish == null)
             {
@@ -163,8 +147,7 @@ namespace FoodieProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestaurantId")] Dish dish,
                     IFormFile newPic)
-        {
-          
+        {         
             if (id != dish.Id)
             {
                 return NotFound();
@@ -175,7 +158,6 @@ namespace FoodieProject.Controllers
             // Check if we have got a new file. If we have got a new one we should delete the previous one and update to the new one
             if (newPic != null)
             {
-
                 var oldPath = dishPicDir + "\\" + oldDish.PicturePath;
                 if (System.IO.File.Exists(oldPath))
                 {
@@ -245,10 +227,10 @@ namespace FoodieProject.Controllers
             return _context.Dish.Any(e => e.Id == id);
         }
 
+        // Dishe Search
         public async Task<IActionResult> Search(string qDish, int qDishRest, string qDescription, int qMaxPrice)
         {
-            {
-             
+            {            
                   var results = _context.Dish.Include(d => d.Restaurant).Where(z => z.Name != null && z.Price != 0 && z.RestaurantId != 0 && z.Description != null);
 
                 if (qDish != null)
@@ -279,22 +261,8 @@ namespace FoodieProject.Controllers
                     restName = z.Restaurant.Name
                 });
 
-                //if (qDish != null)
-                //{
-                //    results = results.Where(d => d.Dishes.ForEach))
-                //}
-
-
-                //if (!RestaurantExists(restaurant.Id))
-                //{
-                //    return NotFound();
-                //}
-
-
                 return Json(await resDish.ToListAsync());
-
             }
-
         }
     }
 }

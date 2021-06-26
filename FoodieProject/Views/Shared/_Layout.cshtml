@@ -13,11 +13,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #f5f3f0;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand"><img src="~/Pictures/FoodieLogo.PNG" class="logo" width="50" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -57,7 +56,7 @@
                         @if (Context.User != null && Context.User.Claims.Count() > 0 && Context.User.Claims != null)
                         {
                             <li class="nav-item mr-auto">
-                                <div class="nav-link text-dark" style="padding: 10px; margin: 5px;"> You are connected as: <b>@Context.User.Identities.FirstOrDefault().Name</b></div>
+                                <div class="nav-link text-dark connected_as"> You are connected as: <b>@Context.User.Identities.FirstOrDefault().Name</b></div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light transition_navbar_logout" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
@@ -70,7 +69,7 @@
                             </li>
                         }
                         <li class="nav-item">
-                        <canvas id="canvas" width="50" height="50" style="margin-right:-130px"></canvas>
+                        <canvas id="canvas" width="50" height="50" ></canvas>
                         </li>
                     </ul>
                 </div>

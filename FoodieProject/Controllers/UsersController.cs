@@ -179,8 +179,6 @@ namespace FoodieProject.Controllers
                 authProperties);
         }
 
-
-
         // GET: Users
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
