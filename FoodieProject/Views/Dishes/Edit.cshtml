@@ -5,8 +5,8 @@
 }
 
 <h1 class="title_font text_shadow">Edit Dish</h1>
-
 <hr class="form_hr"/>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
@@ -31,7 +31,6 @@
                 <label class="control-label form_text_font"> Upload New Dish Picture</label><br><a class="alert-danger">The old picture will be deleted</a><input class="form-control" type="file" name="newPic" />
             </div>
             <br>
-      
             <div>
                 <label asp-for="Restaurant.Name" class="control-label form_text_font"></label>
                 <input asp-for="Restaurant.Name" disabled class="form-control form-control-light" value="@ViewData["dishRestName"]" />
