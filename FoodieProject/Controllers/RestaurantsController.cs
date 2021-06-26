@@ -313,12 +313,12 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurant.Include(a => a.Address).Where(r => r.Id == id).FirstAsync();
+            _context.Address.Remove(restaurant.Address);
             _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool RestaurantExists(int id)
         {
             return _context.Restaurant.Any(e => e.Id == id);
