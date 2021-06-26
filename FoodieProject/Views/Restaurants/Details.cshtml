@@ -109,17 +109,7 @@
                 }
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
-                    $(document).ready(function () {
-                        $("#restOpenStatus, #arrow").click(function () {
-                            $("#abouttext").slideToggle();
-                            if ($("#arrow").attr('class') == 'fas fa-chevron-right') {
-                                $("#arrow").attr('class', 'fas fa-chevron-down');
-                            }
-                            else {
-                                $("#arrow").attr('class', 'fas fa-chevron-right');
-                            }
-                        });
-                    });
+                    $(document).ready(function () { aboutToggle() });
                 </script>
                 @*<a class="mb-0" style="white-space: pre-line">@Html.DisplayFor(model => Model.About)</a>*@
             </div><!-- / project-info-box -->
