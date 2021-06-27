@@ -6,22 +6,12 @@ $(function () {
 
         var query = $('#query').val();
 
-
-        //$('tbody').load('/Addresses/Search?query=' + query);
-
         $.ajax({
             //method: 'post'
             url: '/' + $(location)[0].href.split('/')[3] + '/Search',
             data: { 'query': query }
 
         }).done(function (data) {
-            /* $('tbody').html('');
-             for (var i = 0; i < data.length; i++) {
-                 //var template = '<tr><td>' + data[i].City + '</td><td>' + data[i].Street + '</td><td>' + data[i].Number + '</td><td>' + data[i].Restaurant.Name + '</td></tr>';
-                 var template = '<tr><td>' + data[i].city + '</td><td>' + data[i].street + '</td><td>' + data[i].number + '</td></tr>';
-                 $('tbody').append(template);
-             }*/
-
             $('tbody').html('');
 
             var template = $('#hidden-template').html();
@@ -35,10 +25,7 @@ $(function () {
 
                 $('tbody').append(temp);
             });
-
-
         }); 
-
     });
 });
 
@@ -51,15 +38,6 @@ $(function () {
         var qRest = $('#qRest').val(); 
         var qPrice = $('#qPrice').val();
         var qRate = $('#qRate').val();
-        //var qRate = $('[name=qRate]');
-        //var fRate = 0;
-        //for (var i = 0; i < qRate.length; i++)
-        //{
-        //    if (qRate[i].checked)
-        //    {
-        //        fRate = qRate[i].value;
-        //    }
-        //}
         var allTags = $("[name=qTags]");
         var checkedTags = []
         for (i = 0; i < allTags.length; i++)
@@ -70,24 +48,13 @@ $(function () {
             }
         }
 
-
-        //$('tbody').load('/Addresses/Search?query=' + query);
-
         $.ajax({
             method: 'post',
             url: '/Restaurants/Search',
             data: {
                 'qAddr': qAddr, 'qRest': qRest, 'qTags': checkedTags, 'qRate': qRate, 'qPrice': qPrice }
         }).done(function (data) {
-            /* $('tbody').html('');
-             for (var i = 0; i < data.length; i++) {
-                 //var template = '<tr><td>' + data[i].City + '</td><td>' + data[i].Street + '</td><td>' + data[i].Number + '</td><td>' + data[i].Restaurant.Name + '</td></tr>';
-                 var template = '<tr><td>' + data[i].city + '</td><td>' + data[i].street + '</td><td>' + data[i].number + '</td></tr>';
-                 $('tbody').append(template);
-             }*/
-
             $('#toClean').html('');
-
             var template = $('#hidden-template').html();
 
             $.each(data, function (i, val) {
@@ -110,14 +77,11 @@ $(function () {
             else {
                 $('#hiddenError2').hide();
             }
- 
         });
-
     });
 });
 
 $(function () {
-
     $('#qBasicRest').on("input",function (e) {
         e.preventDefault();
         
@@ -153,16 +117,13 @@ $(function () {
             else {
                 $('#hiddenError2').hide();
             }
-
         });
-
     });
 });
 
 
 $(function () {
     $('#advancedSearch').click(function () {
-
         $('#qBasicRest').toggle()  
     });
 });
@@ -205,9 +166,7 @@ $(function () {
             else {
                 $('#hiddenError2').hide();
             }
-
         });
-
     });
 });
 
@@ -244,9 +203,7 @@ $(function () {
             else {
                 $('#hiddenError2').hide();
             }
-
         });
-
     });
 });
 
