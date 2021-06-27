@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 <link rel="stylesheet" href="~/css/restDetails.css" />
-@* Script to edit the open status and the reviews.*@
+@* Script to edit the open status and the website.*@
 <script>
     function initialize() {
             service = new google.maps.places.PlacesService(googleMap);
@@ -19,8 +19,9 @@
             service.getDetails(request, callback);
         }
     function callback(place, status) {
+        alert("Script run");
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                openStatus = place.opening_hours.isOpen();
+                openStatus = place.opening_hours.open_now;
                 if (openStatus) {
                     document.getElementById("restOpenStatus").style.color = 'green';
                     document.getElementById("restOpenStatus").innerHTML = "Opened";
