@@ -4,76 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
+
 <h1 class="title_font text_shadow">Create Restaurant</h1>
+<hr class="form_hr" />
 
-<hr class="form_hr"/>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script>
-    function initialize() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 32.082796, lng: 34.793785 },
-            zoom: 15,
-        });
-        const input = document.getElementById("Name");
-        const options = {
-            componentRestrictions: { country: "il" }, // Restrict search to israel only.
-            fields: ["place_id", "formatted_phone_number", "geometry", "name", "address_component", "price_level", "rating", "opening_hours"], // the place search will return this fields as the .getDetails function api.
-            origin: map.getCenter(),
-            strictBounds: false, // Does not strict the bounds of the search, false is by default but mentioned to make sure.
-            types: ["establishment"], // Restricts search to only businesses.
-        };
-        const autocomplete = new google.maps.places.Autocomplete(input, options);
-        autocomplete.addListener("place_changed", () => {
-            const place = autocomplete.getPlace();
-            if (!place.geometry || !place.geometry.location) {
-                window.alert(place.name + " not found as a restaurant in google, manually fill is needed.");
-                return;
-            }
-
-            // Starts filling the inputs using place details from google.
-            if (place.formatted_phone_number) {
-                document.getElementById("Phone").value = place.formatted_phone_number;
-            }
-            if (place.address_components[2]) {
-                document.getElementById("Address_City").value = place.address_components[2].long_name;
-            }
-            if (place.address_components[1].types.includes("route") || place.address_components[1].types.include("street_address")) {
-                document.getElementById("Address_Street").value = place.address_components[1].long_name;
-            }
-            if (place.address_components[0].types.includes("street_number")) {
-                document.getElementById("Address_Number").value = place.address_components[0].long_name;
-            }
-
-            // Goes over the dollars and marks them while ignoring price_level 4.
-            for (let i = 1; i <= place.price_level; i++) {
-                if (i == 4) {
-                    continue;
-                }
-                document.getElementById("dollar" + i).checked = true;
-            }
-            // Goes over the stars till reaching the restaurant's rating (rounded) by google and marks the stars.
-            for (let i = 1; i < Math.round(place.rating); i++) {
-
-                document.getElementById("star" + i).checked = true;
-            }
-            document.getElementById("Name").value = place.name;
-            document.getElementById("Address_PlaceId").value = place.place_id;
-            var openPeriods = 'No working hours';
-            if (!!place.opening_hours.weekday_text) {
-                openPeriods = "Opening hours: \n";
-                openPeriods = place.opening_hours.weekday_text[6] + "\n";
-                for (var i = 0; i < place.opening_hours.weekday_text.length - 1; i++) {
-                    openPeriods += place.opening_hours.weekday_text[i] + "\n";
-                }
-
-            }
-            document.getElementById("About").value = openPeriods;
-        });
-
-    }
-</script>
-
-<div id="map" style="width:0px;height:0px;"></div>
+<div id="map" class="map_hide"></div>
 <div class="row">
     <div class="col-md-4">
         <!-- Creation form for restaurant. Google API to autocomplete restaurant name field and all following inputs. -->
@@ -81,38 +16,37 @@
             <div asp-validation-summary="ModelOnly" class="form_danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label form_text_font"></label>
-                <input id="Name" name="Name" class="form-control form-control-light" placeholder="Enter a restaurant"/>
+                <input id="Name" name="Name" class="form-control form-control-light" placeholder="Enter a restaurant" />
                 <span asp-validation-for="Name" class="form_danger"></span>
             </div>
             @if (ViewData.ContainsKey("ErrorRestExists"))
             {
                 <div class="form_danger">@ViewData["ErrorRestExists"]</div>
             }
-        <div class="form-group">
-            <label asp-for="Phone" class="control-label form_text_font"></label>
-            <input asp-for="Phone" type="tel" pattern="[0-9-]{5,20}" class="form-control form-control-light" />
-            <span asp-validation-for="Phone" class="form_danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Address.City" class="control-label form_text_font"></label>
-            <input asp-for="Address.City" class="form-control form-control-light" />
-            <span asp-validation-for="Address.City" class="form_danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Address.Street" class="control-label form_text_font"></label>
-            <input asp-for="Address.Street" class="form-control form-control-light"  />
-            <span asp-validation-for="Address.Street" class="form_danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Address.Number" class="control-label form_text_font"></label>
-            <input asp-for="Address.Number" class="form-control form-control-light" />
-            <span asp-validation-for="Address.Number" class="form_danger"></span>
-        </div>
-        <div>
-            <label class="control-label form_text_font"> Upload Restaurant Picture</label> <input class="form-control form-control-light" type="file" name="myFile" />
-        </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label form_text_font"></label>
+                <input asp-for="Phone" type="tel" pattern="[0-9-]{5,20}" class="form-control form-control-light" />
+                <span asp-validation-for="Phone" class="form_danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label form_text_font"></label>
+                <input asp-for="Address.City" class="form-control form-control-light" />
+                <span asp-validation-for="Address.City" class="form_danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Street" class="control-label form_text_font"></label>
+                <input asp-for="Address.Street" class="form-control form-control-light" />
+                <span asp-validation-for="Address.Street" class="form_danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Number" class="control-label form_text_font"></label>
+                <input asp-for="Address.Number" class="form-control form-control-light" />
+                <span asp-validation-for="Address.Number" class="form_danger"></span>
+            </div>
+            <div>
+                <label class="control-label form_text_font"> Upload Restaurant Picture</label> <input class="form-control form-control-light" type="file" name="myFile" />
+            </div>
             <br />
-
             <div class="form-group">
                 <label asp-for="About" class="control-label form_text_font"></label>
                 <textarea rows="5" cols="33" asp-for="About" class="form-control form-control-light" placeholder="Write about the restaurant"></textarea>
@@ -132,7 +66,6 @@
                 <span asp-validation-for="AveragePrice" class="form_danger"></span>
             </div>
             <br /> <br />
-
             <div class="form-group">
                 <label asp-for="Rate" class="control-label form_text_font"></label>
                 <br />
@@ -153,7 +86,6 @@
             <br />
             <br />
             <label asp-for="Tags" class="control-label form_text_font"></label>
-
             @if (ViewData["serverError"] == null)
             {
                 <div class="form-group row" style="width:150%">
@@ -182,6 +114,7 @@
                     <span asp-validation-for="Tags" class="form_danger"></span>
                 </div>
             }
+
             <script>
             @if (ViewData["serverError"] != null)
             {
@@ -191,10 +124,7 @@
                 @:stars = document.getElementsByName("Rate");
                 @:var num = @ViewData["Rate"];
                 @:stars[5 - num].checked = true;
-                }
-
-                // Care later!!! keep tags after server error on create
-                tags = document.getElementsByName("Tags");
+            }
             </script>
 
             <br />
@@ -203,14 +133,14 @@
                 <input type="submit" value="Create" class="btn btn-light" />
             </div>
         </form>
-
     </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initialize&libraries=places&v=weekly" async></script>
 <div>
     <a class="edit_delete_details form_text_font" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD97JqUBFWSHsjXRxWA89BF1sRV2l5GZho&callback=initializeCreate&libraries=places&v=weekly&language=en" async></script>
 }

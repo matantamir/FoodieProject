@@ -1,6 +1,6 @@
 ﻿// ****************** Restaurants switch ***********************
 $(function () {
-    $('#restSwitchButton').off("click").on("click",function (e) {
+    $('#restSwitchButton').on("click",function (e) {
         e.preventDefault();
         console.log("hi");
         if ($("#cardDiv").is(":hidden")) {

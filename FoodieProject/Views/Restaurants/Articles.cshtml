@@ -4,14 +4,12 @@
     ViewData["Title"] = "Articles";
 }
 
-
-
 <div id="AllContent">
-    <div id="GordonContent" style="width: 50%;float: right;padding: 40px;">
+    <div id="GordonContent" class="gordon">
         <div class="row">
             <div class="col 3">
                 <h1 class="new_font text_shadow">Gordon Ramsay</h1>
-                <img src="../Pictures/GordonRamsay.jpg" style="max-block-size: 150px;border-radius: 50%;" />
+                <img src="../Pictures/GordonRamsay.jpg" class="gordom_img" />
 
                 <table>
                     <tbody>
@@ -21,7 +19,7 @@
         </div>
     </div>
 
-    <div id="NoaContent" style="width: 50%;float: left;padding: 40px;">
+    <div id="NoaContent" class="noa">
         <div class="row">
             <div class="col 3">
                 <h1 class="new_font text_shadow">Noa Eats</h1>
@@ -30,57 +28,57 @@
 
             <div class="w-100"></div>
             <div class="col 3">
-                <h2 class="new_font text_shadow">Pizza &nbsp;</h2>
-                <img style="width: 5%;" src="../Pictures/pizza.png" />
-                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
+                <br /><br />
+                <div class="row">
+                    <h2 class="new_font text_shadow">Pizza &nbsp;</h2>
+                    <img src="../Pictures/pizza.png" class="noa_icons" />
+                </div>
+                <video controls class="noa_videos">
                     <source src="../Videos/pizza.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
 
-            <br />
-            <br />
-            <br />
-            <br />
-
             <div class="w-100"></div>
             <div class="col 3">
-                <h2 class="new_font text_shadow">Meat &nbsp;</h2>
-                <img style="width: 5%;" src="../Pictures/meat.png" />
-                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
+                <br /><br />
+                <div class="row">
+                    <h2 class="new_font text_shadow">Meat &nbsp;</h2>
+                    <img src="../Pictures/meat.png" class="noa_icons" />
+                </div>
+                <video controls class="noa_videos">
                     <source src="../Videos/meat.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
 
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <div class="w-100"></div>
-            <div class="col 3">
-                <h2 class="new_font text_shadow">Vegan</h2>
-                <img style="width: 5%;" src="../Pictures/vegan.png" />
-                <video width="620" height="400" style=" max-width:-webkit-fill-available;" controls>
-                    <source src="../Videos/vegan.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
+                <div class="w-100"></div>
+                <div class="col 3">
+                    <br /><br />
+                    <div class="row">
+                        <h2 class="new_font text_shadow">Vegan &nbsp;</h2>
+                        <img src="../Pictures/vegan.png" class="noa_icons" />
+                    </div>
+                    <video controls class="noa_videos">
+                        <source src="../Videos/vegan.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                </div>
     </div>
 </div>
 
-<script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-<script>
-    var tweets = @Html.Raw(ViewBag.Tweets);
-    $(document).ready(function () { embedTweet(tweets);});
-</script>
-                                                                                                 
 @section Scripts
 {
+    <script id="twitter-wjs" type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+    <script>
+    var tweets = @Html.Raw(ViewBag.Tweets);
+    $(document).ready(function () { embedTweet(tweets);});
+    </script>
+
     <div hidden type="text/html" id="hidden-template">
-            <span id="tweet{id}" style="padding-bottom:10px"></span>
+        <span id="tweet{id}" style="padding-bottom:10px"></span>
     </div>
 }
 

@@ -14,8 +14,6 @@ using System.Net;
 
 namespace FoodieProject.Controllers
 {
-    //[Authorize] - in order to make the all function accessble just for authnticated users
-    //[Authorize(Roles ="Admin")] - in order to restrict function just for admins
     public class RestaurantsController : Controller
     {
         // Create a Directory in order to save pictures in servere side
@@ -43,15 +41,14 @@ namespace FoodieProject.Controllers
         // GET: AveragePrice
         public async Task<IActionResult> AveragePrice()
         {
-
             var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => new { d.Restaurant.Name, d.Restaurant.Id}).Select(a => new List<string> {a.Key.Id.ToString(), a.Key.Name, a.Average(x => x.Price).ToString() });
             ViewData["AVGmodel"] = AVGmodel;
             return View();
         }
+
         // GET: Articles
         public async Task<IActionResult> Articles()
-        {
-            
+        {           
             WebRequest request = WebRequest.Create("https://api.twitter.com/2/users/110365072/tweets?max_results=5");
             request.Headers.Add("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAAJl8QwEAAAAAqc68K%2BOX9n%2BrIl9tOWiTtnsr0Kw%3DIJPft7t2lDWfEQmkryTNDr6X2X4pAvRK9HKn6tFIz5aNNquClX");
             using (System.IO.Stream s = request.GetResponse().GetResponseStream())
@@ -64,9 +61,6 @@ namespace FoodieProject.Controllers
             }
             return View();
         }
-        
-
-
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -94,7 +88,6 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            //OLD-TAGS - ViewData["Tags"] = new MultiSelectList(_context.Tag, "Id", "Name");
             ViewData["Tags"] = _context.Tag.ToList();
             return View();
         }
@@ -116,7 +109,6 @@ namespace FoodieProject.Controllers
             // Check if There is a restaurnts with such a name
             var restExists = _context.Restaurant.FirstOrDefault(r => r.Name == restaurant.Name);
    
-
             if (restExists == null)
             {
                 // If we have got an image
@@ -131,33 +123,22 @@ namespace FoodieProject.Controllers
 
                 if (ModelState.IsValid)
                 {
-
-                    /*OLD- TAGS:
-                     var restTagsList = new List<Tag>();
-                     foreach(var tagcare in tagToCare)
-                     {
-                         restTagsList.Add(_context.Tag.FirstOrDefault(m => m.Id == tagcare));
-                     }
-                     restaurant.Tags = restTagsList;*/
                     _context.Add(address);
                     await _context.SaveChangesAsync();
                     restaurant.AddressId = address.Id;
                     _context.Add(restaurant);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Details), new { id = restaurant.Id });
                 }
-
             }
             else
             {
                 ViewData["ErrorRestExists"] = "Restaurant name already exists, Choose a different restaurant name";
             }
 
-            //ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             ViewData["Tags"] = _context.Tag.ToList();
             ViewData["Rate"] = restaurant.Rate;
             ViewData["AveragePrice"] = restaurant.AveragePrice;
-            //ViewData["restTags"] = restaurant.Tags.ToArray().ToString();
             
             var tempTags = _context.Tag.Where(t => Tags.Contains(t.Id));
             restaurant.Tags = new List<Tag>();
@@ -178,7 +159,6 @@ namespace FoodieProject.Controllers
             // save the image in the server side
             using (var stream = new FileStream(path, FileMode.Create))
             {
-
                 inputImage.CopyTo(stream);
             }
 
@@ -199,7 +179,6 @@ namespace FoodieProject.Controllers
             {
                 return NotFound();
             }
-
 
             ViewData["Tags"] = _context.Tag.ToList();
             ViewData["Rate"] = restaurant.Rate;
@@ -248,18 +227,14 @@ namespace FoodieProject.Controllers
                 try
                 {
                     var rest = await _context.Restaurant.Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
-                    var tags = _context.Tag.Where(t => Tags.Contains(t.Id));
-                    // var addr2 = _context.Address.Where(a => a.Id == address.Id);
+                    var tags = _context.Tag.Where(t => Tags.Contains(t.Id));                 
                     var addr = await _context.Address.FindAsync(rest.AddressId);
                     addr.Street = address.Street;
                     addr.City = address.City;
                     addr.Number = address.Number;
                     addr.PlaceId = address.PlaceId;
-
                     rest.Tags.Clear();
-                    rest.Tags.AddRange(tags);
-
-                    
+                    rest.Tags.AddRange(tags);                  
                     rest.Name = restaurant.Name;
                     rest.AveragePrice = restaurant.AveragePrice;
                     rest.Phone = restaurant.Phone;
@@ -281,7 +256,7 @@ namespace FoodieProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = restaurant.Id });
             }
             ViewData["AddressId"] = new SelectList(_context.Address, "Id", "City", restaurant.AddressId);
             return View(restaurant);
@@ -313,17 +288,18 @@ namespace FoodieProject.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurant.Include(a => a.Address).Where(r => r.Id == id).FirstAsync();
+            _context.Address.Remove(restaurant.Address);
             _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool RestaurantExists(int id)
         {
             return _context.Restaurant.Any(e => e.Id == id);
         }
 
+        // Restaurants Search
         public async Task<IActionResult> Search(string qAddr, string qRest, int qRate, int qPrice, int[] qTags)
         {
             {
@@ -334,12 +310,10 @@ namespace FoodieProject.Controllers
                 {
                     results = results.Where(r => r.Address.City.Contains(qAddr) || r.Address.Street.Contains(qAddr));
                 }
-
                 if (qRest != null)
                 {
                     results = results.Where(r => r.Name.Contains(qRest)).Include(t => t.Tags);
                 }
-
 
                 if (qTags.Length != 0)
                 {
@@ -347,10 +321,8 @@ namespace FoodieProject.Controllers
                         {
                         var tagObj = _context.Tag.Where(t => t.Id == tag).First();
                         results = results.Where(r => r.Tags.Contains(tagObj));
-                        }
-                    
+                        }                  
                 }
-
                 if (qRate != 0)
                 {
                     results = results.Where(r => r.Rate >= qRate);
@@ -372,22 +344,8 @@ namespace FoodieProject.Controllers
                     restName = z.Name
                 });
 
-                //if (qDish != null)
-                //{
-                //    results = results.Where(d => d.Dishes.ForEach))
-                //}
-
-
-                //if (!RestaurantExists(restaurant.Id))
-                //{
-                //    return NotFound();
-                //}
-
-
                 return Json(await resRest.ToListAsync());
-
             }
-
         }
     }
 }

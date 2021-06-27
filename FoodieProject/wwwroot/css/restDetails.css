@@ -119,6 +119,24 @@
 #s4:target ~ .bullets > *:nth-child(4) {
     background: rgba(255, 255, 255, 1);
 }
+#s5:target ~ .bullets > *:nth-child(5) {
+    background: rgba(255, 255, 255, 1);
+}
+#s6:target ~ .bullets > *:nth-child(6) {
+    background: rgba(255, 255, 255, 1);
+}
+#s7:target ~ .bullets > *:nth-child(7) {
+    background: rgba(255, 255, 255, 1);
+}
+#s8:target ~ .bullets > *:nth-child(8) {
+    background: rgba(255, 255, 255, 1);
+}
+#s9:target ~ .bullets > *:nth-child(9) {
+    background: rgba(255, 255, 255, 1);
+}
+#s10:target ~ .bullets > *:nth-child(10) {
+    background: rgba(255, 255, 255, 1);
+}
 /* More slides? Add here more rules */
 
 /* PREV/NEXT CONTAINERS VISIBILITY */
@@ -138,8 +156,25 @@
 #s3:target ~ .prevNext > *:nth-child(3) {
     visibility: visible;
 }
-
 #s4:target ~ .prevNext > *:nth-child(4) {
+    visibility: visible;
+}
+#s5:target ~ .prevNext > *:nth-child(5) {
+    visibility: visible;
+}
+#s6:target ~ .prevNext > *:nth-child(6) {
+    visibility: visible;
+}
+#s7:target ~ .prevNext > *:nth-child(7) {
+    visibility: visible;
+}
+#s8:target ~ .prevNext > *:nth-child(8) {
+    visibility: visible;
+}
+#s9:target ~ .prevNext > *:nth-child(9) {
+    visibility: visible;
+}
+#s10:target ~ .prevNext > *:nth-child(10) {
     visibility: visible;
 }
 /* More slides? Add here more rules */
@@ -165,6 +200,30 @@
     transform: translateX(-300%);
     -webkit-transform: translateX(-300%);
 }
+#s5:target ~ .slider {
+    transform: translateX(-400%);
+    -webkit-transform: translateX(-400%);
+}
+#s6:target ~ .slider {
+    transform: translateX(-500%);
+    -webkit-transform: translateX(-500%);
+}
+#s7:target ~ .slider {
+    transform: translateX(-600%);
+    -webkit-transform: translateX(-600%);
+}
+#s8:target ~ .slider {
+    transform: translateX(-700%);
+    -webkit-transform: translateX(-700%);
+}
+#s9:target ~ .slider {
+    transform: translateX(-800%);
+    -webkit-transform: translateX(-800%);
+}
+#s10:target ~ .slider {
+    transform: translateX(-900%);
+    -webkit-transform: translateX(-900%);
+}
 /* More slides? Add here more rules */
 
 
@@ -179,7 +238,7 @@
 }
 
     .CSSgal .slider h2 {
-        margin-top: 40vh;
+        color:black;
         font-weight: 200;
         letter-spacing: -0.06em;
         word-spacing: 0.2em;
@@ -507,8 +566,23 @@ b, strong {
     border-radius: 0 0 6px 6px;
     background-color: #fff;
 }
-
+.clock {
+    color: #686c6d;
+}
 #map {
     height: 400px;
 }
 
+#arrow {
+    cursor:pointer; 
+    color:#686c6d;
+}
+#abouttext {
+    display:none; 
+    max-width:500px; 
+    font-size:15px; 
+    white-space: pre-line;
+}
+.card-body{
+    margin-top:-45px;
+}

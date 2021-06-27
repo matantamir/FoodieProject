@@ -26,6 +26,7 @@ namespace FoodieProject.Controllers
             return View(await addressWithRest.ToListAsync());
         }
 
+        // Search Addresses
         public async Task<IActionResult> Search(string query)
         {
             var addressSearch = _context.Address.Include(r => r.Restaurant).Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null).Select(z => new 
@@ -37,7 +38,6 @@ namespace FoodieProject.Controllers
                 restName = z.Restaurant.Name,
                 placeId = z.PlaceId
             });
-            //var addressSearch = _context.Address.Where(a => (a.City.Contains(query) || a.Street.Contains(query) || a.Number.ToString().Contains(query)) || query == null);
 
             return Json(await addressSearch.ToListAsync());
         }
