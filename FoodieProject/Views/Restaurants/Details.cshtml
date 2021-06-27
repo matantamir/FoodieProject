@@ -5,12 +5,11 @@
 }
 <link rel="stylesheet" href="~/css/restDetails.css" />
 
-@* Script to edit the open status and the reviews.*@
+@* Script to edit the open status and the website.*@
 <script>
     function initialize() {
             service = new google.maps.places.PlacesService(googleMap);
             var openStatus;
-            var reviews;
             var request = {
                 placeId: '@Model.Address.PlaceId',
                 fields: ['opening_hours', 'website']
@@ -34,6 +33,7 @@
         }
     </script>
 
+@* Hidden div for google API map usage. *@
 <div id="googleMap" class="map_hide" hidden></div>
 
 <div class="container">
@@ -152,6 +152,8 @@
 
         <div class="col-md-7">         
             <img src=@ViewData["picPath"]@Html.DisplayFor(model => model.PicturePath) alt="restaurant picture" class="rounded img_rest">             
+            
+            @* Google web service for embed map with restaurant map place marker. *@
             <div class="map">
                 <iframe width="585"
                         height="220"
