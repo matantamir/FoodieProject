@@ -229,8 +229,8 @@
                                         var cards = document.getElementsByClassName("card-hover");
                                         for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin h-100"; }
                                     </script>
-                                    <label asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-light">Delete</label>
-                                    <label asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</label>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-light">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</a>
                                 }
                             </div>
                         </div>
@@ -276,8 +276,8 @@
                                 <script>
                                     var cards = document.getElementsByClassName("card-hover");
                                     for (var i = 0; i < cards.length; i++) { cards[i].className = "card-admin h-100"; }</script>
-                                <label href="/Restaurants/delete/{restId}" class="btn  btn-danger text-light">Delete</label>
-                                <label href="/Restaurants/edit/{restId}" class="btn btn-light">Edit</label>
+                                <a href="/Restaurants/delete/{restId}" class="btn  btn-danger text-light">Delete</a>
+                                <a href="/Restaurants/edit/{restId}" class="btn btn-light">Edit</a>
                             }
                         </div>
                     </div>
