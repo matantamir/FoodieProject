@@ -17,7 +17,6 @@
             service.getDetails(request, callback);
         }
     function callback(place, status) {
-        alert("Script run");
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 openStatus = place.opening_hours.open_now;
                 if (openStatus) {
