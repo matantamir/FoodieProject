@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "_LoginLayout";
+    Layout = "_Layout";
 }
 <br />
 <h1 class="login_title_font">Login to Foodie!</h1>
@@ -20,8 +20,8 @@
             <div class="form-group ">
                 <label asp-for="Password" class="control-label form_text_font"></label>
                 <div class="d-flex align-items-center small">
-                    <i class="far fa-eye text-muted position-absolute pl-3 password_eye" id="togglePassword"></i>
                     <input asp-for="Password" class="form-control form-control-light login_input" id="id_password" />
+                    <i class="far fa-eye text-muted position-absolute pl-3 password_eye" id="togglePassword"></i>
                 </div>
                 <span asp-validation-for="Password" class="form_danger"></span>
             </div>
