@@ -111,11 +111,11 @@
 
     <script>
                 prices = document.getElementsByName("AveragePrice");
-                var num = @ViewData["AveragePrice"];
+                var num = @Model.AveragePrice;
                 prices[3 - num].checked = true;
 
                 stars = document.getElementsByName("Rate");
-                var num = @ViewData["Rate"];
+                var num = @Model.Rate;
                 stars[5 - num].checked = true;
     </script>
 }

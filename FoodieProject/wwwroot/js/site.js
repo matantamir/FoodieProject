@@ -230,7 +230,7 @@ function createGraphInput(tableName, nameIndex, valueIndex)
     var table = document.getElementById(tableName);
 
     for (var i = 1; i < table.rows.length; i++) {
-        var currCity = table.rows[i].cells[0].innerHTML;
+        var currCity = table.rows[i].cells[nameIndex].innerHTML;
         var flag = false;
         var pos = -1;
 

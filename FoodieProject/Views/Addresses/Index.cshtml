@@ -15,12 +15,13 @@
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
     <div class="d-flex align-items-center small non_display" id="searchBox">
         <i class="fa fa-search fa-fw text-muted position-absolute pl-3" id="icon"></i>
-        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Ender address to search" aria-label="Search"
+        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Enter address to search" aria-label="Search"
                aria-describedby="search-addon" size="24" />
     </div>
 </form>
 
-<br /><br />
+<br />
+<br />
 
 <table class="table text-light table-striped" id="AddressTable">
     <thead class="thead-light">
@@ -52,6 +53,9 @@
     </tbody>
 </table>
 
+<div id="hiddenError2" class="alert alert-secondary non_display"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+
+
 <div id="Area" class="text-center non_display" width="400px" heigth="550px"></div>
 
 @section Scripts {
@@ -61,7 +65,7 @@
             <td>{street}</td>
             <td>{number}</td>
             <td>{restName}</td>
-          
+
 
             <td class="edit_delete_details">
                 <a class="edit_delete_details" href="/Addresses/Edit/{id}">Edit</a> |

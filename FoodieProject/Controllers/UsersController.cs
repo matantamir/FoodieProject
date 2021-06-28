@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FoodieProject.Controllers
 {
+
+
     public class UsersController : Controller
     {
         private readonly FoodieProjectContext _context;
@@ -73,6 +75,7 @@ namespace FoodieProject.Controllers
         }
 
         //GET: Users/RegisterAdmin
+        [Authorize(Roles = "Admin")]
         public IActionResult RegisterAdmin()
         {
             return View();

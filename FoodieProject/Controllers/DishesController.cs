@@ -9,6 +9,7 @@ using FoodieProject.Data;
 using FoodieProject.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodieProject.Controllers
 {
@@ -25,6 +26,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var dishesListWithRest = _context.Dish.Include(d => d.Restaurant);
@@ -35,6 +37,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,6 +57,7 @@ namespace FoodieProject.Controllers
             return View(dish);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Dishes/Create
         public async Task<IActionResult> Create(int Restid)
         {
@@ -82,6 +86,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,PicturePath,RestaurantId")] Dish dish, IFormFile myFile)
         {
             // If we have got an image
@@ -121,6 +126,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -145,6 +151,7 @@ namespace FoodieProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,PicturePath,RestaurantId")] Dish dish,
                     IFormFile newPic)
         {         
@@ -194,6 +201,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -212,6 +220,7 @@ namespace FoodieProject.Controllers
         }
 
         // POST: Dishes/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -228,6 +237,7 @@ namespace FoodieProject.Controllers
         }
 
         // Dishe Search
+        [Authorize]
         public async Task<IActionResult> Search(string qDish, int qDishRest, string qDescription, int qMaxPrice)
         {
             {            
@@ -254,6 +264,7 @@ namespace FoodieProject.Controllers
 
                 var resDish = results.Select(z => new
                 {
+                    id = z.Id,
                     name = z.Name,
                     description = z.Description,
                     price = z.Price,

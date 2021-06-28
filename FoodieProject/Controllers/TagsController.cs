@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodieProject.Data;
 using FoodieProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodieProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TagsController : Controller
     {
         private readonly FoodieProjectContext _context;

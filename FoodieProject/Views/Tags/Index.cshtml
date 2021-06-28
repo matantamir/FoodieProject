@@ -11,11 +11,12 @@
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
     <div class="d-flex align-items-center small">
         <i class="fa fa-search fa-fw text-muted position-absolute pl-3"></i>
-        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Ender tag to search" aria-label="Search"
+        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Enter tag to search" aria-label="Search"
                aria-describedby="search-addon" size="24" />
     </div>
 </form>
-<br /><br />
+<br />
+<br />
 
 <table class="table table text-light table-striped">
     <thead class="thead-light">
@@ -43,6 +44,9 @@
     </tbody>
 </table>
 
+<div id="hiddenError2" class="alert alert-secondary non_display"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+
+
 @section Scripts {
     <script type="text/html" id="hidden-template">
         <tr>
@@ -51,9 +55,9 @@
             </td>
 
             <td class="edit_delete_details">
-                <a class="edit_delete_details" href="/Tasg/Edit/{id}">Edit</a> |
-                <a class="edit_delete_details" href="/Tasg/Details/{id}">Details</a> |
-                <a class="edit_delete_details" href="/Tasg/Delete/{id}">Delete</a>
+                <a class="edit_delete_details" href="/Tags/Edit/{id}">Edit</a> |
+                <a class="edit_delete_details" href="/Tags/Details/{id}">Details</a> |
+                <a class="edit_delete_details" href="/Tags/Delete/{id}">Delete</a>
             </td>
         </tr>
     </script>

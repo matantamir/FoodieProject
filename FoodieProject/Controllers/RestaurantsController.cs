@@ -39,6 +39,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: AveragePrice
+        [Authorize]
         public async Task<IActionResult> AveragePrice()
         {
             var AVGmodel = _context.Dish.Include(r => r.Restaurant).GroupBy(d => new { d.Restaurant.Name, d.Restaurant.Id}).Select(a => new List<string> {a.Key.Id.ToString(), a.Key.Name, a.Average(x => x.Price).ToString() });
@@ -47,6 +48,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Articles
+        [Authorize]
         public async Task<IActionResult> Articles()
         {           
             WebRequest request = WebRequest.Create("https://api.twitter.com/2/users/110365072/tweets?max_results=5");
@@ -174,20 +176,13 @@ namespace FoodieProject.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant.Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
+            var restaurant = await _context.Restaurant.Include(a => a.Address).Include(t => t.Tags).Where(r => r.Id == id).FirstOrDefaultAsync();
             if (restaurant == null)
             {
                 return NotFound();
             }
 
             ViewData["Tags"] = _context.Tag.ToList();
-            ViewData["Rate"] = restaurant.Rate;
-            ViewData["AveragePrice"] = restaurant.AveragePrice;
-            // var address = await _context.Address.Where(a => a.Id == restaurant.AddressId).FirstOrDefaultAsync();
-            var address = await _context.Address.FindAsync(restaurant.AddressId);
-            //ViewData["Street"] = address.Street;
-            // ViewData["City"] = address.City;
-            // ViewData["Number"] = address.Number;
 
             return View(restaurant);
         }
@@ -300,6 +295,7 @@ namespace FoodieProject.Controllers
         }
 
         // Restaurants Search
+        [Authorize]
         public async Task<IActionResult> Search(string qAddr, string qRest, int qRate, int qPrice, int[] qTags)
         {
             {

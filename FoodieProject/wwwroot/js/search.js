@@ -1,14 +1,22 @@
-﻿// ****************** Basic searches ***********************
+﻿// ***************** user type set  ***************
+function setType() {
+    $('td[name="userType"]').each(function () {
+        if (this.innerHTML == "0") {
+            this.innerHTML = "Admin";
+        }
+        else { this.innerHTML = "Client"; }
+    });
+
+}
+// ****************** Basic searches ***********************
 $(function () {
     $('#SearchAjaxForm').on("submit", function (z) { return false});
     $('#SearchAjaxForm').on("input", function (e) {
-        e.preventDefault();
 
         var query = $('#query').val();
-
+        var currentPage = $(location)[0].href.split('/')[3]
         $.ajax({
-            //method: 'post'
-            url: '/' + $(location)[0].href.split('/')[3] + '/Search',
+            url: '/' + currentPage  + '/Search',
             data: { 'query': query }
 
         }).done(function (data) {
@@ -25,7 +33,19 @@ $(function () {
 
                 $('tbody').append(temp);
             });
-        }); 
+
+            if (currentPage == "Users") {
+                setType()
+            }
+            if (data.length == 0) {
+                $('#hiddenError2').show();
+            }
+            else {
+                $('#hiddenError2').hide();
+            }
+        });
+
+   
     });
 });
 
@@ -83,7 +103,6 @@ $(function () {
 
 $(function () {
     $('#qBasicRest').on("input",function (e) {
-        e.preventDefault();
         
         var qRest = $('#qBasicRest').val();
 
@@ -140,7 +159,6 @@ $(function () {
         var qMaxPrice = $('#qMaxPrice').val();
 
         $.ajax({
-            method: 'post',
             url: '/Dishes/Search',
             data: {
                 'qDish': qDish, 'qDescription': qDescription, 'qDishRest': qDishRest, 'qMaxPrice': qMaxPrice
@@ -173,12 +191,10 @@ $(function () {
 $(function () {
 
     $('#qBasicDish').on("input", function (e) {
-        e.preventDefault();
 
         var qDish = $('#qBasicDish').val();
 
         $.ajax({
-            method: 'post',
             url: '/Dishes/Search',
             data: { 'qDish': qDish }
         }).done(function (data) {
@@ -209,7 +225,6 @@ $(function () {
 
 $(function () {
     $('#advancedSearch').click(function () {
-
         $('#qBasicDish').toggle()
     });
 });

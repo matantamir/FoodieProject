@@ -10,11 +10,12 @@
 <form asp-action="Search" id="SearchAjaxForm" class="float-md-right">
     <div class="d-flex align-items-center small">
         <i class="fa fa-search fa-fw text-muted position-absolute pl-3"></i>
-        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Ender user to search" aria-label="Search"
-               aria-describedby="search-addon" size="24"/>
+        <input name="query" id="query" type="search" class="form-control rounded form-control-light search_box" placeholder="Enter user to search" aria-label="Search"
+               aria-describedby="search-addon" size="24" />
     </div>
 </form>
-<br /><br />
+<br />
+<br />
 <table class="table text-light table-striped">
     <thead class="thead-light">
         <tr>
@@ -52,24 +53,31 @@
     </tbody>
 </table>
 
+<div id="hiddenError2" class="alert alert-secondary non_display"> <h1>Sorry, we couldn't find any results ¯\_(ツ)_/¯ </h1></div>
+
+
 @section Scripts {
 
     <script type="text/html" id="hidden-template">
         <tr>
-            <td>
-                {username}
-            </td>
-            <td>
-                {password}
-            </td>
-            <td>
-                {type}
-            </td>
+            <td>{username}</td>
+            <td>*</td>
+            <td name="userType">{type}</td>
 
             <td class="edit_delete_details">
                 <a class="edit_delete_details" href="/Users/Edit/{id}">Edit</a> |
                 <a class="edit_delete_details" href="/Users/Delete/{id}">Delete</a>
             </td>
         </tr>
+    </script>
+    <script>
+
+        $('td[name="userType"]').each(function () {
+            if (this.innerHTML == "0") {
+                this.innerHTML = "Admin";
+            }
+            else { this.innerHTML = "Client"; }
+        });
+
     </script>
 }
