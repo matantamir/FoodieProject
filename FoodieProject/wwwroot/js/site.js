@@ -118,7 +118,7 @@ function initializeCreate() {
             document.getElementById("dollar" + i).checked = true;
         }
         // Goes over the stars till reaching the restaurant's rating (rounded) by google and marks the stars.
-        for (let i = 1; i < Math.round(place.rating); i++) {
+        for (let i = 1; i <= Math.round(place.rating); i++) {
 
             document.getElementById("star" + i).checked = true;
         }
@@ -126,7 +126,6 @@ function initializeCreate() {
         document.getElementById("Address_PlaceId").value = place.place_id;
         var openPeriods = 'No working hours';
         if (!!place.opening_hours.weekday_text) {
-            openPeriods = "Opening hours: \n";
             openPeriods = place.opening_hours.weekday_text[6] + "\n";
             for (var i = 0; i < place.opening_hours.weekday_text.length - 1; i++) {
                 openPeriods += place.opening_hours.weekday_text[i] + "\n";
