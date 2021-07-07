@@ -37,7 +37,7 @@ namespace FoodieProject.Controllers
         }
 
         // GET: Dishes/Details/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

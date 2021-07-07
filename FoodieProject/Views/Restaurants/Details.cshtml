@@ -123,7 +123,7 @@
                         @foreach (var dish in Model.Dishes)
                         {
                             <div>
-                                @*<h2>@dish.Name</h2>*@
+                                <h5 style="color:black">@dish.Name @dish.Price ₪</h5>
                                 <img src="~/Pictures/Dish/@dish.PicturePath" class="img_dish" />
                             </div>
                         }
