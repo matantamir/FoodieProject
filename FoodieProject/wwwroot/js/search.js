@@ -1,4 +1,4 @@
-﻿// ***************** user type set  ***************
+﻿// ***************** user type set  ***********************
 function setType() {
     $('td[name="userType"]').each(function () {
         if (this.innerHTML == "0") {
@@ -44,8 +44,6 @@ $(function () {
                 $('#hiddenError2').hide();
             }
         });
-
-   
     });
 });
 

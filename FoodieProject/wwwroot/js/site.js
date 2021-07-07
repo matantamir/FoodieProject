@@ -49,16 +49,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-// ---------------------------------- Password eye ----------------------------------
-$('#togglePassword').click(function (e) {
-    // Password toggle
-    const password = document.querySelector('#id_password');
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
-    this.classList.toggle('fa-eye-slash');
-});
 
 // ---------------------------------- Tweets ----------------------------------
 function embedTweet(tweets)
@@ -157,7 +147,57 @@ function createAlbumContainer(dishCount) {
     }
 }
 
-// Addresses Graphs ---------------------------------------------------------------------------------
+// ---------------------------------- Restaurants map/cards switch ---------------------
+$(function () {
+    $('#restSwitchButton').on("click", function (e) {
+        e.preventDefault();
+        console.log("hi");
+        if ($("#cardDiv").is(":hidden")) {
+            $("#cardDiv").show();
+            $("#map").hide()
+            $("#modeIndicator").html("Cards");
+        }
+        else {
+            $("#cardDiv").hide();
+            $("#map").show();
+            $("#modeIndicator").html("Map");
+        }
+
+    });
+});
+
+// ---------------------------------- AveragePrice + Addresses graph/table switch -------------------
+$(function () {
+    $('#priceSwitchButton').click(function (e) {
+        e.preventDefault();
+        if ($("table").is(":hidden")) {
+            $("table").show();
+            $("#Area").hide()
+            $("#modeIndicator").html("Table");
+
+            if ($('#query').length) {
+                $('#query').submit();
+                $('#query').show();
+                $('#icon').show();
+
+            }
+        }
+        else {
+            $("table").hide();
+            $("#Area").show();
+            $("#modeIndicator").html("Graph");
+
+            if ($('#query').length) {
+                $('#query').hide();
+                $('#icon').hide();
+            }
+        }
+
+    });
+});
+
+
+//  ------------------------------ Statistics Graphs ---------------------------------------------------
 function responsivefy(svg) {
     // get container + svg aspect ratio
     var container = d3.select(svg.node().parentNode),
@@ -276,3 +316,14 @@ function createGraphInput(tableName, nameIndex, valueIndex)
 
     build(elements,width,height,max,svg);
 }
+
+// ---------------------------------- Password eye ----------------------------------
+$('#togglePassword').click(function (e) {
+    // Password toggle
+    const password = document.querySelector('#id_password');
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
