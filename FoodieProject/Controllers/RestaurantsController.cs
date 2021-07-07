@@ -295,7 +295,6 @@ namespace FoodieProject.Controllers
         }
 
         // Restaurants Search
-        [Authorize]
         public async Task<IActionResult> Search(string qAddr, string qRest, int qRate, int qPrice, int[] qTags)
         {
             {
