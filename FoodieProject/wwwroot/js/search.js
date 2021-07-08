@@ -1,4 +1,4 @@
-﻿// ***************** user type set  ***********************
+﻿// ***************** convert userType number to string (in search table)  *********
 function setType() {
     $('td[name="userType"]').each(function () {
         if (this.innerHTML == "0") {
@@ -37,6 +37,7 @@ $(function () {
             if (currentPage == "Users") {
                 setType()
             }
+
             if (data.length == 0) {
                 $('#hiddenError2').show();
             }
@@ -138,7 +139,6 @@ $(function () {
     });
 });
 
-
 $(function () {
     $('#advancedSearch').click(function () {
         $('#qBasicRest').toggle()  
@@ -146,7 +146,6 @@ $(function () {
 });
 
 // ****************** Dish searches ***********************
-
 $(function () {
     $('#SearchComplexAjaxFormDish').submit(function (e) {
         e.preventDefault();

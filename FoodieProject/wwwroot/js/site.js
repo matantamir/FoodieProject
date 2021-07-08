@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
-// ---------------------------------- Tweets ----------------------------------
+// ---------------------------------- Tweets -------------------------------------
 function embedTweet(tweets)
 {
     for (var i = 0; i < tweets.data.length; i++) {
@@ -151,7 +151,6 @@ function createAlbumContainer(dishCount) {
 $(function () {
     $('#restSwitchButton').on("click", function (e) {
         e.preventDefault();
-        console.log("hi");
         if ($("#cardDiv").is(":hidden")) {
             $("#cardDiv").show();
             $("#map").hide()
@@ -179,7 +178,6 @@ $(function () {
                 $('#query').submit();
                 $('#query').show();
                 $('#icon').show();
-
             }
         }
         else {
