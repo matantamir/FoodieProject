@@ -19,9 +19,4 @@
     <Folder Include="wwwroot\Pictures\Dish\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Pictures\Rest\637586253240178447.jpg" />
-    <None Include="wwwroot\Pictures\Rest\637587125202951053.jpg" />
-  </ItemGroup>
-
 </Project>

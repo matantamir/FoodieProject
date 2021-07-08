@@ -284,6 +284,13 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var restaurant = await _context.Restaurant.Include(a => a.Address).Where(r => r.Id == id).FirstAsync();
+            
+            // delete the rest picture from the server
+            var oldPath = restPicDir + "\\" + restaurant.PicturePath;
+            if (System.IO.File.Exists(oldPath))
+            {
+                System.IO.File.Delete(oldPath);
+            }
             _context.Address.Remove(restaurant.Address);
             _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
