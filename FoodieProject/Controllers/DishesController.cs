@@ -226,6 +226,14 @@ namespace FoodieProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dish = await _context.Dish.FindAsync(id);
+
+            // Delete the picture of the dish from the server
+            var oldPath = dishPicDir + "\\" + dish.PicturePath;
+            if (System.IO.File.Exists(oldPath))
+            {
+                System.IO.File.Delete(oldPath);
+            }
+
             _context.Dish.Remove(dish);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
